@@ -34,30 +34,6 @@
     z-index: 300;
   }
 
-  /* Marca izquierda */
-  .brand {
-    display: flex;
-    align-items: center;
-    gap: .5rem;
-    padding-right: 1.25rem;
-    border-right: 1px solid rgba(255,255,255,.12);
-    margin-right: .5rem;
-    white-space: nowrap;
-  }
-  .brand-dot {
-    width: 8px; height: 8px;
-    border-radius: 50%;
-    background: var(--accent);
-    flex-shrink: 0;
-  }
-  .brand-text {
-    font-family: 'DM Mono', monospace;
-    font-size: 9.5px;
-    letter-spacing: .12em;
-    color: rgba(255,255,255,.55);
-    text-transform: uppercase;
-  }
-
   /* Tabs */
   .tab-btn {
     display: flex;
@@ -101,20 +77,6 @@
   .tag-propuesta { background: rgba(200,181,96,.2); color: var(--accent); }
   .tag-ref       { background: rgba(100,160,255,.15); color: #90c4f8; }
 
-  /* Spacer + badge derecha */
-  .spacer { flex: 1; }
-  .top-badge {
-    display: flex;
-    align-items: center;
-    font-size: .65rem;
-    font-family: 'DM Mono', monospace;
-    color: rgba(255,255,255,.3);
-    letter-spacing: .05em;
-    padding-left: 1rem;
-    border-left: 1px solid rgba(255,255,255,.1);
-    margin-left: .5rem;
-  }
-
   /* ── IFRAMES ─────────────────────────────────── */
   .pane {
     display: none;
@@ -135,11 +97,6 @@
 
 <nav class="topbar" role="tablist" aria-label="Vistas de análisis">
 
-  <div class="brand">
-    <span class="brand-dot"></span>
-    <span class="brand-text">Decanatura FE · UR</span>
-  </div>
-
   <button class="tab-btn active"
           role="tab" aria-selected="true"
           aria-controls="pane-ur" id="tab-ur"
@@ -158,8 +115,6 @@
     <span class="tab-tag tag-ref">Referencia comparativa</span>
   </button>
 
-  <div class="spacer"></div>
-  <div class="top-badge">Documento de trabajo · Mayo 2026</div>
 
 </nav>
 
