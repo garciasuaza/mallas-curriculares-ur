@@ -1,0 +1,880 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Icesi — Comparativo de Mallas Curriculares</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --adm: #1B4FA0;
+    --adm-light: #E8EFFA;
+    --adm-mid: #B8CDEF;
+    --eco: #1F7A45;
+    --eco-light: #E6F4EC;
+    --eco-mid: #A8D5B8;
+    --fin: #B8460A;
+    --fin-light: #FAEEE8;
+    --fin-mid: #EDBB9F;
+    --net: #5B2D8E;
+    --net-light: #F0EAFC;
+    --net-mid: #C9AEED;
+    --bg: #F7F5F0;
+    --surface: #FFFFFF;
+    --border: #E2DDD6;
+    --border-strong: #C8C3BB;
+    --text: #1A1714;
+    --text-mid: #4A4540;
+    --text-light: #7A756F;
+    --accent: #C8B560;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.5;
+    min-height: 100vh;
+  }
+
+  /* HEADER */
+  .page-header {
+    background: var(--text);
+    color: white;
+    padding: 2.5rem 2rem 2rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .page-header::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+      90deg,
+      transparent,
+      transparent 60px,
+      rgba(255,255,255,0.03) 60px,
+      rgba(255,255,255,0.03) 61px
+    );
+  }
+  .header-inner { position: relative; max-width: 1400px; margin: 0 auto; }
+  .header-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+  }
+  .header-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+    font-weight: 400;
+    line-height: 1.1;
+    margin-bottom: 0.4rem;
+  }
+  .header-title em { font-style: italic; color: var(--accent); }
+  .header-sub {
+    font-size: 0.85rem;
+    color: rgba(255,255,255,0.55);
+    font-weight: 300;
+  }
+
+  /* PROGRAM CHIPS */
+  .prog-strip {
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    padding: 1rem 2rem;
+  }
+  .prog-strip-inner {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  .prog-chip {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.35rem 0.8rem;
+    border-radius: 100px;
+    font-size: 0.78rem;
+    font-weight: 500;
+    border: 1.5px solid;
+  }
+  .prog-chip .dot { width: 8px; height: 8px; border-radius: 50%; }
+  .chip-adm { background: var(--adm-light); color: var(--adm); border-color: var(--adm-mid); }
+  .chip-adm .dot { background: var(--adm); }
+  .chip-eco { background: var(--eco-light); color: var(--eco); border-color: var(--eco-mid); }
+  .chip-eco .dot { background: var(--eco); }
+  .chip-fin { background: var(--fin-light); color: var(--fin); border-color: var(--fin-mid); }
+  .chip-fin .dot { background: var(--fin); }
+  .chip-net { background: var(--net-light); color: var(--net); border-color: var(--net-mid); }
+  .chip-net .dot { background: var(--net); }
+  .strip-sep { color: var(--text-light); font-size: 0.78rem; margin: 0 0.25rem; }
+
+  /* LEGEND */
+  .legend {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 1rem 2rem;
+    display: flex;
+    gap: 0.6rem;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  .legend-label { font-size: 0.72rem; color: var(--text-light); margin-right: 0.25rem; font-weight: 500; }
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    font-size: 0.7rem;
+    padding: 0.2rem 0.55rem;
+    border-radius: 100px;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+  .b44 { background: #1A1714; color: #F7F5F0; }
+  .b34 { background: #1B4FA0; color: white; }
+  .b24 { background: #1F7A45; color: white; }
+  .b14 { background: #B8460A; color: white; }
+  .b04 { background: #E2DDD6; color: var(--text-mid); }
+
+  /* MAIN CONTENT */
+  .content { max-width: 1400px; margin: 0 auto; padding: 0 2rem 3rem; }
+
+  /* DISTRIBUTION BARS */
+  .dist-section {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+  .dist-title {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-light);
+    margin-bottom: 1.25rem;
+  }
+  .dist-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.25rem; }
+  .dist-prog-label {
+    font-size: 0.72rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+  .dist-bar-wrap { display: flex; flex-direction: column; gap: 3px; }
+  .dist-bar-row { display: flex; align-items: center; gap: 0.4rem; }
+  .dist-bar-label { font-size: 0.65rem; color: var(--text-light); width: 80px; flex-shrink: 0; }
+  .dist-bar-track { flex: 1; height: 14px; background: var(--bg); border-radius: 3px; overflow: hidden; }
+  .dist-bar-fill { height: 100%; border-radius: 3px; display: flex; align-items: center; padding-left: 4px; }
+  .dist-bar-val { font-family: 'DM Mono', monospace; font-size: 9px; color: white; font-weight: 500; white-space: nowrap; }
+  .bar-central { background: #374151; }
+  .bar-p1 { background: #6B7280; }
+  .bar-p2 { background: #9CA3AF; }
+  .bar-flex { background: #D1D5DB; }
+  .bar-practica { background: #E5E7EB; }
+
+  /* TABLE */
+  .table-wrap {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    margin-bottom: 1.5rem;
+  }
+
+  .tbl-head {
+    display: grid;
+    grid-template-columns: 220px 1fr 1fr 1fr 1fr 140px;
+    border-bottom: 2px solid var(--border-strong);
+    background: var(--text);
+  }
+  .th {
+    padding: 0.75rem 0.9rem;
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: rgba(255,255,255,0.5);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+  .th.adm { color: #93B4E8; background: rgba(27,79,160,0.25); }
+  .th.eco { color: #7FC49B; background: rgba(31,122,69,0.25); }
+  .th.fin { color: #E8AA88; background: rgba(184,70,10,0.25); }
+  .th.net { color: #C4A4E8; background: rgba(91,45,142,0.25); }
+
+  .section-head {
+    display: grid;
+    grid-template-columns: 220px 1fr 1fr 1fr 1fr 140px;
+    background: var(--bg);
+    border-bottom: 1px solid var(--border);
+    border-top: 1px solid var(--border);
+  }
+  .section-head-inner {
+    grid-column: 1 / -1;
+    padding: 0.5rem 0.9rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+  .section-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 9.5px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-mid);
+    font-weight: 500;
+  }
+  .section-pct {
+    font-size: 0.7rem;
+    color: var(--text-light);
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+  .share-bar-mini {
+    height: 6px;
+    border-radius: 3px;
+    display: inline-block;
+  }
+
+  .tbl-row {
+    display: grid;
+    grid-template-columns: 220px 1fr 1fr 1fr 1fr 140px;
+    border-bottom: 1px solid var(--border);
+    transition: background 0.1s;
+  }
+  .tbl-row:last-child { border-bottom: none; }
+  .tbl-row:hover { background: #FDFCFB; }
+  .tbl-row.sub-row {
+    background: var(--text);
+    border-top: 1.5px solid var(--border-strong);
+    border-bottom: 1.5px solid var(--border-strong);
+  }
+  .tbl-row.sub-row:hover { background: #1A1714; }
+
+  .tc {
+    padding: 0.55rem 0.9rem;
+    font-size: 0.78rem;
+    color: var(--text);
+    display: flex;
+    align-items: center;
+  }
+  .tc.label {
+    font-size: 0.72rem;
+    color: var(--text-mid);
+    background: #FAFAF8;
+    border-right: 1px solid var(--border);
+  }
+  .tc.num { justify-content: flex-end; font-family: 'DM Mono', monospace; font-size: 0.72rem; color: var(--text-mid); }
+  .tc.num.adm-col { background: rgba(27,79,160,0.04); }
+  .tc.num.eco-col { background: rgba(31,122,69,0.04); }
+  .tc.num.fin-col { background: rgba(184,70,10,0.04); }
+  .tc.num.net-col { background: rgba(91,45,142,0.04); }
+  .tc.coincidence { justify-content: flex-end; flex-wrap: wrap; gap: 3px; }
+
+  .tc.sub-label { color: white; font-weight: 600; font-size: 0.75rem; background: transparent; border-right-color: rgba(255,255,255,0.1); }
+  .tc.sub-num { color: rgba(255,255,255,0.85); font-weight: 500; font-size: 0.72rem; }
+  .tc.sub-num.adm-col { background: rgba(27,79,160,0.3); }
+  .tc.sub-num.eco-col { background: rgba(31,122,69,0.3); }
+  .tc.sub-num.fin-col { background: rgba(184,70,10,0.3); }
+  .tc.sub-num.net-col { background: rgba(91,45,142,0.3); }
+  .tc.sub-coincidence { flex-direction: column; align-items: flex-end; gap: 3px; }
+
+  .dash { color: var(--text-light); font-size: 0.65rem; }
+  .incl { color: var(--text-light); font-size: 0.65rem; font-style: italic; }
+  .dagger { font-size: 0.65rem; color: var(--text-light); }
+
+  .sub-share-bar {
+    height: 4px;
+    border-radius: 2px;
+    margin-top: 3px;
+  }
+  .sub-share-label { font-size: 0.62rem; color: rgba(255,255,255,0.5); margin-top: 2px; }
+
+  /* FOOTER NOTE */
+  .note-box {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--accent);
+    border-radius: 8px;
+    padding: 1rem 1.25rem;
+    font-size: 0.72rem;
+    color: var(--text-mid);
+    line-height: 1.7;
+  }
+  .note-box strong { color: var(--text); font-weight: 600; }
+
+  /* FILTER BUTTONS */
+  .filter-bar {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    margin-bottom: 1rem;
+    align-items: center;
+  }
+  .filter-label { font-size: 0.72rem; color: var(--text-light); }
+  .filter-btn {
+    padding: 0.3rem 0.75rem;
+    border-radius: 100px;
+    font-size: 0.72rem;
+    font-weight: 500;
+    cursor: pointer;
+    border: 1.5px solid var(--border);
+    background: var(--surface);
+    color: var(--text-mid);
+    transition: all 0.15s;
+    font-family: 'DM Sans', sans-serif;
+  }
+  .filter-btn:hover { border-color: var(--border-strong); color: var(--text); }
+  .filter-btn.active { background: var(--text); color: white; border-color: var(--text); }
+
+  @media (max-width: 900px) {
+    .tbl-head, .section-head, .tbl-row { grid-template-columns: 160px 1fr 1fr 1fr 1fr 110px; }
+    .dist-grid { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 600px) {
+    .page-header { padding: 1.5rem 1rem; }
+    .content { padding: 0 1rem 2rem; }
+    .legend, .prog-strip-inner { padding: 0.75rem 1rem; }
+    .tbl-head, .section-head, .tbl-row { grid-template-columns: 130px repeat(5, 1fr); }
+    .dist-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="page-header">
+  <div class="header-inner">
+    <div class="header-label">Análisis curricular comparativo · 2026</div>
+    <h1 class="header-title">Universidad Icesi — <em>Integración de mallas</em></h1>
+    <p class="header-sub">Facultad de Negocios y Economía Isaac Gilinski · 4 programas · 140 créditos c/u</p>
+  </div>
+</div>
+
+<!-- PROGRAM CHIPS -->
+<div class="prog-strip">
+  <div class="prog-strip-inner">
+    <div class="prog-chip chip-adm"><span class="dot"></span>Adm. de Empresas</div>
+    <div class="prog-chip chip-eco"><span class="dot"></span>Economía y Neg. Int.</div>
+    <div class="prog-chip chip-fin"><span class="dot"></span>Finanzas</div>
+    <div class="prog-chip chip-net"><span class="dot"></span>Neg., Estrategia y Tec.</div>
+    <span class="strip-sep">·</span>
+    <span style="font-size:0.75rem; color:var(--text-light);">~54% de créditos compartidos entre los 4 programas</span>
+  </div>
+</div>
+
+<!-- LEGEND -->
+<div class="legend">
+  <span class="legend-label">Coincidencia:</span>
+  <span class="badge b44">4/4 programas</span>
+  <span class="badge b34">3/4 programas</span>
+  <span class="badge b24">2/4 programas</span>
+  <span class="badge b14">presencia parcial</span>
+  <span class="badge b04">exclusivo</span>
+  <span style="font-size:0.7rem; color:var(--text-light); margin-left:0.5rem;">† mismo curso, créditos distintos entre programas</span>
+</div>
+
+<div class="content">
+
+<!-- DISTRIBUTION BARS -->
+<div class="dist-section">
+  <div class="dist-title">Distribución de créditos por núcleo — los 4 programas</div>
+  <div class="dist-grid">
+
+    <div>
+      <div class="dist-prog-label" style="color:var(--adm)"><span style="width:10px;height:10px;border-radius:50%;background:var(--adm);display:inline-block;"></span>Adm. Empresas · 140 cr.</div>
+      <div class="dist-bar-wrap">
+        <div class="dist-bar-row"><span class="dist-bar-label">Currículo Central</span><div class="dist-bar-track"><div class="dist-bar-fill bar-central" style="width:19.3%"><span class="dist-bar-val">27 · 19.3%</span></div></div></div>
+        <div class="dist-bar-row"><span class="dist-bar-label">Núcleo Prof. I</span><div class="dist-bar-track"><div class="dist-bar-fill bar-p1" style="width:38.6%"><span class="dist-bar-val">54 · 38.6%</span></div></div></div>
+        <div class="dist-bar-row"><span class="dist-bar-label">Núcleo Prof. II</span><div class="dist-bar-track"><div class="dist-bar-fill bar-p2" style="width:19.3%"><span class="dist-bar-val">27 · 19.3%</span></div></div></div>
+        <div class="dist-bar-row"><span class="dist-bar-label">Exploración</span><div class="dist-bar-track"><div class="dist-bar-fill bar-flex" style="width:2.8%"></div></div><span style="font-size:0.65rem;color:var(--text-light);margin-left:4px;">4</span></div>
+        <div class="dist-bar-row"><span class="dist-bar-label">Trayectorias flex.</span><div class="dist-bar-track"><div class="dist-bar-fill bar-flex" style="width:12.9%"><span class="dist-bar-val" style="color:var(--text-mid)">18</span></div></div></div>
+        <div class="dist-bar-row"><span class="dist-bar-label">Práctica</span><div class="dist-bar-track"><div class="dist-bar-fill bar-practica" style="width:7.1%"></div></div><span style="font-size:0.65rem;color:var(--text-light);margin-left:4px;">10</span></div>
+      </div>
+    </div>
+
+    <div>
+      <div class="dist-prog-label" style="color:var(--eco)"><span style="width:10px;height:10px;border-radius:50%;background:var(--eco);display:inline-block;"></span>Eco. y Neg. Int. · 140 cr.</div>
+      <div class="dist-bar-wrap">
+        <div class="dist-bar-row"><span class="dist-bar-label">Currículo Central</span><div class="dist-bar-track"><div class="dist-bar-fill bar-central" style="width:19.3%"><span class="dist-bar-val">27 · 19.3%</span></div></div></div>
+        <div class="dist-bar-row"><span class="dist-bar-label">Núcleo Prof. I</span><div class="dist-bar-track"><div class="dist-bar-fill bar-p1" style="width:44.3%"><span class="dist-bar-val">62 · 44.3%</span></div></div></div>
+        <div class="dist-bar-row"><span class="dist-bar-label">Núcleo Prof. II</span><div class="dist-bar-track"><div class="dist-bar-fill bar-p2" style="width:17.9%"><span class="dist-bar-val">25 · 17.9%</span></div></div></div>
+        <div class="dist-bar-row"><span class="dist-bar-label">Exploración</span><div class="dist-bar-track"><div class="dist-bar-fill bar-flex" style="width:2.8%"></div></div><span style="font-size:0.65rem;color:var(--text-light);margin-left:4px;">4</span></div>
+        <div class="dist-bar-row"><span class="dist-bar-label">Trayectorias flex.</span><div class="dist-bar-track"><div class="dist-bar-fill bar-flex" style="width:8.6%"><span class="dist-bar-val" style="color:var(--text-mid)">12</span></div></div></div>
+        <div class="dist-bar-row"><span class="dist-bar-label">Práctica</span><div class="dist-bar-track"><div class="dist-bar-fill bar-practica" style="width:7.1%"></div></div><span style="font-size:0.65rem;color:var(--text-light);margin-left:4px;">10</span></div>
+      </div>
+    </div>
+
+    <div>
+      <div class="dist-prog-label" style="color:var(--fin)"><span style="width:10px;height:10px;border-radius:50%;background:var(--fin);display:inline-block;"></span>Finanzas · 140 cr.</div>
+      <div class="dist-bar-wrap">
+        <div class="dist-bar-row"><span class="dist-bar-label">Currículo Central</span><div class="dist-bar-track"><div class="dist-bar-fill bar-central" style="width:19.3%"><span class="dist-bar-val">27 · 19.3%</span></div></div></div>
+        <div class="dist-bar-row"><span class="dist-bar-label">Núcleo Prof. I</span><div class="dist-bar-track"><div class="dist-bar-fill bar-p1" style="width:36.4%"><span class="dist-bar-val">51 · 36.4%</span></div></div></div>
+        <div class="dist-bar-row"><span class="dist-bar-label">Núcleo Prof. II</span><div class="dist-bar-track"><div class="dist-bar-fill bar-p2" style="width:21.4%"><span class="dist-bar-val">30 · 21.4%</span></div></div></div>
+        <div class="dist-bar-row"><span class="dist-bar-label">Exploración</span><div class="dist-bar-track"><div class="dist-bar-fill bar-flex" style="width:2.9%"></div></div><span style="font-size:0.65rem;color:var(--text-light);margin-left:4px;">4</span></div>
+        <div class="dist-bar-row"><span class="dist-bar-label">Trayectorias flex.</span><div class="dist-bar-track"><div class="dist-bar-fill bar-flex" style="width:12.9%"><span class="dist-bar-val" style="color:var(--text-mid)">18</span></div></div></div>
+        <div class="dist-bar-row"><span class="dist-bar-label">Práctica</span><div class="dist-bar-track"><div class="dist-bar-fill bar-practica" style="width:7.1%"></div></div><span style="font-size:0.65rem;color:var(--text-light);margin-left:4px;">10</span></div>
+      </div>
+    </div>
+
+    <div>
+      <div class="dist-prog-label" style="color:var(--net)"><span style="width:10px;height:10px;border-radius:50%;background:var(--net);display:inline-block;"></span>Neg., Estrat. y Tec. · 140 cr.</div>
+      <div class="dist-bar-wrap">
+        <div class="dist-bar-row"><span class="dist-bar-label">Currículo Central</span><div class="dist-bar-track"><div class="dist-bar-fill bar-central" style="width:19%"><span class="dist-bar-val">27 · 19%</span></div></div></div>
+        <div class="dist-bar-row"><span class="dist-bar-label">Núcleo Prof. I</span><div class="dist-bar-track"><div class="dist-bar-fill bar-p1" style="width:41%"><span class="dist-bar-val">57 · 41%</span></div></div></div>
+        <div class="dist-bar-row"><span class="dist-bar-label">Núcleo Prof. II</span><div class="dist-bar-track"><div class="dist-bar-fill bar-p2" style="width:17%"><span class="dist-bar-val">24 · 17%</span></div></div></div>
+        <div class="dist-bar-row"><span class="dist-bar-label">Exploración</span><div class="dist-bar-track"><div class="dist-bar-fill bar-flex" style="width:3%"></div></div><span style="font-size:0.65rem;color:var(--text-light);margin-left:4px;">4</span></div>
+        <div class="dist-bar-row"><span class="dist-bar-label">Trayectorias flex.</span><div class="dist-bar-track"><div class="dist-bar-fill bar-flex" style="width:13%"><span class="dist-bar-val" style="color:var(--text-mid)">18</span></div></div></div>
+        <div class="dist-bar-row"><span class="dist-bar-label">Práctica</span><div class="dist-bar-track"><div class="dist-bar-fill bar-practica" style="width:7.1%"></div></div><span style="font-size:0.65rem;color:var(--text-light);margin-left:4px;">10</span></div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- FILTER -->
+<div class="filter-bar">
+  <span class="filter-label">Filtrar por bloque:</span>
+  <button class="filter-btn active" onclick="filterSection('all', this)">Todos</button>
+  <button class="filter-btn" onclick="filterSection('central', this)">Currículo Central</button>
+  <button class="filter-btn" onclick="filterSection('p1', this)">Núcleo Prof. I</button>
+  <button class="filter-btn" onclick="filterSection('p2', this)">Núcleo Prof. II</button>
+  <button class="filter-btn" onclick="filterSection('flex', this)">Flexibilidad</button>
+</div>
+
+<!-- MAIN TABLE -->
+<div class="table-wrap" id="main-table">
+
+  <!-- HEADERS -->
+  <div class="tbl-head">
+    <div class="th">Área / Curso</div>
+    <div class="th adm">Adm. Empresas</div>
+    <div class="th eco">Eco. y Neg. Int.</div>
+    <div class="th fin">Finanzas</div>
+    <div class="th net">Neg. Est. y Tec.</div>
+    <div class="th" style="text-align:right;">Coincidencia</div>
+  </div>
+
+  <!-- ═══════════════ CURRÍCULO CENTRAL ═══════════════ -->
+  <div class="section-head" data-section="central">
+    <div class="section-head-inner">
+      <span class="section-label">Currículo Central — Habilidades para la vida</span>
+      <span class="section-pct">
+        <span class="share-bar-mini" style="width:60px; background:#1A1714;"></span>
+        100% compartido · 27 cr. idénticos en los 4 programas
+      </span>
+    </div>
+  </div>
+
+  <div class="tbl-row" data-section="central">
+    <div class="tc label">Lenguaje I + II</div>
+    <div class="tc num adm-col">3 cr.</div>
+    <div class="tc num eco-col">3 cr.</div>
+    <div class="tc num fin-col">3 cr.</div>
+    <div class="tc num net-col">3 cr.</div>
+    <div class="tc coincidence"><span class="badge b44">4/4</span></div>
+  </div>
+  <div class="tbl-row" data-section="central">
+    <div class="tc label">Pens. Matemático + Lógico</div>
+    <div class="tc num adm-col">3 cr.</div>
+    <div class="tc num eco-col">4 cr.</div>
+    <div class="tc num fin-col">3 cr.</div>
+    <div class="tc num net-col">3 cr.</div>
+    <div class="tc coincidence"><span class="badge b44">4/4</span><span class="dagger">†</span></div>
+  </div>
+  <div class="tbl-row" data-section="central">
+    <div class="tc label">Ciudadanía I + electiva</div>
+    <div class="tc num adm-col">4 cr.</div>
+    <div class="tc num eco-col">4 cr.</div>
+    <div class="tc num fin-col">4 cr.</div>
+    <div class="tc num net-col">4 cr.</div>
+    <div class="tc coincidence"><span class="badge b44">4/4</span></div>
+  </div>
+  <div class="tbl-row" data-section="central">
+    <div class="tc label">Éxito Profesional</div>
+    <div class="tc num adm-col">2 cr.</div>
+    <div class="tc num eco-col">1 cr.</div>
+    <div class="tc num fin-col">2 cr.</div>
+    <div class="tc num net-col">2 cr.</div>
+    <div class="tc coincidence"><span class="badge b44">4/4</span><span class="dagger">†</span></div>
+  </div>
+  <div class="tbl-row" data-section="central">
+    <div class="tc label">Humanidades, Artes y Ciencias I–VI</div>
+    <div class="tc num adm-col">12 cr.</div>
+    <div class="tc num eco-col">12 cr.</div>
+    <div class="tc num fin-col">12 cr.</div>
+    <div class="tc num net-col">12 cr.</div>
+    <div class="tc coincidence"><span class="badge b44">4/4</span></div>
+  </div>
+
+  <!-- SUBTOTAL CENTRAL -->
+  <div class="tbl-row sub-row" data-section="central">
+    <div class="tc sub-label">Subtotal Currículo Central</div>
+    <div class="tc sub-num adm-col num">27 · 19.3%</div>
+    <div class="tc sub-num eco-col num">27 · 19.3%</div>
+    <div class="tc sub-num fin-col num">27 · 19.3%</div>
+    <div class="tc sub-num net-col num">27 · 19%</div>
+    <div class="tc sub-coincidence coincidence">
+      <span class="badge b44" style="font-size:0.68rem;">100% compartido</span>
+      <div class="sub-share-bar" style="width:100%; background:#F0C060;"></div>
+      <span class="sub-share-label">27 cr. comunes · 4/4</span>
+    </div>
+  </div>
+
+  <!-- ═══════════════ NÚCLEO PROF. I ═══════════════ -->
+  <div class="section-head" data-section="p1">
+    <div class="section-head-inner">
+      <span class="section-label">Núcleo Profesional I — Identidad disciplinar</span>
+      <span class="section-pct">
+        <span class="share-bar-mini" style="width:17px; background:#4A4540;"></span>
+        <span class="share-bar-mini" style="width:43px; background:#E2DDD6;"></span>
+        ~22% compartido · mayor variación entre programas
+      </span>
+    </div>
+  </div>
+
+  <div class="tbl-row" data-section="p1">
+    <div class="tc label">Macroeconomía I (Fundamentos)</div>
+    <div class="tc num adm-col">1 cr.</div>
+    <div class="tc num eco-col">1 cr.</div>
+    <div class="tc num fin-col">1 cr.</div>
+    <div class="tc num net-col"><span class="incl">incl.*</span></div>
+    <div class="tc coincidence"><span class="badge b34">3/4 conf.</span></div>
+  </div>
+  <div class="tbl-row" data-section="p1">
+    <div class="tc label">Microeconomía I (Estructuras de mercado)</div>
+    <div class="tc num adm-col">2 cr.</div>
+    <div class="tc num eco-col">3 cr.</div>
+    <div class="tc num fin-col">2 cr.</div>
+    <div class="tc num net-col"><span class="incl">incl.*</span></div>
+    <div class="tc coincidence"><span class="badge b34">3/4 conf.</span><span class="dagger">†</span></div>
+  </div>
+  <div class="tbl-row" data-section="p1">
+    <div class="tc label">Finanzas Empresariales I (Cont. Gerencial)</div>
+    <div class="tc num adm-col">3 cr.</div>
+    <div class="tc num eco-col">4 cr.</div>
+    <div class="tc num fin-col">3 cr.</div>
+    <div class="tc num net-col"><span class="incl">incl.*</span></div>
+    <div class="tc coincidence"><span class="badge b34">3/4 conf.</span><span class="dagger">†</span></div>
+  </div>
+  <div class="tbl-row" data-section="p1">
+    <div class="tc label">Liderazgo y Des. de Personas I</div>
+    <div class="tc num adm-col">2 cr.</div>
+    <div class="tc num eco-col">2 cr.</div>
+    <div class="tc num fin-col">2 cr.</div>
+    <div class="tc num net-col"><span class="incl">incl.*</span></div>
+    <div class="tc coincidence"><span class="badge b34">3/4 conf.</span></div>
+  </div>
+  <div class="tbl-row" data-section="p1">
+    <div class="tc label">Estrategia Competitiva</div>
+    <div class="tc num adm-col">6 cr. (2 cur.)</div>
+    <div class="tc num eco-col">2 cr.</div>
+    <div class="tc num fin-col">2 cr.</div>
+    <div class="tc num net-col">10 cr.</div>
+    <div class="tc coincidence"><span class="badge b14">4/4 parcial</span><span class="dagger">†</span></div>
+  </div>
+  <div class="tbl-row" data-section="p1">
+    <div class="tc label">Desarrollo de Negocios Sostenibles</div>
+    <div class="tc num adm-col">10 cr. (4 cur.)</div>
+    <div class="tc num eco-col">2 cr.</div>
+    <div class="tc num fin-col">3 cr.</div>
+    <div class="tc num net-col">10 cr.</div>
+    <div class="tc coincidence"><span class="badge b14">4/4 parcial</span><span class="dagger">†</span></div>
+  </div>
+  <div class="tbl-row" data-section="p1">
+    <div class="tc label">Formación en Negocios (gestión general)</div>
+    <div class="tc num adm-col">28 cr.</div>
+    <div class="tc num eco-col">21 cr.</div>
+    <div class="tc num fin-col">20 cr.</div>
+    <div class="tc num net-col">18 cr.</div>
+    <div class="tc coincidence"><span class="badge b14">4/4 parcial</span></div>
+  </div>
+  <div class="tbl-row" data-section="p1">
+    <div class="tc label">Innovación Tech / Disrupciones Tec.</div>
+    <div class="tc num adm-col">4 cr.</div>
+    <div class="tc num eco-col"><span class="dash">—</span></div>
+    <div class="tc num fin-col"><span class="dash">—</span></div>
+    <div class="tc num net-col">19 cr.</div>
+    <div class="tc coincidence"><span class="badge b24">2/4</span><span class="dagger">†</span></div>
+  </div>
+  <div class="tbl-row" data-section="p1">
+    <div class="tc label">Marketing Management I + II</div>
+    <div class="tc num adm-col">5 cr.</div>
+    <div class="tc num eco-col">3 cr.</div>
+    <div class="tc num fin-col"><span class="dash">—</span></div>
+    <div class="tc num net-col"><span class="incl">incl.*</span></div>
+    <div class="tc coincidence"><span class="badge b24">2/4 conf.</span></div>
+  </div>
+  <div class="tbl-row" data-section="p1">
+    <div class="tc label">Series Micro II–V (secuencias completas)</div>
+    <div class="tc num adm-col"><span class="dash">—</span></div>
+    <div class="tc num eco-col">10 cr.</div>
+    <div class="tc num fin-col">2 cr.</div>
+    <div class="tc num net-col"><span class="dash">—</span></div>
+    <div class="tc coincidence"><span class="badge b24">2/4</span></div>
+  </div>
+  <div class="tbl-row" data-section="p1">
+    <div class="tc label">Series Macro II–IV (secuencias completas)</div>
+    <div class="tc num adm-col"><span class="dash">—</span></div>
+    <div class="tc num eco-col">6 cr.</div>
+    <div class="tc num fin-col">2 cr.</div>
+    <div class="tc num net-col"><span class="dash">—</span></div>
+    <div class="tc coincidence"><span class="badge b24">2/4</span></div>
+  </div>
+  <div class="tbl-row" data-section="p1">
+    <div class="tc label">Finanzas Empresariales II–VI (series)</div>
+    <div class="tc num adm-col">6 cr.</div>
+    <div class="tc num eco-col">3 cr.</div>
+    <div class="tc num fin-col">13 cr.</div>
+    <div class="tc num net-col"><span class="dash">—</span></div>
+    <div class="tc coincidence"><span class="badge b34">3/4 parcial</span></div>
+  </div>
+  <div class="tbl-row" data-section="p1">
+    <div class="tc label">Pensamiento y Contexto Económico I–III</div>
+    <div class="tc num adm-col"><span class="dash">—</span></div>
+    <div class="tc num eco-col">7 cr.</div>
+    <div class="tc num fin-col"><span class="dash">—</span></div>
+    <div class="tc num net-col"><span class="dash">—</span></div>
+    <div class="tc coincidence"><span class="badge b04">excl. ECO</span></div>
+  </div>
+  <div class="tbl-row" data-section="p1">
+    <div class="tc label">Inversión en Activos Financieros I–VI</div>
+    <div class="tc num adm-col"><span class="dash">—</span></div>
+    <div class="tc num eco-col"><span class="dash">—</span></div>
+    <div class="tc num fin-col">15 cr.</div>
+    <div class="tc num net-col"><span class="dash">—</span></div>
+    <div class="tc coincidence"><span class="badge b04">excl. FIN</span></div>
+  </div>
+  <div class="tbl-row" data-section="p1">
+    <div class="tc label">Liderazgo II–IV / Bienestar / Desempeño</div>
+    <div class="tc num adm-col">8 cr.</div>
+    <div class="tc num eco-col"><span class="dash">—</span></div>
+    <div class="tc num fin-col"><span class="dash">—</span></div>
+    <div class="tc num net-col"><span class="dash">—</span></div>
+    <div class="tc coincidence"><span class="badge b04">excl. ADM</span></div>
+  </div>
+
+  <!-- SUBTOTAL P1 -->
+  <div class="tbl-row sub-row" data-section="p1">
+    <div class="tc sub-label">Subtotal Núcleo Prof. I</div>
+    <div class="tc sub-num adm-col num">54 · 38.6%</div>
+    <div class="tc sub-num eco-col num">62 · 44.3%</div>
+    <div class="tc sub-num fin-col num">51 · 36.4%</div>
+    <div class="tc sub-num net-col num">57 · 41%</div>
+    <div class="tc sub-coincidence coincidence">
+      <span class="badge b24" style="font-size:0.68rem;">~22% compartido</span>
+      <div class="sub-share-bar" style="width:22%; background:#F0C060;"></div>
+      <span class="sub-share-label">≈8–10 cr. firmes comunes</span>
+    </div>
+  </div>
+
+  <!-- ═══════════════ NÚCLEO PROF. II ═══════════════ -->
+  <div class="section-head" data-section="p2">
+    <div class="section-head-inner">
+      <span class="section-label">Núcleo Profesional II — Cuantitativo, analítica e internacional</span>
+      <span class="section-pct">
+        <span class="share-bar-mini" style="width:51px; background:#4A4540;"></span>
+        <span class="share-bar-mini" style="width:9px; background:#E2DDD6;"></span>
+        ~85% compartido · el bloque más integrado del portafolio
+      </span>
+    </div>
+  </div>
+
+  <div class="tbl-row" data-section="p2">
+    <div class="tc label">Business Analytics I (Probabilidad)</div>
+    <div class="tc num adm-col">3 cr.</div>
+    <div class="tc num eco-col">3 cr.</div>
+    <div class="tc num fin-col">3 cr.</div>
+    <div class="tc num net-col"><span class="incl">incl.</span></div>
+    <div class="tc coincidence"><span class="badge b44">4/4</span></div>
+  </div>
+  <div class="tbl-row" data-section="p2">
+    <div class="tc label">Business Analytics II (Estadística)</div>
+    <div class="tc num adm-col">3 cr.</div>
+    <div class="tc num eco-col">3 cr.</div>
+    <div class="tc num fin-col">4 cr.</div>
+    <div class="tc num net-col"><span class="incl">incl.</span></div>
+    <div class="tc coincidence"><span class="badge b44">4/4</span><span class="dagger">†</span></div>
+  </div>
+  <div class="tbl-row" data-section="p2">
+    <div class="tc label">Business Analytics III (Analítica negocios)</div>
+    <div class="tc num adm-col">2 cr.</div>
+    <div class="tc num eco-col">3 cr.</div>
+    <div class="tc num fin-col">3 cr.</div>
+    <div class="tc num net-col"><span class="incl">incl.</span></div>
+    <div class="tc coincidence"><span class="badge b44">4/4</span><span class="dagger">†</span></div>
+  </div>
+  <div class="tbl-row" data-section="p2">
+    <div class="tc label">Business Analytics IV (Econometría)</div>
+    <div class="tc num adm-col">3 cr.</div>
+    <div class="tc num eco-col">4 cr.</div>
+    <div class="tc num fin-col">4 cr.</div>
+    <div class="tc num net-col"><span class="incl">incl.</span></div>
+    <div class="tc coincidence"><span class="badge b44">4/4</span><span class="dagger">†</span></div>
+  </div>
+  <div class="tbl-row" data-section="p2">
+    <div class="tc label">Formación Cuantitativa I (Mat. Negocios)</div>
+    <div class="tc num adm-col">3 cr.</div>
+    <div class="tc num eco-col">3 cr.</div>
+    <div class="tc num fin-col">3 cr.</div>
+    <div class="tc num net-col"><span class="incl">incl.</span></div>
+    <div class="tc coincidence"><span class="badge b44">4/4</span></div>
+  </div>
+  <div class="tbl-row" data-section="p2">
+    <div class="tc label">Global Business I (International Business)</div>
+    <div class="tc num adm-col">3 cr.</div>
+    <div class="tc num eco-col">2 cr.</div>
+    <div class="tc num fin-col">2 cr.</div>
+    <div class="tc num net-col"><span class="incl">incl.</span></div>
+    <div class="tc coincidence"><span class="badge b44">4/4</span><span class="dagger">†</span></div>
+  </div>
+  <div class="tbl-row" data-section="p2">
+    <div class="tc label">Global Business II (Int'l Mktg & Commerc.)</div>
+    <div class="tc num adm-col">3 cr.</div>
+    <div class="tc num eco-col">2 cr.</div>
+    <div class="tc num fin-col">2 cr.</div>
+    <div class="tc num net-col"><span class="incl">incl.</span></div>
+    <div class="tc coincidence"><span class="badge b44">4/4</span><span class="dagger">†</span></div>
+  </div>
+  <div class="tbl-row" data-section="p2">
+    <div class="tc label">Global Business III (Foreign Trade & SC)</div>
+    <div class="tc num adm-col">3 cr.</div>
+    <div class="tc num eco-col">2 cr.</div>
+    <div class="tc num fin-col"><span class="dash">—</span></div>
+    <div class="tc num net-col"><span class="incl">incl.*</span></div>
+    <div class="tc coincidence"><span class="badge b34">3/4 conf.</span></div>
+  </div>
+  <div class="tbl-row" data-section="p2">
+    <div class="tc label">Global Business IV (Negotiation & Cross-cult.)</div>
+    <div class="tc num adm-col">2 cr.</div>
+    <div class="tc num eco-col">2 cr.</div>
+    <div class="tc num fin-col"><span class="dash">—</span></div>
+    <div class="tc num net-col"><span class="incl">incl.*</span></div>
+    <div class="tc coincidence"><span class="badge b34">3/4 conf.</span></div>
+  </div>
+  <div class="tbl-row" data-section="p2">
+    <div class="tc label">Form. Cuantitativa II + III (Eco. Matemática)</div>
+    <div class="tc num adm-col"><span class="dash">—</span></div>
+    <div class="tc num eco-col">8 cr.</div>
+    <div class="tc num fin-col">7 cr.</div>
+    <div class="tc num net-col"><span class="dash">—</span></div>
+    <div class="tc coincidence"><span class="badge b24">2/4</span></div>
+  </div>
+
+  <!-- SUBTOTAL P2 -->
+  <div class="tbl-row sub-row" data-section="p2">
+    <div class="tc sub-label">Subtotal Núcleo Prof. II</div>
+    <div class="tc sub-num adm-col num">27 · 19.3%</div>
+    <div class="tc sub-num eco-col num">25 · 17.9%</div>
+    <div class="tc sub-num fin-col num">30 · 21.4%</div>
+    <div class="tc sub-num net-col num">24 · 17%</div>
+    <div class="tc sub-coincidence coincidence">
+      <span class="badge b44" style="font-size:0.68rem;">~85% compartido</span>
+      <div class="sub-share-bar" style="width:85%; background:#F0C060;"></div>
+      <span class="sub-share-label">BA I–IV + FC I + GB I–II en 4/4</span>
+    </div>
+  </div>
+
+  <!-- ═══════════════ FLEXIBILIDAD Y PRÁCTICA ═══════════════ -->
+  <div class="section-head" data-section="flex">
+    <div class="section-head-inner">
+      <span class="section-label">Exploración, Trayectorias Flexibles y Práctica</span>
+      <span class="section-pct">
+        <span class="share-bar-mini" style="width:60px; background:#4A4540;"></span>
+        100% estructura común
+      </span>
+    </div>
+  </div>
+
+  <div class="tbl-row" data-section="flex">
+    <div class="tc label">Núcleo de Exploración</div>
+    <div class="tc num adm-col">4 cr.</div>
+    <div class="tc num eco-col">4 cr.</div>
+    <div class="tc num fin-col">4 cr.</div>
+    <div class="tc num net-col">4 cr.</div>
+    <div class="tc coincidence"><span class="badge b44">4/4</span></div>
+  </div>
+  <div class="tbl-row" data-section="flex">
+    <div class="tc label">Trayectorias de libre elección (electivas)</div>
+    <div class="tc num adm-col">18 cr.</div>
+    <div class="tc num eco-col">12 cr.</div>
+    <div class="tc num fin-col">18 cr.</div>
+    <div class="tc num net-col">18 cr.</div>
+    <div class="tc coincidence"><span class="badge b44">4/4 pool común</span></div>
+  </div>
+  <div class="tbl-row" data-section="flex">
+    <div class="tc label">Práctica Profesional Integradora</div>
+    <div class="tc num adm-col">10 cr.</div>
+    <div class="tc num eco-col">10 cr.</div>
+    <div class="tc num fin-col">10 cr.</div>
+    <div class="tc num net-col">10 cr.</div>
+    <div class="tc coincidence"><span class="badge b44">4/4</span></div>
+  </div>
+
+  <!-- SUBTOTAL FLEX -->
+  <div class="tbl-row sub-row" data-section="flex">
+    <div class="tc sub-label">Subtotal Flexibilidad y Práctica</div>
+    <div class="tc sub-num adm-col num">32 · 22.9%</div>
+    <div class="tc sub-num eco-col num">26 · 18.6%</div>
+    <div class="tc sub-num fin-col num">32 · 22.9%</div>
+    <div class="tc sub-num net-col num">32 · 23%</div>
+    <div class="tc sub-coincidence coincidence">
+      <span class="badge b44" style="font-size:0.68rem;">100% estructura</span>
+      <div class="sub-share-bar" style="width:100%; background:#F0C060;"></div>
+      <span class="sub-share-label">pool de electivas compartido</span>
+    </div>
+  </div>
+
+  <!-- TOTAL -->
+  <div class="tbl-row" style="background:var(--text); border-top:2px solid var(--border-strong);">
+    <div class="tc sub-label" style="font-size:0.78rem;">TOTAL</div>
+    <div class="tc sub-num adm-col num" style="font-size:0.78rem;">140 cr.</div>
+    <div class="tc sub-num eco-col num" style="font-size:0.78rem;">140 cr.</div>
+    <div class="tc sub-num fin-col num" style="font-size:0.78rem;">140 cr.</div>
+    <div class="tc sub-num net-col num" style="font-size:0.78rem;">140 cr.</div>
+    <div class="tc sub-coincidence coincidence">
+      <span class="badge" style="background:var(--accent); color:var(--text); font-size:0.72rem;">~54% créditos comunes</span>
+      <span class="sub-share-label">≈76 cr. de 140 compartidos entre los 4</span>
+    </div>
+  </div>
+
+</div><!-- /table-wrap -->
+
+<!-- NOTA METODOLÓGICA -->
+<div class="note-box">
+  <strong>Notas metodológicas.</strong> <strong>†</strong> = mismo nombre de asignatura con distinta carga crediticia entre programas — implica secciones paralelas, no grupo compartido. <strong>incl.*</strong> = el bloque de Negocios, Estrategia y Tecnología (NET) contiene este tipo de curso según el diagrama de núcleos, pero sin malla semestral publicada no es posible confirmar el nombre exacto ni créditos individuales. <strong>conf.</strong> = confirmado en 3 de 4 programas con malla detallada disponible. El porcentaje compartido (~54%) es conservador y se calcula sobre créditos, no sobre número de cursos. Las trayectorias flexibles y el pool de electivas funcionan como un sistema de minor compartido entre los 4 programas.
+</div>
+
+</div><!-- /content -->
+
+<script>
+function filterSection(section, btn) {
+  // Update buttons
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+
+  // Filter rows and section heads
+  const rows = document.querySelectorAll('[data-section]');
+  rows.forEach(row => {
+    if (section === 'all' || row.dataset.section === section) {
+      row.style.display = '';
+    } else {
+      row.style.display = 'none';
+    }
+  });
+}
+</script>
+
+</body>
+</html>
