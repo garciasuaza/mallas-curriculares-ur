@@ -48,12 +48,13 @@ html, body { height: 100%; font-family: Calibri, 'Trebuchet MS', Arial, sans-ser
 /* ── NAVBAR ─────────────────────────────────────────── */
 .navbar {
   height: var(--nav-h);
-  background: var(--ur-navy);
+  background: #ffffff;
   display: flex; align-items: stretch;
   padding: 0 1.5rem; gap: 0;
   position: sticky; top: var(--header-h); z-index: 300;
-  border-bottom: 2px solid var(--ur-purple);
+  border-bottom: 2px solid var(--ur-navy);
   overflow-x: auto; scrollbar-width: none;
+  box-shadow: 0 2px 6px rgba(0,0,0,.08);
 }
 .navbar::-webkit-scrollbar { display: none; }
 
@@ -61,8 +62,8 @@ html, body { height: 100%; font-family: Calibri, 'Trebuchet MS', Arial, sans-ser
   display: flex; align-items: center;
   padding: 0 .75rem 0 0;
   font-size: .58rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
-  color: rgba(255,255,255,.28); white-space: nowrap;
-  border-right: 1px solid rgba(255,255,255,.1); margin-right: .5rem;
+  color: rgba(25,0,86,.45); white-space: nowrap;
+  border-right: 1px solid var(--ur-gray-e); margin-right: .5rem;
 }
 .tab-btn {
   display: flex; align-items: center; gap: .45rem;
@@ -70,31 +71,31 @@ html, body { height: 100%; font-family: Calibri, 'Trebuchet MS', Arial, sans-ser
   border: none; border-bottom: 3px solid transparent;
   background: none; cursor: pointer;
   font-family: Calibri, 'Trebuchet MS', Arial, sans-serif;
-  color: rgba(255,255,255,.45); font-size: .78rem; font-weight: 500;
+  color: var(--ur-gray-50); font-size: .78rem; font-weight: 500;
   white-space: nowrap; flex-shrink: 0;
   transition: color .15s, border-color .15s, background .15s;
 }
-.tab-btn:hover { color: rgba(255,255,255,.85); background: rgba(255,255,255,.05); }
-.tab-btn.active { color: #fff; border-bottom-color: var(--ur-red); background: rgba(218,9,33,.08); }
+.tab-btn:hover { color: var(--ur-navy); background: rgba(25,0,86,.04); }
+.tab-btn.active { color: var(--ur-navy); border-bottom-color: var(--ur-red); background: rgba(218,9,33,.04); }
 
 .tab-chip {
   font-size: .6rem; font-weight: 700;
   font-family: 'Bebas Neue', monospace; letter-spacing: .05em;
   padding: 1px 6px; border-radius: 2px; flex-shrink: 0;
 }
-.chip-nueva  { background: rgba(218,9,33,.45);  color: #ffb0b8; }
-.chip-art    { background: rgba(49,0,160,.5);   color: #c0a8ff; }
-.chip-blq    { background: rgba(6,95,70,.5);    color: #a7f3d0; }
-.chip-ref    { background: rgba(49,0,160,.35);  color: #b8c8ff; }
+.chip-nueva  { background: var(--ur-red);    color: #fff; }
+.chip-art    { background: var(--ur-purple); color: #fff; }
+.chip-blq    { background: #065F46;          color: #fff; }
+.chip-ref    { background: var(--ur-navy);   color: #fff; }
 
 .tab-tag {
   font-size: .58rem; padding: 1px 5px; border-radius: 100px;
   font-weight: 600; letter-spacing: .01em;
 }
-.tag-nueva { background: rgba(218,9,33,.2);   color: #ff8a96; }
-.tag-ref   { background: rgba(49,0,160,.3);   color: #a899ff; }
+.tag-nueva { background: #FEE8EA; color: var(--ur-red); }
+.tag-ref   { background: #EDE9FE; color: var(--ur-purple); }
 
-.nav-sep { width: 1px; background: rgba(255,255,255,.1); margin: 10px 4px; flex-shrink: 0; }
+.nav-sep { width: 1px; background: var(--ur-gray-e); margin: 10px 4px; flex-shrink: 0; }
 
 /* ── PANES ──────────────────────────────────────────── */
 .pane { display: none; width: 100%; height: calc(100vh - var(--total-h)); }
@@ -125,8 +126,7 @@ iframe { width: 100%; height: 100%; border: none; display: block; }
     </div>
     <div class="header-divider"></div>
     <div class="header-dept">
-      <span class="header-dept-label">Decanatura</span>
-      <span class="header-dept-name">Facultad de Economía</span>
+      <span class="header-dept-name">Propuesta de Reforma Curricular 2026</span>
     </div>
   </div>
   <div class="header-meta">
@@ -169,8 +169,8 @@ iframe { width: 100%; height: 100%; border: none; display: block; }
           aria-controls="pane-ice" id="tab-ice"
           onclick="switchTab('ice')">
     <span class="tab-chip chip-ref">IC</span>
-    Mallas Icesi
-    <span class="tab-tag tag-ref">Comparativa</span>
+    Caso Icesi
+    <span class="tab-tag tag-ref">Referente</span>
   </button>
 
 </nav>
