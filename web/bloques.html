@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Créditos por Bloque · Facultad de Economía UR</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Raleway:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --ur-red:    #DA0921; --ur-purple: #3100A0; --ur-navy: #190056;
+  --ur-gray-f: #F5F4F2; --ur-gray-e: #E8E5E0;
+  --ur-gray-70:#4D4D4D; --ur-gray-50:#808080;
+}
+html, body { font-family: Calibri, 'Trebuchet MS', Arial, sans-serif; background: var(--ur-gray-f); color: var(--ur-gray-70); }
+.page { padding: 1.5rem; }
+
+/* ── LEYENDA ─────────────────────────────────────────── */
+.legend-row { display: flex; flex-wrap: wrap; gap: .5rem 1rem; margin-bottom: 1.5rem; align-items: center; }
+.leg { display: flex; align-items: center; gap: 5px; font-size: .72rem; color: var(--ur-gray-70); }
+.leg-dot { width: 12px; height: 12px; border-radius: 2px; flex-shrink: 0; }
+
+/* ── BARRAS APILADAS ─────────────────────────────────── */
+.chart-section { margin-bottom: 2rem; }
+.chart-title { font-family: 'Bebas Neue', sans-serif; font-size: 1rem; letter-spacing: .05em; color: var(--ur-navy); margin-bottom: .75rem; }
+
+.bar-row { display: flex; align-items: center; gap: .75rem; margin-bottom: .55rem; }
+.bar-prog-label { width: 52px; font-size: .72rem; font-weight: 700; color: var(--ur-gray-70); text-align: right; flex-shrink: 0; }
+.bar-track { flex: 1; height: 32px; display: flex; border-radius: 3px; overflow: hidden; background: var(--ur-gray-e); position: relative; }
+.bar-seg { height: 100%; display: flex; align-items: center; justify-content: center; font-size: .6rem; font-weight: 700; color: rgba(255,255,255,.92); white-space: nowrap; overflow: hidden; cursor: default; transition: opacity .15s; }
+.bar-seg:hover { opacity: .82; }
+.bar-total { width: 44px; font-size: .72rem; font-weight: 700; color: var(--ur-gray-70); flex-shrink: 0; }
+.bar-nodata { font-size: .62rem; color: var(--ur-gray-50); font-style: italic; position: absolute; right: 6px; top: 50%; transform: translateY(-50%); }
+
+/* ── TABLA COMPARATIVA ───────────────────────────────── */
+.cmp-table { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid var(--ur-gray-e); border-radius: 4px; overflow: hidden; }
+.cmp-table thead tr { background: var(--ur-navy); }
+.cmp-table th { padding: 9px 12px; font-size: .68rem; font-weight: 700; text-transform: uppercase; letter-spacing: .05em; color: rgba(255,255,255,.85); text-align: right; }
+.cmp-table th:first-child { text-align: left; }
+.cmp-table tbody tr:nth-child(even) { background: var(--ur-gray-f); }
+.cmp-table tbody tr:hover { background: #EDE9FE; }
+.cmp-table td { padding: 8px 12px; font-size: .78rem; border-bottom: .5px solid var(--ur-gray-e); text-align: right; }
+.cmp-table td:first-child { text-align: left; font-weight: 600; }
+.cmp-table td .dot { display: inline-block; width: 9px; height: 9px; border-radius: 2px; margin-right: 6px; vertical-align: middle; }
+.cmp-table td.nodata { color: var(--ur-gray-50); font-style: italic; font-size: .7rem; }
+.cmp-table tfoot td { font-weight: 700; border-top: 2px solid var(--ur-gray-e); background: var(--ur-gray-f); }
+.pct { font-size: .68rem; color: var(--ur-gray-50); display: block; }
+
+/* ── NOTA ─────────────────────────────────────────────── */
+.nota { margin-top: 1rem; background: #FFF8E1; border-left: 3px solid #F59E0B; padding: 8px 12px; border-radius: 3px; font-size: .72rem; color: #713F12; line-height: 1.5; }
+</style>
+</head>
+<body>
+<div class="page">
+
+<!-- Leyenda -->
+<div class="legend-row" id="legend"></div>
+
+<!-- Barras apiladas -->
+<div class="chart-section">
+  <div class="chart-title">Distribución porcentual de créditos · comparativo</div>
+  <div id="bars"></div>
+</div>
+
+<!-- Tabla numérica -->
+<div class="chart-section">
+  <div class="chart-title">Créditos absolutos por bloque</div>
+  <table class="cmp-table">
+    <thead>
+      <tr>
+        <th>Bloque</th>
+        <th>ANI<br><span style="font-weight:400;font-size:.62rem">140 cr</span></th>
+        <th>ECON<br><span style="font-weight:400;font-size:.62rem">128 cr</span></th>
+        <th>Finanzas<br><span style="font-weight:400;font-size:.62rem">126 cr</span></th>
+        <th>MND<br><span style="font-weight:400;font-size:.62rem">140 cr</span></th>
+      </tr>
+    </thead>
+    <tbody id="tbl-body"></tbody>
+    <tfoot>
+      <tr>
+        <td>Total</td>
+        <td>140</td><td>128</td><td>126</td><td>140</td>
+      </tr>
+    </tfoot>
+  </table>
+</div>
+
+
+</div>
+
+<script>
+const BLOQUES = [
+  { key:'ros',  label:'Formación Rosarista',             color:'#DA0921' },
+  { key:'nbc',  label:'Núcleo Básico Común de Escuela',  color:'#3100A0' },
+  { key:'dcom', label:'Disciplinar común de dpto.',      color:'#065F46' },
+  { key:'desp', label:'Disciplinar específica',          color:'#B8460A' },
+  { key:'elec', label:'Electividad / Profundización',    color:'#713F12' },
+  { key:'grad', label:'Opción de grado',                 color:'#0C4A6E' },
+  { key:'prac', label:'Prácticas obligatorias',          color:'#4D1A7A' },
+];
+
+// null = sin dato en archivo fuente; 0 = cero registrado
+const DATA = {
+  ANI:  { ros:18, nbc:30, dcom:17, desp:48, elec:12, grad:9,  prac:6,  total:140 },
+  ECON: { ros:18, nbc:21, dcom:18, desp:35, elec:24, grad:12, prac:0,  total:128 },
+  FIN:  { ros:18, nbc:30, dcom:15, desp:30, elec:21, grad:12, prac:0, total:126 },
+  MND:  { ros:18, nbc:30, dcom:14, desp:51, elec:12, grad:9,  prac:6,  total:140 },
+};
+const PROGS = ['ANI','ECON','FIN','MND'];
+
+// ── LEYENDA ──────────────────────────────────────────────
+const legEl = document.getElementById('legend');
+BLOQUES.forEach(b => {
+  legEl.innerHTML += `<div class="leg"><div class="leg-dot" style="background:${b.color}"></div>${b.label}</div>`;
+});
+
+// ── BARRAS ───────────────────────────────────────────────
+const barsEl = document.getElementById('bars');
+PROGS.forEach(prog => {
+  const d = DATA[prog];
+  let segs = '';
+  let hasMissing = false;
+  BLOQUES.forEach(b => {
+    const cr = d[b.key];
+    if (cr === null) { hasMissing = true; return; }
+    if (cr === 0) return;
+    const pct = (cr / d.total * 100).toFixed(1);
+    const label = parseFloat(pct) > 5 ? `${pct}%` : '';
+    segs += `<div class="bar-seg" style="width:${pct}%;background:${b.color}" title="${b.label}: ${cr} cr (${pct}%)">${label}</div>`;
+  });
+  const missingNote = hasMissing ? `<span class="bar-nodata">NBC sin dato</span>` : '';
+  barsEl.innerHTML += `
+    <div class="bar-row">
+      <div class="bar-prog-label">${prog}</div>
+      <div class="bar-track">${segs}${missingNote}</div>
+      <div class="bar-total">${d.total} cr</div>
+    </div>`;
+});
+
+// ── TABLA ────────────────────────────────────────────────
+const tbody = document.getElementById('tbl-body');
+BLOQUES.forEach(b => {
+  let row = `<tr><td><span class="dot" style="background:${b.color}"></span>${b.label}</td>`;
+  PROGS.forEach(prog => {
+    const cr = DATA[prog][b.key];
+    const total = DATA[prog].total;
+    if (cr === null) {
+      row += `<td class="nodata">sin dato</td>`;
+    } else {
+      const pct = (cr / total * 100).toFixed(1);
+      row += `<td>${cr}<span class="pct">${pct}%</span></td>`;
+    }
+  });
+  row += '</tr>';
+  tbody.innerHTML += row;
+});
+</script>
+</body>
+</html>

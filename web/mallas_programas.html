@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mallas por Programa · Facultad de Economía UR</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Raleway:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --ur-red:    #DA0921;
+  --ur-purple: #3100A0;
+  --ur-navy:   #190056;
+  --ur-white:  #FFFFFF;
+  --ur-gray-f: #F5F4F2;
+  --ur-gray-e: #E8E5E0;
+  --ur-gray-70:#4D4D4D;
+  --ur-gray-50:#808080;
+}
+html, body { font-family: Calibri, 'Trebuchet MS', Arial, sans-serif; background: var(--ur-gray-f); color: var(--ur-gray-70); }
+
+/* ── LEYENDA GLOBAL ───────────────────────────────── */
+.legend-bar {
+  background: var(--ur-white);
+  border-bottom: 1px solid var(--ur-gray-e);
+  padding: 8px 1.5rem;
+  display: flex; flex-wrap: wrap; gap: .4rem .9rem; align-items: center;
+}
+.legend-bar-label {
+  font-size: .63rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase;
+  color: var(--ur-gray-50); margin-right: .3rem; white-space: nowrap;
+}
+.leg-item { display: flex; align-items: center; gap: 5px; font-size: .7rem; color: var(--ur-gray-70); white-space: nowrap; }
+.leg-dot { width: 11px; height: 11px; border-radius: 2px; flex-shrink: 0; }
+
+/* ── PROG TABS ─────────────────────────────────────── */
+.prog-nav { background: var(--ur-white); border-bottom: 1px solid var(--ur-gray-e); display: flex; overflow-x: auto; scrollbar-width: none; }
+.prog-nav::-webkit-scrollbar { display: none; }
+.prog-tab { padding: 14px 20px; font-size: .8rem; font-weight: 600; color: var(--ur-gray-50); border: none; border-bottom: 3px solid transparent; background: none; cursor: pointer; white-space: nowrap; font-family: Calibri, 'Trebuchet MS', Arial, sans-serif; transition: all .15s; }
+.prog-tab:hover { color: var(--ur-red); }
+.prog-tab.active { color: var(--ur-red); border-bottom-color: var(--ur-red); }
+
+/* ── PROGRAM PANE ─────────────────────────────────── */
+.prog-pane { display: none; padding: 1.25rem 1.5rem 2rem; }
+.prog-pane.active { display: block; }
+
+.prog-header { margin-bottom: 1.25rem; }
+.prog-name { font-family: 'Bebas Neue', sans-serif; font-size: 1.6rem; color: var(--ur-red); letter-spacing: .04em; }
+.prog-meta { display: flex; gap: .5rem; margin-top: .4rem; flex-wrap: wrap; }
+.meta-chip { font-size: .7rem; font-weight: 600; padding: 2px 10px; border-radius: 3px; background: var(--ur-navy); color: var(--ur-white); }
+.meta-chip.gray { background: var(--ur-gray-e); color: var(--ur-gray-70); }
+
+/* ── MALLA GRID ───────────────────────────────────── */
+.malla-scroll { overflow-x: auto; padding-bottom: .5rem; }
+.malla-grid { display: flex; gap: .75rem; min-width: max-content; }
+
+.sem-col { width: 170px; flex-shrink: 0; }
+.sem-head { background: var(--ur-navy); color: var(--ur-white); padding: 6px 10px; border-radius: 4px 4px 0 0; }
+.sem-num { font-family: 'Bebas Neue', sans-serif; font-size: 1rem; letter-spacing: .05em; }
+.sem-cr { font-size: .65rem; color: rgba(255,255,255,.6); }
+.sem-body { display: flex; flex-direction: column; gap: 3px; padding: 4px 0; }
+
+.curso-card {
+  border: 1px solid rgba(0,0,0,.08);
+  border-left-width: 3px;
+  border-radius: 3px;
+  padding: 5px 8px;
+  cursor: default;
+  transition: box-shadow .1s;
+}
+.curso-card:hover { box-shadow: 0 2px 8px rgba(0,0,0,.12); }
+.curso-nombre { font-size: .72rem; font-weight: 500; line-height: 1.3; }
+.curso-cr { font-size: .63rem; margin-top: 2px; opacity: .7; }
+
+/* Semestre total row */
+.sem-total { background: var(--ur-navy); color: var(--ur-white); padding: 5px 10px; border-radius: 0 0 4px 4px; margin-top: 4px; font-size: .7rem; font-weight: 600; text-align: right; }
+
+/* Empty semester */
+.sem-empty { background: var(--ur-gray-e); border-radius: 4px; padding: 12px 10px; font-size: .7rem; color: var(--ur-gray-50); text-align: center; font-style: italic; }
+
+/* ── DISTRIBUCIÓN BLOQUES ─────────────────────────── */
+.dist-section { margin-top: 1.75rem; }
+.dist-title { font-size: .75rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--ur-gray-50); margin-bottom: .75rem; }
+.dist-bar { display: flex; height: 28px; border-radius: 4px; overflow: hidden; margin-bottom: .6rem; }
+.dist-bar-seg { display: flex; align-items: center; justify-content: center; font-size: .6rem; font-weight: 700; color: rgba(255,255,255,.9); white-space: nowrap; overflow: hidden; transition: opacity .2s; cursor: default; }
+.dist-bar-seg:hover { opacity: .85; }
+
+.dist-legend { display: flex; flex-wrap: wrap; gap: .5rem .9rem; }
+.dleg-item { display: flex; align-items: center; gap: 5px; font-size: .72rem; color: var(--ur-gray-70); }
+.dleg-dot { width: 10px; height: 10px; border-radius: 2px; flex-shrink: 0; }
+.leg-cr { font-weight: 700; }
+.leg-pct { color: var(--ur-gray-50); }
+.leg-nodata { color: var(--ur-gray-50); font-style: italic; }
+</style>
+</head>
+<body>
+
+<!-- Leyenda global de bloques -->
+<div class="legend-bar" id="global-legend">
+  <span class="legend-bar-label">Bloques:</span>
+</div>
+
+<!-- Selector de programa -->
+<nav class="prog-nav" role="tablist">
+  <button class="prog-tab active" onclick="showProg('ani')" id="ptab-ani">ANI — Adm. de Negocios Internacionales</button>
+  <button class="prog-tab" onclick="showProg('econ')" id="ptab-econ">Economía</button>
+  <button class="prog-tab" onclick="showProg('fin')" id="ptab-fin">Finanzas</button>
+  <button class="prog-tab" onclick="showProg('mnd')" id="ptab-mnd">MND — Marketing y Negocios Digitales</button>
+</nav>
+
+<!-- ═══════════════════════════════════════════════════
+     ANI
+═══════════════════════════════════════════════════ -->
+<div class="prog-pane active" id="prog-ani">
+  <div class="prog-header">
+    <div class="prog-name">Administración de Negocios Internacionales</div>
+    <div class="prog-meta">
+      <span class="meta-chip">8 semestres</span>
+      <span class="meta-chip">140 créditos</span>
+      <span class="meta-chip gray">ANI</span>
+    </div>
+  </div>
+  <div class="malla-scroll"><div class="malla-grid" id="malla-ani"></div></div>
+  <div class="dist-section">
+    <div class="dist-title">Distribución de créditos por bloque</div>
+    <div class="dist-bar" id="bar-ani"></div>
+    <div class="dist-legend" id="leg-ani"></div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════
+     ECON
+═══════════════════════════════════════════════════ -->
+<div class="prog-pane" id="prog-econ">
+  <div class="prog-header">
+    <div class="prog-name">Economía</div>
+    <div class="prog-meta">
+      <span class="meta-chip">7 semestres</span>
+      <span class="meta-chip">128 créditos</span>
+      <span class="meta-chip gray">ECON</span>
+    </div>
+  </div>
+  <div class="malla-scroll"><div class="malla-grid" id="malla-econ"></div></div>
+  <div class="dist-section">
+    <div class="dist-title">Distribución de créditos por bloque</div>
+    <div class="dist-bar" id="bar-econ"></div>
+    <div class="dist-legend" id="leg-econ"></div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════
+     Finanzas
+═══════════════════════════════════════════════════ -->
+<div class="prog-pane" id="prog-fin">
+  <div class="prog-header">
+    <div class="prog-name">Finanzas</div>
+    <div class="prog-meta">
+      <span class="meta-chip">8 semestres</span>
+      <span class="meta-chip">126 créditos</span>
+      <span class="meta-chip gray">FIN</span>
+    </div>
+  </div>
+  <div class="malla-scroll"><div class="malla-grid" id="malla-fin"></div></div>
+  <div class="dist-section">
+    <div class="dist-title">Distribución de créditos por bloque</div>
+    <div class="dist-bar" id="bar-fin"></div>
+    <div class="dist-legend" id="leg-fin"></div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════
+     MND
+═══════════════════════════════════════════════════ -->
+<div class="prog-pane" id="prog-mnd">
+  <div class="prog-header">
+    <div class="prog-name">Marketing y Negocios Digitales</div>
+    <div class="prog-meta">
+      <span class="meta-chip">8 semestres</span>
+      <span class="meta-chip">140 créditos</span>
+      <span class="meta-chip gray">MND</span>
+    </div>
+  </div>
+  <div class="malla-scroll"><div class="malla-grid" id="malla-mnd"></div></div>
+  <div class="dist-section">
+    <div class="dist-title">Distribución de créditos por bloque</div>
+    <div class="dist-bar" id="bar-mnd"></div>
+    <div class="dist-legend" id="leg-mnd"></div>
+  </div>
+</div>
+
+<script>
+// ════════════════════════════════════════════════════════
+//  BLOQUES — colores y etiquetas
+// ════════════════════════════════════════════════════════
+
+const BLOQUES = [
+  { key:'ros',  label:'Formación Rosarista',            color:'#DA0921', bg:'#FEE8EA' },
+  { key:'nbc',  label:'Núcleo Básico Común de Escuela', color:'#3100A0', bg:'#EDE9FE' },
+  { key:'dcom', label:'Disciplinar común de dpto.',     color:'#065F46', bg:'#D1FAE5' },
+  { key:'desp', label:'Disciplinar específica',         color:'#B8460A', bg:'#FEF0E7' },
+  { key:'elec', label:'Electividad / Profundización',   color:'#713F12', bg:'#FEF9C3' },
+  { key:'grad', label:'Opción de grado',                color:'#0C4A6E', bg:'#E0F2FE' },
+  { key:'prac', label:'Prácticas obligatorias',         color:'#4D1A7A', bg:'#F5F0FE' },
+];
+const BLQ_MAP = {};
+BLOQUES.forEach(b => { BLQ_MAP[b.key] = b; });
+
+// ════════════════════════════════════════════════════════
+//  DATA — exclusivamente del Excel Propuesta_ANI_Econ_Fin_MND jun12.xlsx
+//  blq: ros=Formación Rosarista, nbc=NBC Escuela, dcom=Disciplinar común,
+//       desp=Disciplinar específica, elec=Electividad, grad=Opción grado, prac=Prácticas
+// ════════════════════════════════════════════════════════
+
+const PROGRAMS = {
+  ani: {
+    sems: [
+      { n:1, total:17, cursos:[
+        {n:'Cátedra Rosarista',                         cr:2, blq:'ros'},
+        {n:'Ética',                                     cr:2, blq:'ros'},
+        {n:'Precálculo',                                cr:3, blq:'nbc'},
+        {n:'Economía, negocios y sociedad',             cr:3, blq:'nbc'},
+        {n:'Scaling Management',                        cr:2, blq:'desp'},
+        {n:'Marketing',                                 cr:2, blq:'desp'},
+        {n:'Negocios Globales',                         cr:3, blq:'desp'},
+      ]},
+      { n:2, total:17, cursos:[
+        {n:'Comunicación profesional',                  cr:3, blq:'ros'},
+        {n:'Lógica y Matemática discretas',             cr:3, blq:'nbc'},
+        {n:'Cálculo I',                                 cr:3, blq:'nbc'},
+        {n:'Contabilidad y Análisis Financiero',        cr:3, blq:'dcom'},
+        {n:'Managing People Across Cultures',           cr:2, blq:'dcom'},
+        {n:'Técnicas de Negociación',                   cr:3, blq:'desp'},
+      ]},
+      { n:3, total:17, cursos:[
+        {n:'Electiva HM — Núcleo Mutis',                cr:2, blq:'ros'},
+        {n:'Probabilidad y Estadística',                cr:3, blq:'nbc'},
+        {n:'Programación y análisis de datos',          cr:3, blq:'nbc'},
+        {n:'Liderazgo en la era digital',               cr:2, blq:'nbc'},
+        {n:'Innovación y Emprendimiento',               cr:2, blq:'nbc'},
+        {n:'International Sales & Contracts',           cr:2, blq:'dcom'},
+        {n:'Operaciones de comercio exterior',          cr:3, blq:'desp'},
+      ]},
+      { n:4, total:19, cursos:[
+        {n:'Electiva HM',                               cr:2, blq:'ros'},
+        {n:'Matemáticas Financieras y Decisiones de Inversión', cr:3, blq:'dcom'},
+        {n:'Principios de Microeconomía',               cr:3, blq:'nbc'},
+        {n:'Sustainability Management',                 cr:2, blq:'nbc'},
+        {n:'Data Driven & Decision Making',             cr:3, blq:'nbc'},
+        {n:'Tercer Idioma I',                           cr:3, blq:'desp'},
+        {n:'Sustainable Global Value Chain',            cr:3, blq:'desp'},
+      ]},
+      { n:5, total:19, cursos:[
+        {n:'Electiva HM',                               cr:2, blq:'ros'},
+        {n:'Finanzas Corporativas',                     cr:3, blq:'dcom'},
+        {n:'Strategic Management',                      cr:2, blq:'dcom'},
+        {n:'Business Intelligence',                     cr:3, blq:'desp'},
+        {n:'Tercer Idioma II',                          cr:3, blq:'desp'},
+        {n:'International Trade',                       cr:3, blq:'desp'},
+        {n:'Global Marketing',                          cr:3, blq:'desp'},
+      ]},
+      { n:6, total:18, cursos:[
+        {n:'Constitución Política e Instrucción Cívica',cr:2, blq:'ros'},
+        {n:'Project Management',                        cr:2, blq:'dcom'},
+        {n:'IA for International Business',             cr:3, blq:'desp'},
+        {n:'Global Finance & Risk Management',          cr:2, blq:'desp'},
+        {n:'Digital Business Models',                   cr:2, blq:'desp'},
+        {n:'Tercer Idioma III',                         cr:2, blq:'desp'},
+        {n:'Start-ups Scalability',                     cr:2, blq:'desp'},
+        {n:'International Strategy',                    cr:3, blq:'desp'},
+      ]},
+      { n:7, total:18, cursos:[
+        {n:'Desafíos contemporáneos / Proyecto integrador', cr:3, blq:'ros'},
+        {n:'Global Scaling out',                        cr:3, blq:'desp'},
+        {n:'Profundización / Minor',                    cr:8, blq:'elec'},
+        {n:'Opción de grado',                           cr:4, blq:'grad'},
+      ]},
+      { n:8, total:15, cursos:[
+        {n:'Profundización / Minor',                    cr:4, blq:'elec'},
+        {n:'Opción de grado',                           cr:5, blq:'grad'},
+        {n:'Práctica Empresarial',                      cr:6, blq:'prac'},
+      ]},
+    ],
+    bloques:{ ros:18, nbc:30, dcom:17, desp:48, elec:12, grad:9, prac:6, total:140 }
+  },
+
+  econ: {
+    sems: [
+      { n:1, total:18, cursos:[
+        {n:'Cátedra Rosarista',                         cr:2, blq:'ros'},
+        {n:'Ética',                                     cr:2, blq:'ros'},
+        {n:'Precálculo',                                cr:3, blq:'nbc'},
+        {n:'Economía, negocios y sociedad',             cr:3, blq:'nbc'},
+        {n:'Electiva HM — Núcleo Mutis',                cr:2, blq:'ros'},
+        {n:'Programación y análisis de datos',          cr:3, blq:'nbc'},
+        {n:'Lógica y Matemática discretas',             cr:3, blq:'nbc'},
+      ]},
+      { n:2, total:18, cursos:[
+        {n:'Comunicación profesional',                  cr:3, blq:'ros'},
+        {n:'Electiva general',                          cr:3, blq:'elec'},
+        {n:'Cálculo I',                                 cr:3, blq:'nbc'},
+        {n:'Principios de Microeconomía',               cr:3, blq:'nbc'},
+        {n:'Principios de Macroeconomía',               cr:3, blq:'dcom'},
+        {n:'Doctrinas Económicas',                      cr:3, blq:'dcom'},
+      ]},
+      { n:3, total:19, cursos:[
+        {n:'Electiva HM',                               cr:2, blq:'ros'},
+        {n:'Probabilidad y Estadística',                cr:3, blq:'nbc'},
+        {n:'Cálculo II',                                cr:3, blq:'dcom'},
+        {n:'Electiva general',                          cr:3, blq:'elec'},
+        {n:'Micro: juegos e información',               cr:2, blq:'desp'},
+        {n:'Historia Económica General',                cr:3, blq:'dcom'},
+        {n:'Economía Internacional: Comercio y Finanzas Internacionales', cr:3, blq:'desp'},
+      ]},
+      { n:4, total:19, cursos:[
+        {n:'Electiva HM',                               cr:2, blq:'ros'},
+        {n:'Álgebra Lineal',                            cr:3, blq:'dcom'},
+        {n:'Métodos de Optimización',                   cr:3, blq:'dcom'},
+        {n:'Micro: organización industrial',            cr:3, blq:'desp'},
+        {n:'Macroeconomía II',                          cr:3, blq:'desp'},
+        {n:'Historia Económica Colombiana',             cr:3, blq:'desp'},
+        {n:'Constitución Política e Instrucción Cívica',cr:2, blq:'ros'},
+      ]},
+      { n:5, total:18, cursos:[
+        {n:'Electiva general',                          cr:3, blq:'elec'},
+        {n:'Econometría y Análisis de Regresión',       cr:3, blq:'desp'},
+        {n:'Micro: equilibrio general',                 cr:3, blq:'desp'},
+        {n:'Micro: organización industrial',            cr:3, blq:'desp'},
+        {n:'Macroeconomía III',                         cr:3, blq:'desp'},
+        {n:'Teoría y Política Monetaria',               cr:3, blq:'desp'},
+      ]},
+      { n:6, total:18, cursos:[
+        {n:'Desafíos contemporáneos / Proyecto integrador', cr:3, blq:'ros'},
+        {n:'Econometría Intermedia',                    cr:3, blq:'desp'},
+        {n:'Comunicando Economía',                      cr:3, blq:'desp'},
+        {n:'Profundización / Minor',                    cr:3, blq:'elec'},
+        {n:'Profundización / Minor',                    cr:3, blq:'elec'},
+        {n:'Profundización / Minor',                    cr:3, blq:'elec'},
+      ]},
+      { n:7, total:18, cursos:[
+        {n:'Electiva general',                          cr:3, blq:'elec'},
+        {n:'Profundización / Minor',                    cr:3, blq:'elec'},
+        {n:'Opción de grado',                           cr:12, blq:'grad'},
+      ]},
+    ],
+    bloques:{ ros:18, nbc:21, dcom:18, desp:35, elec:24, grad:12, prac:0, total:128 }
+  },
+
+  fin: {
+    sems: [
+      { n:1, total:19, cursos:[
+        {n:'Cátedra Rosarista',                         cr:2, blq:'ros'},
+        {n:'Lógica y Matemática discretas',             cr:3, blq:'nbc'},
+        {n:'Ética',                                     cr:2, blq:'ros'},
+        {n:'Precálculo',                                cr:3, blq:'nbc'},
+        {n:'Economía, negocios y sociedad',               cr:3, blq:'nbc'},
+        {n:'Programación y análisis de datos',          cr:3, blq:'nbc'},
+        {n:'Finanzas Personales y Sistema Financiero Colombiano', cr:3, blq:'dcom'},
+      ]},
+      { n:2, total:19, cursos:[
+        {n:'Constitución Política e Instrucción Cívica',cr:2, blq:'ros'},
+        {n:'Electiva HM',                               cr:2, blq:'ros'},
+        {n:'Comunicación profesional',                  cr:3, blq:'ros'},
+        {n:'Cálculo I',                                 cr:3, blq:'nbc'},
+        {n:'Álgebra Lineal',                            cr:3, blq:'nbc'},
+        {n:'Contabilidad y Análisis Financiero',        cr:3, blq:'dcom'},
+        {n:'Matemáticas Financieras y Decisiones de Inversión', cr:3, blq:'dcom'},
+      ]},
+      { n:3, total:17, cursos:[
+        {n:'Electiva HM',                               cr:2, blq:'ros'},
+        {n:'Principios de Macroeconomía',               cr:3, blq:'nbc'},
+        {n:'Cálculo II',                                cr:3, blq:'nbc'},
+        {n:'Probabilidad y Estadística',                cr:3, blq:'nbc'},
+        {n:'Principios de Microeconomía',               cr:3, blq:'nbc'},
+        {n:'Gestión y Planeación Financiera',           cr:3, blq:'dcom'},
+      ]},
+      { n:4, total:17, cursos:[
+        {n:'Electiva HM',                               cr:2, blq:'ros'},
+        {n:'Finanzas Corporativas',                     cr:3, blq:'dcom'},
+        {n:'Economía Financiera',                       cr:3, blq:'desp'},
+        {n:'Renta Fija',                                cr:3, blq:'desp'},
+        {n:'Métodos de Optimización',                   cr:3, blq:'desp'},
+        {n:'Proyecto Integrador',                       cr:3, blq:'ros'},
+      ]},
+      { n:5, total:18, cursos:[
+        {n:'Valoración de Empresas y Proyectos',        cr:3, blq:'desp'},
+        {n:'Renta Variable',                            cr:3, blq:'desp'},
+        {n:'Machine Learning y Analítica Financiera',   cr:3, blq:'desp'},
+        {n:'Econometría y Análisis de Regresión',       cr:3, blq:'desp'},
+        {n:'Profundización / Minor I',                  cr:3, blq:'elec'},
+        {n:'Electiva general',                          cr:3, blq:'elec'},
+      ]},
+      { n:6, total:18, cursos:[
+        {n:'Derivados Financieros',                     cr:3, blq:'desp'},
+        {n:'Medición y Gestión de Riesgos Financieros', cr:3, blq:'desp'},
+        {n:'Finanzas Sostenibles e Inversiones Alternativas', cr:3, blq:'desp'},
+        {n:'Profundización / Minor II',                 cr:3, blq:'elec'},
+        {n:'Profundización / Minor III',                cr:3, blq:'elec'},
+        {n:'Electiva general',                          cr:3, blq:'elec'},
+      ]},
+      { n:7, total:18, cursos:[
+        {n:'Opción de grado',                           cr:12, blq:'grad'},
+        {n:'Profundización / Minor IV',                 cr:3, blq:'elec'},
+        {n:'Electiva general',                          cr:3, blq:'elec'},
+      ]},
+      { n:8, total:0, empty:true },
+    ],
+    bloques:{ ros:18, nbc:30, dcom:15, desp:30, elec:21, grad:12, prac:0, total:126 }
+  },
+
+  mnd: {
+    sems: [
+      { n:1, total:17, cursos:[
+        {n:'Cátedra Rosarista',                         cr:2, blq:'ros'},
+        {n:'Ética',                                     cr:2, blq:'ros'},
+        {n:'Precálculo',                                cr:3, blq:'nbc'},
+        {n:'Economía, negocios y sociedad',             cr:3, blq:'nbc'},
+        {n:'Scaling Management',                        cr:2, blq:'dcom'},
+        {n:'Marketing',                                 cr:2, blq:'dcom'},
+        {n:'Digital Platforms and Ecosystems',          cr:3, blq:'desp'},
+      ]},
+      { n:2, total:18, cursos:[
+        {n:'Comunicación profesional',                  cr:3, blq:'ros'},
+        {n:'Lógica y Matemática discretas',             cr:3, blq:'nbc'},
+        {n:'Cálculo I',                                 cr:3, blq:'nbc'},
+        {n:'Contabilidad y Análisis Financiero',         cr:3, blq:'dcom'},
+        {n:'Creatividad en Marketing',                  cr:3, blq:'desp'},
+        {n:'Human-Centric Marketing',                   cr:3, blq:'desp'},
+      ]},
+      { n:3, total:18, cursos:[
+        {n:'Electiva HM — Núcleo Mutis',                cr:2, blq:'ros'},
+        {n:'Probabilidad y Estadística',                cr:3, blq:'nbc'},
+        {n:'Programación y análisis de datos',          cr:3, blq:'nbc'},
+        {n:'Liderazgo en la era digital',               cr:2, blq:'nbc'},
+        {n:'Innovación y Emprendimiento',               cr:2, blq:'nbc'},
+        {n:'Desarrollo de Nuevos Productos',            cr:3, blq:'desp'},
+        {n:'Market Intelligence',                       cr:3, blq:'desp'},
+      ]},
+      { n:4, total:19, cursos:[
+        {n:'Electiva HM',                               cr:2, blq:'ros'},
+        {n:'Matemáticas Financieras y Decisiones de Inversión', cr:3, blq:'dcom'},
+        {n:'Principios de Microeconomía',               cr:3, blq:'nbc'},
+        {n:'Sustainability Management',                 cr:2, blq:'nbc'},
+        {n:'Data Driven & Decision Making',             cr:3, blq:'nbc'},
+        {n:'Branding y Comunicación Digital',           cr:3, blq:'desp'},
+        {n:'E-Commerce and Dropshipping',               cr:3, blq:'desp'},
+      ]},
+      { n:5, total:18, cursos:[
+        {n:'Electiva HM',                               cr:2, blq:'ros'},
+        {n:'Finanzas Corporativas',                     cr:3, blq:'desp'},
+        {n:'Strategic Management',                      cr:2, blq:'dcom'},
+        {n:'Digital Marketing and Social Media',        cr:3, blq:'desp'},
+        {n:'Diseño Digital',                            cr:2, blq:'desp'},
+        {n:'AI Marketing',                              cr:3, blq:'desp'},
+        {n:'User and Customer Experience',              cr:3, blq:'desp'},
+      ]},
+      { n:6, total:17, cursos:[
+        {n:'Constitución Política e Instrucción Cívica',cr:2, blq:'ros'},
+        {n:'Project Management',                        cr:2, blq:'dcom'},
+        {n:'Pricing y Monetización',                    cr:3, blq:'desp'},
+        {n:'Digital Business Models',                   cr:2, blq:'desp'},
+        {n:'Marketing and Law',                         cr:2, blq:'desp'},
+        {n:'Publicidad Digital',                        cr:3, blq:'desp'},
+        {n:'Sales Management',                          cr:3, blq:'desp'},
+      ]},
+      { n:7, total:18, cursos:[
+        {n:'Desafíos contemporáneos / Proyecto integrador', cr:3, blq:'ros'},
+        {n:'Marketing Plan',                            cr:3, blq:'desp'},
+        {n:'Profundización / Minor',                    cr:8, blq:'elec'},
+        {n:'Opción de grado',                           cr:4, blq:'grad'},
+      ]},
+      { n:8, total:15, cursos:[
+        {n:'Profundización / Minor',                    cr:4, blq:'elec'},
+        {n:'Opción de grado',                           cr:5, blq:'grad'},
+        {n:'Práctica Empresarial',                      cr:6, blq:'prac'},
+      ]},
+    ],
+    bloques:{ ros:18, nbc:30, dcom:14, desp:51, elec:12, grad:9, prac:6, total:140 }
+  }
+};
+
+// ════════════════════════════════════════════════════════
+//  LEYENDA GLOBAL
+// ════════════════════════════════════════════════════════
+const glLeg = document.getElementById('global-legend');
+BLOQUES.forEach(b => {
+  glLeg.innerHTML += `<div class="leg-item"><div class="leg-dot" style="background:${b.color}"></div>${b.label}</div>`;
+});
+
+// ════════════════════════════════════════════════════════
+//  RENDER
+// ════════════════════════════════════════════════════════
+
+function renderMalla(progKey) {
+  const prog = PROGRAMS[progKey];
+  const grid = document.getElementById('malla-' + progKey);
+  grid.innerHTML = '';
+  prog.sems.forEach(sem => {
+    const col = document.createElement('div');
+    col.className = 'sem-col';
+    if (sem.empty) {
+      col.innerHTML = `
+        <div class="sem-head"><div class="sem-num">SEMESTRE ${sem.n}</div></div>
+        <div class="sem-empty">Sin asignaturas registradas</div>`;
+    } else {
+      let cursosHTML = sem.cursos.map(c => {
+        const blq = BLQ_MAP[c.blq] || { color: '#999', bg: '#f5f5f5' };
+        return `
+        <div class="curso-card" style="background:${blq.bg};border-left-color:${blq.color}" title="${blq.label}">
+          <div class="curso-nombre" style="color:${blq.color}">${c.n}</div>
+          <div class="curso-cr" style="color:${blq.color}">${c.cr} cr · ${blq.label.split(' ')[0]}</div>
+        </div>`;
+      }).join('');
+      col.innerHTML = `
+        <div class="sem-head">
+          <div class="sem-num">SEMESTRE ${sem.n}</div>
+          <div class="sem-cr">${sem.total} créditos</div>
+        </div>
+        <div class="sem-body">${cursosHTML}</div>
+        <div class="sem-total">${sem.total} cr</div>`;
+    }
+    grid.appendChild(col);
+  });
+}
+
+function renderBloques(progKey) {
+  const b = PROGRAMS[progKey].bloques;
+  const bar = document.getElementById('bar-' + progKey);
+  const leg = document.getElementById('leg-' + progKey);
+  bar.innerHTML = '';
+  leg.innerHTML = '';
+
+  const total = b.total;
+  BLOQUES.forEach(bl => {
+    const cr = b[bl.key];
+    if (cr === null || cr === undefined) return;
+    if (cr > 0) {
+      const pct = (cr / total * 100).toFixed(1);
+      const seg = document.createElement('div');
+      seg.className = 'dist-bar-seg';
+      seg.style.cssText = `width:${pct}%;background:${bl.color};`;
+      seg.title = `${bl.label}: ${cr} cr (${pct}%)`;
+      if (parseFloat(pct) > 6) seg.textContent = `${pct}%`;
+      bar.appendChild(seg);
+    }
+
+    const pct = (cr / total * 100).toFixed(1);
+    const li = document.createElement('div');
+    li.className = 'dleg-item';
+    li.innerHTML = `<div class="dleg-dot" style="background:${bl.color}"></div><span>${bl.label}: <strong class="leg-cr">${cr} cr</strong> <span class="leg-pct">${pct}%</span></span>`;
+    leg.appendChild(li);
+  });
+}
+
+function showProg(key) {
+  document.querySelectorAll('.prog-tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.prog-pane').forEach(p => p.classList.remove('active'));
+  document.getElementById('ptab-' + key).classList.add('active');
+  document.getElementById('prog-' + key).classList.add('active');
+}
+
+// Init
+['ani','econ','fin','mnd'].forEach(k => { renderMalla(k); renderBloques(k); });
+</script>
+</body>
+</html>

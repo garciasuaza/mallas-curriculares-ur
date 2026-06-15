@@ -3,146 +3,211 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Análisis de Mallas Curriculares · Decanatura FE UR</title>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<title>Reforma Curricular · Facultad de Economía · Universidad del Rosario</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Raleway:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --ur-red:      #DA0921;
+  --ur-red-dark: #A80018;
+  --ur-purple:   #3100A0;
+  --ur-navy:     #190056;
+  --ur-white:    #FFFFFF;
+  --ur-gray-f:   #F5F4F2;
+  --ur-gray-e:   #E8E5E0;
+  --ur-gray-70:  #4D4D4D;
+  --ur-gray-50:  #808080;
+  --header-h:    56px;
+  --nav-h:       44px;
+  --total-h:     calc(var(--header-h) + var(--nav-h));
+}
+html, body { height: 100%; font-family: Calibri, 'Trebuchet MS', Arial, sans-serif; background: var(--ur-gray-f); color: var(--ur-gray-70); }
 
-  :root {
-    --navy:    #1A1714;
-    --crimson: #C00000;
-    --accent:  #C8B560;
-    --surface: #FFFFFF;
-    --border:  #E2DDD6;
-    --text:    #1A1714;
-    --muted:   #7A756F;
-    --bar-h:   48px;
-  }
+/* ── HEADER ─────────────────────────────────────────── */
+.header {
+  height: var(--header-h);
+  background: var(--ur-red);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 1.5rem;
+  position: sticky; top: 0; z-index: 400;
+  box-shadow: 0 2px 8px rgba(0,0,0,.25);
+}
+.header-brand { display: flex; align-items: center; gap: 1rem; }
+.ur-escudo { width: 34px; height: 34px; flex-shrink: 0; opacity: .92; }
+.header-text { display: flex; flex-direction: column; gap: 1px; }
+.header-univ { font-size: .65rem; font-weight: 400; color: rgba(255,255,255,.8); letter-spacing: .08em; text-transform: uppercase; }
+.header-rosario { font-family: 'Bebas Neue', sans-serif; font-size: 1.35rem; color: var(--ur-white); letter-spacing: .04em; line-height: 1; }
+.header-divider { width: 1px; height: 28px; background: rgba(255,255,255,.35); margin: 0 .5rem; }
+.header-dept { display: flex; flex-direction: column; gap: 1px; }
+.header-dept-label { font-size: .58rem; color: rgba(255,255,255,.65); letter-spacing: .06em; text-transform: uppercase; }
+.header-dept-name  { font-size: .8rem; font-weight: 600; color: rgba(255,255,255,.95); }
+.header-meta { display: flex; align-items: center; gap: .5rem; }
+.header-badge { font-size: .62rem; font-weight: 700; padding: 3px 8px; border-radius: 3px; letter-spacing: .04em; text-transform: uppercase; background: rgba(255,255,255,.18); color: rgba(255,255,255,.9); border: 1px solid rgba(255,255,255,.25); }
+.header-year { font-family: 'Bebas Neue', sans-serif; font-size: 1.1rem; color: rgba(255,255,255,.55); letter-spacing: .05em; }
 
-  html, body { height: 100%; font-family: 'DM Sans', sans-serif; background: #F7F5F0; }
+/* ── NAVBAR ─────────────────────────────────────────── */
+.navbar {
+  height: var(--nav-h);
+  background: var(--ur-navy);
+  display: flex; align-items: stretch;
+  padding: 0 1.5rem; gap: 0;
+  position: sticky; top: var(--header-h); z-index: 300;
+  border-bottom: 2px solid var(--ur-purple);
+  overflow-x: auto; scrollbar-width: none;
+}
+.navbar::-webkit-scrollbar { display: none; }
 
-  /* ── ÚNICA BARRA ─────────────────────────────── */
-  .topbar {
-    height: var(--bar-h);
-    background: var(--navy);
-    display: flex;
-    align-items: stretch;
-    padding: 0 1.25rem 0 1rem;
-    gap: 0;
-    position: sticky;
-    top: 0;
-    z-index: 300;
-  }
+.nav-group-label {
+  display: flex; align-items: center;
+  padding: 0 .75rem 0 0;
+  font-size: .58rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
+  color: rgba(255,255,255,.28); white-space: nowrap;
+  border-right: 1px solid rgba(255,255,255,.1); margin-right: .5rem;
+}
+.tab-btn {
+  display: flex; align-items: center; gap: .45rem;
+  padding: 0 .9rem;
+  border: none; border-bottom: 3px solid transparent;
+  background: none; cursor: pointer;
+  font-family: Calibri, 'Trebuchet MS', Arial, sans-serif;
+  color: rgba(255,255,255,.45); font-size: .78rem; font-weight: 500;
+  white-space: nowrap; flex-shrink: 0;
+  transition: color .15s, border-color .15s, background .15s;
+}
+.tab-btn:hover { color: rgba(255,255,255,.85); background: rgba(255,255,255,.05); }
+.tab-btn.active { color: #fff; border-bottom-color: var(--ur-red); background: rgba(218,9,33,.08); }
 
-  /* Tabs */
-  .tab-btn {
-    display: flex;
-    align-items: center;
-    gap: .5rem;
-    padding: 0 1rem;
-    border: none;
-    border-bottom: 2px solid transparent;
-    background: none;
-    cursor: pointer;
-    font-family: 'DM Sans', sans-serif;
-    color: rgba(255,255,255,.45);
-    font-size: .75rem;
-    font-weight: 500;
-    white-space: nowrap;
-    transition: color .15s, border-color .15s;
-  }
-  .tab-btn:hover { color: rgba(255,255,255,.8); }
-  .tab-btn.active {
-    color: #fff;
-    border-bottom-color: var(--accent);
-  }
+.tab-chip {
+  font-size: .6rem; font-weight: 700;
+  font-family: 'Bebas Neue', monospace; letter-spacing: .05em;
+  padding: 1px 6px; border-radius: 2px; flex-shrink: 0;
+}
+.chip-nueva  { background: rgba(218,9,33,.45);  color: #ffb0b8; }
+.chip-art    { background: rgba(49,0,160,.5);   color: #c0a8ff; }
+.chip-blq    { background: rgba(6,95,70,.5);    color: #a7f3d0; }
+.chip-ref    { background: rgba(49,0,160,.35);  color: #b8c8ff; }
 
-  .tab-chip {
-    font-size: 9px;
-    font-weight: 700;
-    font-family: 'DM Mono', monospace;
-    padding: 1px 5px;
-    border-radius: 3px;
-  }
-  .chip-ur  { background: rgba(184,68,68,.35);  color: #ffb3b3; }
-  .chip-ref { background: rgba(12,68,124,.35);  color: #90c4f8; }
+.tab-tag {
+  font-size: .58rem; padding: 1px 5px; border-radius: 100px;
+  font-weight: 600; letter-spacing: .01em;
+}
+.tag-nueva { background: rgba(218,9,33,.2);   color: #ff8a96; }
+.tag-ref   { background: rgba(49,0,160,.3);   color: #a899ff; }
 
-  .tab-tag {
-    font-size: .63rem;
-    padding: 1px 6px;
-    border-radius: 100px;
-    font-weight: 500;
-    letter-spacing: .01em;
-  }
-  .tag-propuesta { background: rgba(200,181,96,.2); color: var(--accent); }
-  .tag-ref       { background: rgba(100,160,255,.15); color: #90c4f8; }
+.nav-sep { width: 1px; background: rgba(255,255,255,.1); margin: 10px 4px; flex-shrink: 0; }
 
-  /* ── IFRAMES ─────────────────────────────────── */
-  .pane {
-    display: none;
-    width: 100%;
-    height: calc(100vh - var(--bar-h));
-  }
-  .pane.active { display: block; }
-
-  iframe {
-    width: 100%;
-    height: 100%;
-    border: none;
-    display: block;
-  }
+/* ── PANES ──────────────────────────────────────────── */
+.pane { display: none; width: 100%; height: calc(100vh - var(--total-h)); }
+.pane.active { display: block; }
+iframe { width: 100%; height: 100%; border: none; display: block; }
 </style>
 </head>
 <body>
 
-<nav class="topbar" role="tablist" aria-label="Vistas de análisis">
+<!-- ── HEADER INSTITUCIONAL ─────────────────────────── -->
+<header class="header">
+  <div class="header-brand">
+    <svg class="ur-escudo" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <ellipse cx="40" cy="36" rx="27" ry="30" fill="none" stroke="rgba(255,255,255,.85)" stroke-width="2.5"/>
+      <ellipse cx="40" cy="36" rx="19" ry="22" fill="none" stroke="rgba(255,255,255,.55)" stroke-width="1.5"/>
+      <line x1="40" y1="16" x2="40" y2="56" stroke="rgba(255,255,255,.8)" stroke-width="2"/>
+      <line x1="22" y1="36" x2="58" y2="36" stroke="rgba(255,255,255,.8)" stroke-width="2"/>
+      <circle cx="40" cy="14" r="3.5" fill="rgba(255,255,255,.7)"/>
+      <circle cx="40" cy="58" r="3.5" fill="rgba(255,255,255,.7)"/>
+      <circle cx="20" cy="36" r="3.5" fill="rgba(255,255,255,.7)"/>
+      <circle cx="60" cy="36" r="3.5" fill="rgba(255,255,255,.7)"/>
+      <path d="M28,10 L32,6 L36,9 L40,5 L44,9 L48,6 L52,10 L48,12 L40,10 L32,12 Z" fill="rgba(255,255,255,.6)"/>
+      <rect x="37" y="58" width="6" height="8" rx="1" fill="rgba(255,255,255,.6)"/>
+    </svg>
+    <div class="header-text">
+      <span class="header-univ">Universidad del</span>
+      <span class="header-rosario">Rosario</span>
+    </div>
+    <div class="header-divider"></div>
+    <div class="header-dept">
+      <span class="header-dept-label">Decanatura</span>
+      <span class="header-dept-name">Facultad de Economía</span>
+    </div>
+  </div>
+  <div class="header-meta">
+    <span class="header-badge">Reforma Curricular</span>
+    <span class="header-year">2026</span>
+  </div>
+</header>
 
-  <button class="tab-btn active"
-          role="tab" aria-selected="true"
-          aria-controls="pane-ur" id="tab-ur"
-          onclick="switchTab('ur')">
-    <span class="tab-chip chip-ur">UR</span>
-    Propuesta de mallas v3
-    <span class="tab-tag tag-propuesta">Propuesta</span>
+<!-- ── NAV TABS ─────────────────────────────────────── -->
+<nav class="navbar" role="tablist" aria-label="Vistas de análisis curricular">
+
+  <span class="nav-group-label">Reforma</span>
+
+  <button class="tab-btn active" role="tab" aria-selected="true"
+          aria-controls="pane-mallas" id="tab-mallas"
+          onclick="switchTab('mallas')">
+    <span class="tab-chip chip-nueva">MALLAS</span>
+    Semestre a semestre
+    <span class="tab-tag tag-nueva">4 programas</span>
   </button>
 
-  <button class="tab-btn"
-          role="tab" aria-selected="false"
+  <button class="tab-btn" role="tab" aria-selected="false"
+          aria-controls="pane-art" id="tab-art"
+          onclick="switchTab('art')">
+    <span class="tab-chip chip-art">ART</span>
+    Articulación
+  </button>
+
+  <button class="tab-btn" role="tab" aria-selected="false"
+          aria-controls="pane-blq" id="tab-blq"
+          onclick="switchTab('blq')">
+    <span class="tab-chip chip-blq">BLQ</span>
+    Créditos por bloque
+  </button>
+
+  <div class="nav-sep"></div>
+  <span class="nav-group-label">Referencia</span>
+
+  <button class="tab-btn" role="tab" aria-selected="false"
           aria-controls="pane-ice" id="tab-ice"
           onclick="switchTab('ice')">
     <span class="tab-chip chip-ref">IC</span>
     Mallas Icesi
-    <span class="tab-tag tag-ref">Referencia comparativa</span>
+    <span class="tab-tag tag-ref">Comparativa</span>
   </button>
-
 
 </nav>
 
-<div class="pane active" id="pane-ur" role="tabpanel" aria-labelledby="tab-ur">
-  <iframe src="mallas_ur_v3.html" title="Propuesta mallas UR v3" loading="eager"></iframe>
+<!-- ── PANES ─────────────────────────────────────────── -->
+<div class="pane active" id="pane-mallas" role="tabpanel" aria-labelledby="tab-mallas">
+  <iframe src="web/mallas_programas.html" title="Mallas por programa — semestre a semestre" loading="eager"></iframe>
+</div>
+
+<div class="pane" id="pane-art" role="tabpanel" aria-labelledby="tab-art">
+  <iframe src="web/articulacion.html" title="Articulación entre programas" loading="lazy"></iframe>
+</div>
+
+<div class="pane" id="pane-blq" role="tabpanel" aria-labelledby="tab-blq">
+  <iframe src="web/bloques.html" title="Créditos por bloque" loading="lazy"></iframe>
 </div>
 
 <div class="pane" id="pane-ice" role="tabpanel" aria-labelledby="tab-ice">
-  <iframe src="icesi_mallas_comparativo.html" title="Mallas Icesi — referencia comparativa" loading="lazy"></iframe>
+  <iframe src="web/icesi_mallas_comparativo.html" title="Mallas Icesi — referencia comparativa" loading="lazy"></iframe>
 </div>
 
 <script>
+  const TABS = ['mallas','art','blq','ice'];
   function switchTab(key) {
-    document.querySelectorAll('.tab-btn').forEach(btn => {
-      const on = btn.id === 'tab-' + key;
-      btn.classList.toggle('active', on);
-      btn.setAttribute('aria-selected', on);
-    });
-    document.querySelectorAll('.pane').forEach(p => {
-      p.classList.toggle('active', p.id === 'pane-' + key);
+    TABS.forEach(k => {
+      const btn  = document.getElementById('tab-' + k);
+      const pane = document.getElementById('pane-' + k);
+      const on   = k === key;
+      if (btn)  { btn.classList.toggle('active', on); btn.setAttribute('aria-selected', on); }
+      if (pane) { pane.classList.toggle('active', on); }
     });
     history.replaceState(null, '', '#' + key);
   }
   (function () {
-    const h = location.hash.replace('#', '');
-    if (h === 'ice' || h === 'ur') switchTab(h);
+    const h = location.hash.replace('#','');
+    if (TABS.includes(h)) switchTab(h);
   })();
 </script>
-
 </body>
 </html>

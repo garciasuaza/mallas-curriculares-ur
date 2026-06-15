@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Articulación entre Programas · Facultad de Economía UR</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Raleway:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --ur-red:    #DA0921; --ur-purple: #3100A0; --ur-navy: #190056;
+  --ur-gray-f: #F5F4F2; --ur-gray-e: #E8E5E0;
+  --ur-gray-70:#4D4D4D; --ur-gray-50:#808080;
+}
+html, body { font-family: Calibri, 'Trebuchet MS', Arial, sans-serif; background: var(--ur-gray-f); color: var(--ur-gray-70); }
+.page { padding: 1.5rem; }
+
+/* ── KPIs ─────────────────────────────────────── */
+.kpi-row { display: flex; gap: .75rem; flex-wrap: wrap; margin-bottom: 1.5rem; }
+.kpi { background: #fff; border: 1px solid var(--ur-gray-e); border-radius: 4px; padding: .75rem 1rem; min-width: 140px; flex: 1; }
+.kpi-val { font-family: 'Bebas Neue', sans-serif; font-size: 2rem; color: var(--ur-red); letter-spacing: .04em; line-height: 1; }
+.kpi-label { font-size: .68rem; color: var(--ur-gray-50); margin-top: 2px; line-height: 1.35; }
+
+/* ── SECTION TOGGLE ───────────────────────────── */
+.art-section { margin-bottom: .75rem; }
+.sec-toggle {
+  width: 100%; display: flex; align-items: center; justify-content: space-between;
+  background: #fff; border: 1px solid var(--ur-gray-e); border-radius: 4px;
+  padding: .65rem 1rem; cursor: pointer; gap: .75rem; text-align: left;
+  transition: background .12s;
+}
+.sec-toggle:hover { background: var(--ur-gray-f); }
+.art-section.open .sec-toggle { border-radius: 4px 4px 0 0; border-bottom-color: transparent; }
+.sec-left { display: flex; align-items: center; gap: .75rem; flex-wrap: wrap; }
+.sec-badge { font-family: 'Bebas Neue', sans-serif; font-size: .9rem; letter-spacing: .05em; padding: 2px 10px; border-radius: 3px; color: #fff; white-space: nowrap; }
+.sec-label { font-size: .8rem; font-weight: 600; color: var(--ur-gray-70); }
+.sec-cr { font-size: .72rem; color: var(--ur-gray-50); }
+.sec-chevron { font-size: 1rem; color: var(--ur-gray-50); transition: transform .18s; flex-shrink: 0; }
+.art-section:not(.open) .sec-chevron { transform: rotate(-90deg); }
+
+.sec-body { display: none; background: #fff; border: 1px solid var(--ur-gray-e); border-top: none; border-radius: 0 0 4px 4px; overflow: auto; }
+.art-section.open .sec-body { display: block; }
+
+/* ── TABLE ─────────────────────────────────────── */
+.art-table { width: 100%; border-collapse: collapse; }
+.art-table th { font-size: .64rem; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; padding: 7px 10px; background: var(--ur-navy); color: rgba(255,255,255,.85); text-align: center; white-space: nowrap; }
+.art-table th.left { text-align: left; }
+.art-table td { padding: 6px 10px; border-bottom: .5px solid var(--ur-gray-e); font-size: .78rem; vertical-align: middle; text-align: center; white-space: nowrap; }
+.art-table tr:last-child td { border-bottom: none; }
+.art-table tr:hover td { background: var(--ur-gray-f); }
+.art-table td.nombre { font-weight: 500; color: var(--ur-gray-70); text-align: left; white-space: normal; }
+.art-table td.cr { font-weight: 700; }
+.art-table td.sem { font-size: .72rem; color: var(--ur-gray-50); }
+.art-table td.absent { color: var(--ur-gray-e); font-size: .7rem; }
+
+/* Sub-header row dentro de la tabla */
+.art-table tr.subhead td {
+  background: var(--ur-gray-f); font-size: .62rem; font-weight: 700;
+  text-transform: uppercase; letter-spacing: .07em; color: var(--ur-gray-50);
+  padding: 5px 10px; text-align: left; border-bottom: .5px solid var(--ur-gray-e);
+}
+
+/* ── MATRIX ─────────────────────────────────────── */
+.matrix-table { border-collapse: collapse; width: 100%; }
+.matrix-table th, .matrix-table td { padding: 8px 14px; font-size: .75rem; border: .5px solid var(--ur-gray-e); }
+.matrix-table thead th { background: var(--ur-navy); color: rgba(255,255,255,.85); font-weight: 600; text-align: center; }
+.matrix-table thead th:first-child { text-align: left; }
+.matrix-table tbody th { background: var(--ur-gray-f); font-weight: 600; color: var(--ur-gray-70); font-size: .72rem; }
+.matrix-table td { text-align: center; font-weight: 700; }
+.matrix-table td.self { background: var(--ur-gray-e); color: var(--ur-gray-50); font-size: .65rem; font-weight: 400; font-style: italic; }
+
+.nota { margin-top: .75rem; background: #F0F9FF; border-left: 3px solid #3100A0; padding: 8px 12px; border-radius: 3px; font-size: .72rem; color: #190056; line-height: 1.5; }
+</style>
+</head>
+<body>
+<div class="page">
+
+<div class="kpi-row" id="kpi-row"></div>
+
+<!-- ── SECCIÓN 4 PROGRAMAS ──────────────────────── -->
+<div class="art-section open" id="sec-4">
+  <button class="sec-toggle" onclick="toggleSec('sec-4')">
+    <div class="sec-left">
+      <span class="sec-badge" style="background:#DA0921">4 PROGRAMAS</span>
+      <span class="sec-label">Cursos presentes en ANI · ECON · FIN · MND</span>
+      <span class="sec-cr" id="cr-4"></span>
+    </div>
+    <span class="sec-chevron">▾</span>
+  </button>
+  <div class="sec-body">
+    <table class="art-table">
+      <thead><tr>
+        <th class="left" style="width:52%">Curso</th>
+        <th>Cr.</th>
+        <th>S. ANI</th>
+        <th>S. ECON</th>
+        <th>S. FIN</th>
+        <th>S. MND</th>
+      </tr></thead>
+      <tbody id="body-4"></tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ── SECCIÓN 3 PROGRAMAS ──────────────────────── -->
+<div class="art-section open" id="sec-3">
+  <button class="sec-toggle" onclick="toggleSec('sec-3')">
+    <div class="sec-left">
+      <span class="sec-badge" style="background:#3100A0">3 PROGRAMAS</span>
+      <span class="sec-label">Cursos presentes en tres de los cuatro programas</span>
+      <span class="sec-cr" id="cr-3"></span>
+    </div>
+    <span class="sec-chevron">▾</span>
+  </button>
+  <div class="sec-body">
+    <table class="art-table">
+      <thead><tr>
+        <th class="left" style="width:46%">Curso</th>
+        <th>Cr.</th>
+        <th>S. ANI</th>
+        <th>S. ECON</th>
+        <th>S. FIN</th>
+        <th>S. MND</th>
+      </tr></thead>
+      <tbody id="body-3"></tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ── SECCIÓN ANI · MND ─────────────────────────── -->
+<div class="art-section open" id="sec-ani-mnd">
+  <button class="sec-toggle" onclick="toggleSec('sec-ani-mnd')">
+    <div class="sec-left">
+      <span class="sec-badge" style="background:#065F46">ANI · MND</span>
+      <span class="sec-label">Cursos exclusivos del par ANI – Marketing y Negocios Digitales</span>
+      <span class="sec-cr" id="cr-ani-mnd"></span>
+    </div>
+    <span class="sec-chevron">▾</span>
+  </button>
+  <div class="sec-body">
+    <table class="art-table">
+      <thead><tr>
+        <th class="left" style="width:60%">Curso</th>
+        <th>Cr.</th>
+        <th>S. ANI</th>
+        <th>S. MND</th>
+      </tr></thead>
+      <tbody id="body-ani-mnd"></tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ── SECCIÓN ECON · FIN ────────────────────────── -->
+<div class="art-section open" id="sec-econ-fin">
+  <button class="sec-toggle" onclick="toggleSec('sec-econ-fin')">
+    <div class="sec-left">
+      <span class="sec-badge" style="background:#B8460A">ECON · FIN</span>
+      <span class="sec-label">Cursos exclusivos del par Economía – Finanzas</span>
+      <span class="sec-cr" id="cr-econ-fin"></span>
+    </div>
+    <span class="sec-chevron">▾</span>
+  </button>
+  <div class="sec-body">
+    <table class="art-table">
+      <thead><tr>
+        <th class="left" style="width:60%">Curso</th>
+        <th>Cr.</th>
+        <th>S. ECON</th>
+        <th>S. FIN</th>
+      </tr></thead>
+      <tbody id="body-econ-fin"></tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ── MATRIZ ────────────────────────────────────── -->
+<div class="art-section open" id="sec-matrix">
+  <button class="sec-toggle" onclick="toggleSec('sec-matrix')">
+    <div class="sec-left">
+      <span class="sec-badge" style="background:#4D4D4D">MATRIZ</span>
+      <span class="sec-label">Créditos compartidos por par de programas</span>
+    </div>
+    <span class="sec-chevron">▾</span>
+  </button>
+  <div class="sec-body">
+    <table class="matrix-table" id="matrix"></table>
+  </div>
+</div>
+
+<div class="nota">
+  <strong>Metodología:</strong> Equivalencias confirmadas por el equipo (junio 2026). Cursos identificados como equivalentes entre programas se unificaron bajo el nombre canónico. La matriz contabiliza créditos compartidos como proporción del programa menor de cada par.
+</div>
+
+</div>
+
+<script>
+// ═══════════════════════════════════════════════════════
+//  DATOS
+// ═══════════════════════════════════════════════════════
+
+const SHARED = [
+  // ── 4 PROGRAMAS ─────────────────────────────────────
+  { g:4, n:'Cátedra Rosarista',                              cr:2,  ANI:1,  ECON:1,  FIN:1,  MND:1  },
+  { g:4, n:'Ética',                                          cr:2,  ANI:1,  ECON:1,  FIN:1,  MND:1  },
+  { g:4, n:'Precálculo',                                     cr:3,  ANI:1,  ECON:1,  FIN:1,  MND:1  },
+  { g:4, n:'Economía, negocios y sociedad',                  cr:3,  ANI:1,  ECON:1,  FIN:1,  MND:1  },
+  { g:4, n:'Lógica y Matemática discretas',                  cr:3,  ANI:2,  ECON:1,  FIN:1,  MND:2  },
+  { g:4, n:'Cálculo I',                                      cr:3,  ANI:2,  ECON:2,  FIN:2,  MND:2  },
+  { g:4, n:'Comunicación profesional',                       cr:3,  ANI:2,  ECON:2,  FIN:2,  MND:2  },
+  { g:4, n:'Probabilidad y Estadística',                     cr:3,  ANI:3,  ECON:3,  FIN:3,  MND:3  },
+  { g:4, n:'Programación y análisis de datos',               cr:3,  ANI:3,  ECON:1,  FIN:1,  MND:3  },
+  { g:4, n:'Principios de Microeconomía',                    cr:3,  ANI:4,  ECON:2,  FIN:3,  MND:4  },
+  { g:4, n:'Constitución Política e Instrucción Cívica',     cr:2,  ANI:6,  ECON:4,  FIN:2,  MND:6  },
+  { g:4, n:'Electiva HM',                                    cr:2,  ANI:'4–5', ECON:'3–4', FIN:'2–3–4', MND:'4–5' },
+
+  // ── 3 PROGRAMAS: ANI · ECON · MND ───────────────────
+  { g:'3-aem', n:'Electiva HM — Núcleo Mutis',              cr:2,  ANI:3,  ECON:1,  FIN:null, MND:3 },
+  { g:'3-aem', n:'Desafíos contemporáneos / Proyecto integrador', cr:3, ANI:7, ECON:6, FIN:null, MND:7 },
+
+  // ── 3 PROGRAMAS: ANI · FIN · MND ────────────────────
+  { g:'3-afm', n:'Finanzas Corporativas',                    cr:3,  ANI:5,  ECON:null, FIN:4, MND:5 },
+  { g:'3-afm', n:'Matemáticas Financieras y Decisiones de Inversión', cr:3, ANI:4, ECON:null, FIN:2, MND:4 },
+  { g:'3-afm', n:'Contabilidad y Análisis Financiero',       cr:3,  ANI:2,  ECON:null, FIN:2, MND:2 },
+
+  // ── 2 PROGRAMAS: ANI · MND ──────────────────────────
+  { g:'ani-mnd', n:'Scaling Management',                     cr:2,  ANI:1,  MND:1  },
+  { g:'ani-mnd', n:'Marketing',                              cr:2,  ANI:1,  MND:1  },
+  { g:'ani-mnd', n:'Liderazgo en la era digital',            cr:2,  ANI:3,  MND:3  },
+  { g:'ani-mnd', n:'Innovación y Emprendimiento',            cr:2,  ANI:3,  MND:3  },
+  { g:'ani-mnd', n:'Sustainability Management',              cr:2,  ANI:4,  MND:4  },
+  { g:'ani-mnd', n:'Data Driven & Decision Making',          cr:3,  ANI:4,  MND:4  },
+  { g:'ani-mnd', n:'Strategic Management',                   cr:2,  ANI:5,  MND:5  },
+  { g:'ani-mnd', n:'Project Management',                     cr:2,  ANI:6,  MND:6  },
+  { g:'ani-mnd', n:'Digital Business Models',                cr:2,  ANI:6,  MND:6  },
+
+  // ── 2 PROGRAMAS: ECON · FIN ─────────────────────────
+  { g:'econ-fin', n:'Principios de Macroeconomía',           cr:3,  ECON:2, FIN:3  },
+  { g:'econ-fin', n:'Cálculo II',                            cr:3,  ECON:3, FIN:3  },
+  { g:'econ-fin', n:'Álgebra Lineal',                        cr:3,  ECON:4, FIN:2  },
+  { g:'econ-fin', n:'Métodos de Optimización',               cr:3,  ECON:4, FIN:4  },
+  { g:'econ-fin', n:'Econometría y Análisis de Regresión',   cr:3,  ECON:5, FIN:5  },
+];
+
+// ═══════════════════════════════════════════════════════
+//  TOGGLE
+// ═══════════════════════════════════════════════════════
+
+function toggleSec(id) {
+  document.getElementById(id).classList.toggle('open');
+}
+
+// ═══════════════════════════════════════════════════════
+//  HELPERS
+// ═══════════════════════════════════════════════════════
+
+const PROGS = ['ANI','ECON','FIN','MND'];
+const TOTALS = { ANI:140, ECON:128, FIN:126, MND:140 };
+
+function semCell(val) {
+  if (val == null) return `<td class="absent">—</td>`;
+  return `<td class="sem">S${val}</td>`;
+}
+function sumCr(groupTest) {
+  return SHARED.filter(c => groupTest(c)).reduce((a,c) => a+c.cr, 0);
+}
+function countC(groupTest) {
+  return SHARED.filter(c => groupTest(c)).length;
+}
+function crLabel(id, groupTest) {
+  const cr = sumCr(groupTest);
+  const n  = countC(groupTest);
+  document.getElementById(id).textContent = `${n} curso${n!==1?'s':''} · ${cr} cr compartidos`;
+}
+
+// ═══════════════════════════════════════════════════════
+//  RENDER GROUPS
+// ═══════════════════════════════════════════════════════
+
+function renderG4() {
+  const tbody = document.getElementById('body-4');
+  SHARED.filter(c => c.g === 4).forEach(c => {
+    const tr = document.createElement('tr');
+    tr.innerHTML = `<td class="nombre">${c.n}</td><td class="cr">${c.cr}</td>${semCell(c.ANI)}${semCell(c.ECON)}${semCell(c.FIN)}${semCell(c.MND)}`;
+    tbody.appendChild(tr);
+  });
+}
+
+function renderG3() {
+  const tbody = document.getElementById('body-3');
+
+  const sub1 = SHARED.filter(c => c.g === '3-aem');
+  const sub2 = SHARED.filter(c => c.g === '3-afm');
+
+  function subHead(label) {
+    const tr = document.createElement('tr');
+    tr.className = 'subhead';
+    tr.innerHTML = `<td colspan="6">${label}</td>`;
+    tbody.appendChild(tr);
+  }
+
+  subHead('ANI · ECON · MND (sin Finanzas)');
+  sub1.forEach(c => {
+    const tr = document.createElement('tr');
+    tr.innerHTML = `<td class="nombre">${c.n}</td><td class="cr">${c.cr}</td>${semCell(c.ANI)}${semCell(c.ECON)}${semCell(c.FIN)}${semCell(c.MND)}`;
+    tbody.appendChild(tr);
+  });
+
+  subHead('ANI · FIN · MND (sin Economía)');
+  sub2.forEach(c => {
+    const tr = document.createElement('tr');
+    tr.innerHTML = `<td class="nombre">${c.n}</td><td class="cr">${c.cr}</td>${semCell(c.ANI)}${semCell(c.ECON)}${semCell(c.FIN)}${semCell(c.MND)}`;
+    tbody.appendChild(tr);
+  });
+}
+
+function renderPair(group, bodyId, prog1, prog2) {
+  const tbody = document.getElementById(bodyId);
+  SHARED.filter(c => c.g === group).forEach(c => {
+    const tr = document.createElement('tr');
+    tr.innerHTML = `<td class="nombre">${c.n}</td><td class="cr">${c.cr}</td><td class="sem">S${c[prog1]}</td><td class="sem">S${c[prog2]}</td>`;
+    tbody.appendChild(tr);
+  });
+}
+
+// ═══════════════════════════════════════════════════════
+//  KPIs
+// ═══════════════════════════════════════════════════════
+
+function renderKPIs() {
+  const g4test    = c => c.g === 4;
+  const g3test    = c => c.g === '3-aem' || c.g === '3-afm';
+  const animndT   = c => c.g === 'ani-mnd';
+  const econfinT  = c => c.g === 'econ-fin';
+  const totalTest = () => true;
+
+  const kpis = [
+    { val: countC(totalTest), label: 'cursos compartidos\nentre programas' },
+    { val: sumCr(g4test) + ' cr', label: `en ${countC(g4test)} cursos presentes\nen los 4 programas` },
+    { val: sumCr(animndT) + ' cr', label: `adicionales compartidos\nentre ANI y MND` },
+    { val: sumCr(econfinT) + ' cr', label: `adicionales compartidos\nentre ECON y Finanzas` },
+  ];
+  const row = document.getElementById('kpi-row');
+  kpis.forEach(k => {
+    const div = document.createElement('div');
+    div.className = 'kpi';
+    div.innerHTML = `<div class="kpi-val">${k.val}</div><div class="kpi-label">${k.label.replace('\n','<br>')}</div>`;
+    row.appendChild(div);
+  });
+}
+
+// ═══════════════════════════════════════════════════════
+//  MATRIX
+// ═══════════════════════════════════════════════════════
+
+function renderMatrix() {
+  const pairs = { 'ANI-ECON':0, 'ANI-FIN':0, 'ANI-MND':0, 'ECON-FIN':0, 'ECON-MND':0, 'FIN-MND':0 };
+  SHARED.forEach(c => {
+    const present = PROGS.filter(p => c[p] != null);
+    for (let i = 0; i < present.length; i++)
+      for (let j = i+1; j < present.length; j++) {
+        const key = [present[i], present[j]].sort().join('-');
+        if (key in pairs) pairs[key] += c.cr;
+      }
+  });
+
+  const tbl = document.getElementById('matrix');
+  let html = '<thead><tr><th style="text-align:left">Programa</th>';
+  PROGS.forEach(p => { html += `<th>${p}</th>`; });
+  html += '</tr></thead><tbody>';
+  PROGS.forEach(row => {
+    html += `<tr><th style="background:var(--ur-gray-f);font-weight:600;font-size:.72rem;padding:8px 14px">${row}</th>`;
+    PROGS.forEach(col => {
+      if (row === col) {
+        html += `<td class="self">${TOTALS[row]} cr</td>`;
+      } else {
+        const key = [row,col].sort().join('-');
+        const shared = pairs[key] || 0;
+        const pct = Math.round(shared / Math.min(TOTALS[row], TOTALS[col]) * 100);
+        const intensity = Math.min(255, Math.round(255 - (pct/50)*180));
+        const bg = `rgb(${intensity},${Math.round(intensity*.9)},255)`;
+        html += `<td style="background:${bg};color:${intensity<150?'#fff':'#190056'}">${shared} cr<br><span style="font-size:.62rem;font-weight:400">${pct}%</span></td>`;
+      }
+    });
+    html += '</tr>';
+  });
+  html += '</tbody>';
+  tbl.innerHTML = html;
+}
+
+// ═══════════════════════════════════════════════════════
+//  INIT
+// ═══════════════════════════════════════════════════════
+
+renderKPIs();
+renderG4();
+renderG3();
+renderPair('ani-mnd',  'body-ani-mnd',  'ANI','MND');
+renderPair('econ-fin', 'body-econ-fin', 'ECON','FIN');
+renderMatrix();
+
+crLabel('cr-4',       c => c.g === 4);
+crLabel('cr-3',       c => c.g === '3-aem' || c.g === '3-afm');
+crLabel('cr-ani-mnd', c => c.g === 'ani-mnd');
+crLabel('cr-econ-fin',c => c.g === 'econ-fin');
+</script>
+</body>
+</html>
