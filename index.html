@@ -87,6 +87,7 @@ html, body { height: 100%; font-family: Calibri, 'Trebuchet MS', Arial, sans-ser
 .chip-art    { background: var(--ur-purple); color: #fff; }
 .chip-blq    { background: #065F46;          color: #fff; }
 .chip-ref    { background: var(--ur-navy);   color: #fff; }
+.chip-nbc    { background: #3100A0;          color: #fff; }
 .chip-ped    { background: #E8670C;          color: #fff; }
 
 .tab-tag {
@@ -164,6 +165,13 @@ iframe { width: 100%; height: 100%; border: none; display: block; }
   </button>
 
   <button class="tab-btn" role="tab" aria-selected="false"
+          aria-controls="pane-nbc" id="tab-nbc"
+          onclick="switchTab('nbc')">
+    <span class="tab-chip chip-nbc">NBC</span>
+    Núcleo Básico Común
+  </button>
+
+  <button class="tab-btn" role="tab" aria-selected="false"
           aria-controls="pane-ped" id="tab-ped"
           onclick="switchTab('ped')">
     <span class="tab-chip chip-ped">PED</span>
@@ -196,6 +204,10 @@ iframe { width: 100%; height: 100%; border: none; display: block; }
   <iframe src="web/bloques.html" title="Créditos por bloque" loading="lazy"></iframe>
 </div>
 
+<div class="pane" id="pane-nbc" role="tabpanel" aria-labelledby="tab-nbc">
+  <iframe src="web/nbc.html" title="Núcleo Básico Común — cursos compartidos" loading="lazy"></iframe>
+</div>
+
 <div class="pane" id="pane-ped" role="tabpanel" aria-labelledby="tab-ped">
   <iframe src="web/pedagogia.html" title="Principios pedagógicos" loading="lazy"></iframe>
 </div>
@@ -205,7 +217,7 @@ iframe { width: 100%; height: 100%; border: none; display: block; }
 </div>
 
 <script>
-  const TABS = ['mallas','art','blq','ped','ice'];
+  const TABS = ['mallas','art','blq','nbc','ped','ice'];
   function switchTab(key) {
     TABS.forEach(k => {
       const btn  = document.getElementById('tab-' + k);

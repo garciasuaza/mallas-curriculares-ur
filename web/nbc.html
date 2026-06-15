@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Núcleo Básico Común · Facultad de Economía UR</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Raleway:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --ur-red:    #DA0921; --ur-purple: #3100A0; --ur-navy: #190056;
+  --ur-orange: #E8670C;
+  --nbc-color: #3100A0;
+  --ur-gray-f: #F5F4F2; --ur-gray-e: #E8E5E0;
+  --ur-gray-70:#4D4D4D; --ur-gray-50:#808080; --ur-white:#FFFFFF;
+}
+html, body { font-family: Calibri, 'Trebuchet MS', Arial, sans-serif; background: var(--ur-gray-f); color: var(--ur-gray-70); height: 100%; }
+
+/* ── LAYOUT ───────────────────────────────────────── */
+.shell { display: flex; flex-direction: column; height: 100vh; }
+
+/* ── TOP BAR ──────────────────────────────────────── */
+.topbar {
+  background: var(--ur-white);
+  border-bottom: 2px solid var(--ur-navy);
+  padding: .6rem 1.5rem;
+  flex-shrink: 0;
+}
+.topbar-inner { display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; }
+.topbar-badge {
+  font-family: 'Bebas Neue', sans-serif; font-size: .85rem; letter-spacing: .06em;
+  background: var(--nbc-color); color: #fff;
+  padding: 2px 10px; border-radius: 3px;
+}
+.topbar-title { font-size: .9rem; font-weight: 700; color: var(--ur-navy); }
+.topbar-desc  { font-size: .75rem; color: var(--ur-gray-50); }
+.topbar-pills { display: flex; gap: .35rem; margin-left: auto; flex-wrap: wrap; }
+.pill { font-size: .68rem; padding: 3px 9px; border-radius: 100px; font-weight: 600; }
+.pill-prog { background: rgba(49,0,160,.1); color: var(--nbc-color); }
+
+/* ── COURSE SELECTOR ──────────────────────────────── */
+.selector-bar {
+  background: var(--ur-white);
+  border-bottom: 1px solid var(--ur-gray-e);
+  padding: 0 1.5rem;
+  display: flex; gap: 0;
+  flex-shrink: 0;
+}
+.sel-btn {
+  padding: .6rem 1.2rem;
+  border: none; border-bottom: 3px solid transparent;
+  background: none; cursor: pointer;
+  font-family: Calibri, sans-serif; font-size: .8rem; font-weight: 500;
+  color: var(--ur-gray-50); white-space: nowrap;
+  transition: color .15s, border-color .15s;
+  display: flex; align-items: center; gap: .4rem;
+}
+.sel-btn:hover { color: var(--ur-navy); }
+.sel-btn.active { color: var(--nbc-color); border-bottom-color: var(--nbc-color); font-weight: 700; }
+.sel-num { font-family: 'Bebas Neue', sans-serif; font-size: 1rem; color: inherit; }
+
+/* ── MAIN CONTENT ─────────────────────────────────── */
+.main { flex: 1; display: flex; overflow: hidden; }
+
+/* ── LEFT PANEL ───────────────────────────────────── */
+.left-panel {
+  width: 420px; flex-shrink: 0;
+  overflow-y: auto;
+  border-right: 1px solid var(--ur-gray-e);
+  background: var(--ur-white);
+}
+.course-pane { display: none; padding: 1.25rem 1.5rem 2rem; }
+.course-pane.active { display: block; }
+
+/* ficha técnica */
+.ficha {
+  background: rgba(49,0,160,.04);
+  border: 1px solid rgba(49,0,160,.15);
+  border-radius: 6px;
+  padding: .9rem 1rem;
+  margin-bottom: 1.25rem;
+}
+.ficha-title {
+  font-family: 'Bebas Neue', sans-serif; font-size: 1.1rem; letter-spacing: .04em;
+  color: var(--ur-navy); margin-bottom: .6rem;
+}
+.ficha-grid { display: grid; grid-template-columns: 1fr 1fr; gap: .35rem .75rem; }
+.ficha-row { display: flex; flex-direction: column; }
+.ficha-label { font-size: .62rem; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; color: var(--ur-gray-50); }
+.ficha-val   { font-size: .8rem; font-weight: 600; color: var(--ur-gray-70); }
+.ficha-row.full { grid-column: 1/-1; }
+
+/* programas pills */
+.prog-pills { display: flex; flex-wrap: wrap; gap: .3rem; margin-top: .25rem; }
+.prog-pill { font-size: .68rem; padding: 2px 8px; border-radius: 100px; font-weight: 600; background: rgba(49,0,160,.12); color: var(--nbc-color); }
+
+/* RAE */
+.block-title {
+  font-family: 'Bebas Neue', sans-serif; font-size: .95rem; letter-spacing: .05em;
+  color: var(--ur-navy); margin-bottom: .65rem;
+  padding-bottom: .3rem; border-bottom: 2px solid var(--ur-gray-e);
+}
+.rae-list { list-style: none; margin-bottom: 1.25rem; }
+.rae-item {
+  display: flex; gap: .6rem; align-items: flex-start;
+  padding: .45rem 0;
+  border-bottom: .5px solid var(--ur-gray-e);
+  font-size: .78rem; line-height: 1.55; color: var(--ur-gray-70);
+}
+.rae-item:last-child { border-bottom: none; }
+.rae-n {
+  flex-shrink: 0; width: 22px; height: 22px; border-radius: 50%;
+  background: var(--nbc-color); color: #fff;
+  font-size: .65rem; font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+  margin-top: 1px;
+}
+
+/* Unidades acordeón */
+.unidades-list { margin-bottom: 1.25rem; }
+.unidad-item { border-bottom: .5px solid var(--ur-gray-e); }
+.unidad-btn {
+  width: 100%; display: flex; align-items: center; justify-content: space-between; gap: .5rem;
+  padding: .5rem 0; background: none; border: none; cursor: pointer;
+  font-family: Calibri, sans-serif; font-size: .78rem; font-weight: 600;
+  color: var(--ur-navy); text-align: left;
+}
+.unidad-btn svg { width: 14px; height: 14px; flex-shrink: 0; transition: transform .2s; color: var(--ur-gray-50); }
+.unidad-btn.open svg { transform: rotate(180deg); }
+.unidad-body { display: none; padding: .4rem 0 .7rem; }
+.unidad-body.open { display: block; }
+.unidad-body ul { list-style: disc; padding-left: 1.2rem; }
+.unidad-body li { font-size: .75rem; line-height: 1.6; color: var(--ur-gray-70); padding: .1rem 0; }
+
+/* estrategias */
+.tag-list { display: flex; flex-wrap: wrap; gap: .35rem; margin-bottom: 1.25rem; }
+.tag { font-size: .72rem; padding: 3px 10px; border-radius: 100px; background: var(--ur-gray-f); border: 1px solid var(--ur-gray-e); color: var(--ur-gray-70); }
+
+/* ── RIGHT PANEL — PDF ────────────────────────────── */
+.right-panel { flex: 1; overflow: hidden; position: relative; background: #525659; }
+.pdf-pane { display: none; width: 100%; height: 100%; }
+.pdf-pane.active { display: block; }
+.pdf-pane iframe { width: 100%; height: 100%; border: none; }
+.pdf-placeholder {
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  height: 100%; gap: 1rem; color: rgba(255,255,255,.5);
+  font-size: .85rem;
+}
+.pdf-placeholder svg { width: 48px; height: 48px; opacity: .4; }
+
+/* scrollbar */
+.left-panel::-webkit-scrollbar { width: 5px; }
+.left-panel::-webkit-scrollbar-thumb { background: var(--ur-gray-e); border-radius: 3px; }
+</style>
+</head>
+<body>
+<div class="shell">
+
+<!-- ── TOP BAR ───────────────────────────────────── -->
+<div class="topbar">
+  <div class="topbar-inner">
+    <span class="topbar-badge">NBC</span>
+    <div>
+      <div class="topbar-title">Núcleo Básico Común de Escuela</div>
+      <div class="topbar-desc">Cursos compartidos por todos los programas · diseño y propósitos de formación</div>
+    </div>
+    <div class="topbar-pills">
+      <span class="pill pill-prog">ANI</span>
+      <span class="pill pill-prog">ECON</span>
+      <span class="pill pill-prog">FIN</span>
+      <span class="pill pill-prog">MND</span>
+    </div>
+  </div>
+</div>
+
+<!-- ── SELECTOR ───────────────────────────────────── -->
+<div class="selector-bar">
+  <button class="sel-btn active" onclick="switchCourse('micro')">
+    <span class="sel-num">01</span> Principios de Microeconomía
+  </button>
+  <button class="sel-btn" onclick="switchCourse('macro')">
+    <span class="sel-num">02</span> Principios de Macroeconomía
+  </button>
+  <button class="sel-btn" onclick="switchCourse('prob')">
+    <span class="sel-num">03</span> Probabilidad y Estadística
+  </button>
+</div>
+
+<!-- ── MAIN ───────────────────────────────────────── -->
+<div class="main">
+
+  <!-- LEFT PANEL -->
+  <div class="left-panel">
+
+    <!-- ── MICRO ─── -->
+    <div class="course-pane active" id="cp-micro">
+
+      <div class="ficha">
+        <div class="ficha-title">Principios de Microeconomía</div>
+        <div class="ficha-grid">
+          <div class="ficha-row"><span class="ficha-label">Créditos</span><span class="ficha-val">3</span></div>
+          <div class="ficha-row"><span class="ficha-label">Tipo</span><span class="ficha-val">Teórico</span></div>
+          <div class="ficha-row"><span class="ficha-label">Horas acompañamiento</span><span class="ficha-val">48 h / semestre</span></div>
+          <div class="ficha-row"><span class="ficha-label">Horas independiente</span><span class="ficha-val">96 h / semestre</span></div>
+          <div class="ficha-row full"><span class="ficha-label">Prerrequisitos</span><span class="ficha-val">Economía y Sociedad · Cálculo I</span></div>
+          <div class="ficha-row full">
+            <span class="ficha-label">Programas</span>
+            <div class="prog-pills">
+              <span class="prog-pill">ANI</span><span class="prog-pill">ECON</span><span class="prog-pill">FIN</span><span class="prog-pill">MND</span>
+              <span class="prog-pill" style="background:rgba(0,0,0,.07);color:var(--ur-gray-50)">Adm. Empresas</span>
+              <span class="prog-pill" style="background:rgba(0,0,0,.07);color:var(--ur-gray-50)">Negocios Int.</span>
+              <span class="prog-pill" style="background:rgba(0,0,0,.07);color:var(--ur-gray-50)">Marketing</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="block-title">Resultados de aprendizaje esperados</div>
+      <ul class="rae-list">
+        <li class="rae-item"><span class="rae-n">1</span>Analizar mercados utilizando los conceptos de demanda, oferta, equilibrio, elasticidad, excedentes e incidencia de impuestos o subsidios.</li>
+        <li class="rae-item"><span class="rae-n">2</span>Explicar decisiones de consumo a partir de preferencias, restricciones presupuestarias, utilidad, demanda y cambios en precios e ingreso.</li>
+        <li class="rae-item"><span class="rae-n">3</span>Analizar decisiones de producción de las empresas a partir de tecnología, productividad, costos, maximización de beneficios y oferta.</li>
+        <li class="rae-item"><span class="rae-n">4</span>Comparar los resultados de mercados competitivos, monopolios y otras estructuras de mercado en términos de precios, cantidades, rentabilidad, eficiencia y bienestar.</li>
+        <li class="rae-item"><span class="rae-n">5</span>Aplicar el análisis microeconómico a decisiones empresariales: fijación de precios, segmentación, entrada a mercados, regulación, innovación y estrategia competitiva.</li>
+        <li class="rae-item"><span class="rae-n">6</span>Identificar fallas de mercado —externalidades, bienes públicos, poder de mercado, información imperfecta— y discutir posibles respuestas privadas o de política pública.</li>
+      </ul>
+
+      <div class="block-title">Contenidos</div>
+      <div class="unidades-list">
+        <div class="unidad-item">
+          <button class="unidad-btn" onclick="toggleU(this)">
+            Unidad 1 · Pensar como microeconomista: decisiones, incentivos y mercados
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+          <div class="unidad-body"><ul>
+            <li>Escasez, elección y costo de oportunidad</li>
+            <li>Incentivos y restricciones</li>
+            <li>Agentes económicos: consumidores, empresas, emprendedores, Estado</li>
+            <li>Mercados, precios y coordinación</li>
+          </ul></div>
+        </div>
+        <div class="unidad-item">
+          <button class="unidad-btn" onclick="toggleU(this)">
+            Unidad 2 · Demanda, oferta, equilibrio y elasticidades
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+          <div class="unidad-body"><ul>
+            <li>Demanda y oferta de mercado · equilibrio</li>
+            <li>Elasticidad precio, ingreso y cruzada</li>
+            <li>Aplicaciones: precios, impuestos, entrada a mercados, segmentación</li>
+          </ul></div>
+        </div>
+        <div class="unidad-item">
+          <button class="unidad-btn" onclick="toggleU(this)">
+            Unidad 3 · Bienestar, eficiencia e intervención
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+          <div class="unidad-body"><ul>
+            <li>Excedente del consumidor y del productor</li>
+            <li>Incidencia de impuestos y subsidios · controles de precios</li>
+            <li>Regulación, mercados digitales e internacionales</li>
+          </ul></div>
+        </div>
+        <div class="unidad-item">
+          <button class="unidad-btn" onclick="toggleU(this)">
+            Unidad 4 · Teoría del consumidor
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+          <div class="unidad-body"><ul>
+            <li>Preferencias, mapas de indiferencia y restricción presupuestaria</li>
+            <li>Maximización de utilidad · efectos ingreso y sustitución</li>
+            <li>Disposición a pagar · segmentación de clientes</li>
+          </ul></div>
+        </div>
+        <div class="unidad-item">
+          <button class="unidad-btn" onclick="toggleU(this)">
+            Unidad 5 · Teoría de la firma y costos
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+          <div class="unidad-body"><ul>
+            <li>Función de producción · producto total, medio y marginal</li>
+            <li>Costos fijos, variables, medios y marginales</li>
+            <li>Maximización de beneficios · escala, productividad, emprendimiento</li>
+          </ul></div>
+        </div>
+        <div class="unidad-item">
+          <button class="unidad-btn" onclick="toggleU(this)">
+            Unidad 6 · Estructuras de mercado y fallas
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+          <div class="unidad-body"><ul>
+            <li>Competencia perfecta · monopolio · competencia monopolística</li>
+            <li>Discriminación de precios · poder de mercado</li>
+            <li>Externalidades, bienes públicos e información imperfecta</li>
+          </ul></div>
+        </div>
+      </div>
+
+      <div class="block-title">Estrategias de aprendizaje</div>
+      <div class="tag-list">
+        <span class="tag">Clases magistrales</span>
+        <span class="tag">Talleres analíticos</span>
+        <span class="tag">Aprendizaje basado en problemas</span>
+        <span class="tag">Aplicaciones empresariales</span>
+      </div>
+
+    </div><!-- /cp-micro -->
+
+    <!-- ── MACRO ─── -->
+    <div class="course-pane" id="cp-macro">
+
+      <div class="ficha">
+        <div class="ficha-title">Principios de Macroeconomía</div>
+        <div class="ficha-grid">
+          <div class="ficha-row"><span class="ficha-label">Créditos</span><span class="ficha-val">3</span></div>
+          <div class="ficha-row"><span class="ficha-label">Tipo</span><span class="ficha-val">Teórico</span></div>
+          <div class="ficha-row"><span class="ficha-label">Horas acompañamiento</span><span class="ficha-val">48 h / semestre</span></div>
+          <div class="ficha-row"><span class="ficha-label">Horas independiente</span><span class="ficha-val">96 h / semestre</span></div>
+          <div class="ficha-row full"><span class="ficha-label">Prerrequisitos</span><span class="ficha-val">Economía y Sociedad · Medición Económica · Cálculo I</span></div>
+          <div class="ficha-row full">
+            <span class="ficha-label">Programas</span>
+            <div class="prog-pills">
+              <span class="prog-pill">ECON</span><span class="prog-pill">FIN</span>
+              <span class="prog-pill" style="background:rgba(0,0,0,.07);color:var(--ur-gray-50)">Adm. Empresas</span>
+              <span class="prog-pill" style="background:rgba(0,0,0,.07);color:var(--ur-gray-50)">Negocios Int.</span>
+              <span class="prog-pill" style="background:rgba(0,0,0,.07);color:var(--ur-gray-50)">Marketing</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="block-title">Resultados de aprendizaje esperados</div>
+      <ul class="rae-list">
+        <li class="rae-item"><span class="rae-n">1</span>Interpretar los principales indicadores macroeconómicos: PIB, inflación, desempleo, tasas de interés, balanza de pagos, tipo de cambio, consumo, inversión y gasto público.</li>
+        <li class="rae-item"><span class="rae-n">2</span>Explicar el funcionamiento de la economía agregada en el largo plazo: producción, empleo, dinero, inflación, ahorro, inversión y crecimiento económico.</li>
+        <li class="rae-item"><span class="rae-n">3</span>Analizar fluctuaciones de corto plazo usando modelos de demanda agregada, mercado de bienes, mercado monetario y oferta agregada.</li>
+        <li class="rae-item"><span class="rae-n">4</span>Evaluar los efectos de la política fiscal y monetaria sobre producto, inflación, tasas de interés, empleo, inversión y tipo de cambio.</li>
+        <li class="rae-item"><span class="rae-n">5</span>Analizar economías abiertas mediante conceptos de comercio internacional, cuenta corriente, movilidad de capitales, tipo de cambio y balanza de pagos.</li>
+        <li class="rae-item"><span class="rae-n">6</span>Aplicar el razonamiento macroeconómico a decisiones de empresas, inversionistas, emprendedores, gobiernos y organizaciones en contextos nacionales e internacionales.</li>
+      </ul>
+
+      <div class="block-title">Contenidos</div>
+      <div class="unidades-list">
+        <div class="unidad-item">
+          <button class="unidad-btn" onclick="toggleU(this)">
+            Unidad 1 · ¿Por qué importa la macroeconomía?
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+          <div class="unidad-body"><ul>
+            <li>La macroeconomía como análisis del entorno</li>
+            <li>Variables agregadas y decisiones individuales</li>
+            <li>Choques macroeconómicos y riesgos empresariales</li>
+            <li>Fuentes de información macroeconómica</li>
+          </ul></div>
+        </div>
+        <div class="unidad-item">
+          <button class="unidad-btn" onclick="toggleU(this)">
+            Unidad 2 · Medición de la actividad económica
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+          <div class="unidad-body"><ul>
+            <li>Flujo circular del ingreso · PIB nominal y real</li>
+            <li>Índices de precios e inflación · desempleo</li>
+            <li>Consumo, inversión, gasto público y exportaciones netas</li>
+          </ul></div>
+        </div>
+        <div class="unidad-item">
+          <button class="unidad-btn" onclick="toggleU(this)">
+            Unidad 3 · Economía de largo plazo: producción, empleo e ingreso
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+          <div class="unidad-body"><ul>
+            <li>Mercado de trabajo · renta nacional de equilibrio</li>
+            <li>Ahorro e inversión · tasas de interés reales</li>
+            <li>Gobierno y presupuesto público · sostenibilidad fiscal</li>
+          </ul></div>
+        </div>
+        <div class="unidad-item">
+          <button class="unidad-btn" onclick="toggleU(this)">
+            Unidad 4 · Dinero, inflación y sistema financiero
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+          <div class="unidad-body"><ul>
+            <li>Funciones del dinero · creación de dinero bancario</li>
+            <li>Banco central e instrumentos de política monetaria</li>
+            <li>Inflación, expectativas · tasas nominales y reales</li>
+          </ul></div>
+        </div>
+        <div class="unidad-item">
+          <button class="unidad-btn" onclick="toggleU(this)">
+            Unidad 5 · Crecimiento económico
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+          <div class="unidad-body"><ul>
+            <li>Acumulación de capital · productividad y tecnología · capital humano</li>
+            <li>Convergencia · instituciones y crecimiento</li>
+            <li>Aplicaciones: mercados emergentes, innovación, productividad</li>
+          </ul></div>
+        </div>
+        <div class="unidad-item">
+          <button class="unidad-btn" onclick="toggleU(this)">
+            Unidad 6 · Fluctuaciones de corto plazo y política económica
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+          <div class="unidad-body"><ul>
+            <li>Ciclos económicos · demanda agregada · multiplicador</li>
+            <li>Modelo IS-LM / IS-MP · política fiscal y monetaria</li>
+            <li>Economía abierta · balanza de pagos · tipo de cambio</li>
+          </ul></div>
+        </div>
+      </div>
+
+      <div class="block-title">Estrategias de aprendizaje</div>
+      <div class="tag-list">
+        <span class="tag">Clases magistrales</span>
+        <span class="tag">Datos empíricos</span>
+        <span class="tag">Aprendizaje basado en problemas</span>
+        <span class="tag">Aplicaciones financieras y empresariales</span>
+      </div>
+
+    </div><!-- /cp-macro -->
+
+    <!-- ── PROB ─── -->
+    <div class="course-pane" id="cp-prob">
+
+      <div class="ficha">
+        <div class="ficha-title">Probabilidad y Estadística</div>
+        <div class="ficha-grid">
+          <div class="ficha-row"><span class="ficha-label">Créditos</span><span class="ficha-val">3 (2A + 1B)</span></div>
+          <div class="ficha-row"><span class="ficha-label">Tipo</span><span class="ficha-val">Teórico-Práctico</span></div>
+          <div class="ficha-row"><span class="ficha-label">Horas semanales acomp.</span><span class="ficha-val">5 h / semana</span></div>
+          <div class="ficha-row"><span class="ficha-label">Horas semanales indep.</span><span class="ficha-val">4 h / semana</span></div>
+          <div class="ficha-row full"><span class="ficha-label">Prerrequisitos</span><span class="ficha-val">Cálculo I · Prerrequisito especial: Cálculo II</span></div>
+          <div class="ficha-row full">
+            <span class="ficha-label">Programas</span>
+            <div class="prog-pills">
+              <span class="prog-pill">ANI</span><span class="prog-pill">ECON</span><span class="prog-pill">FIN</span><span class="prog-pill">MND</span>
+              <span class="prog-pill" style="background:rgba(0,0,0,.07);color:var(--ur-gray-50)">Todos los programas de la Escuela</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="block-title">Resultados de aprendizaje esperados</div>
+      <ul class="rae-list">
+        <li class="rae-item"><span class="rae-n">1</span>Identificar y caracterizar variables aleatorias discretas y continuas, y sus distribuciones de probabilidad, para modelar fenómenos aleatorios en contextos económicos y empresariales.</li>
+        <li class="rae-item"><span class="rae-n">2</span>Calcular e interpretar medidas fundamentales de una variable aleatoria: esperanza, varianza, covarianza y correlación, evaluando su significado estadístico.</li>
+        <li class="rae-item"><span class="rae-n">3</span>Analizar distribuciones conjuntas de probabilidad y derivar distribuciones marginales y condicionales, evaluando dependencia o independencia estadística entre variables.</li>
+        <li class="rae-item"><span class="rae-n">4</span>Aplicar conceptos de distribuciones muestrales para comprender la relación entre modelos probabilísticos y métodos de inferencia estadística.</li>
+        <li class="rae-item"><span class="rae-n">5</span>Construir e interpretar intervalos de confianza y realizar pruebas de hipótesis para la toma de decisiones basadas en datos.</li>
+        <li class="rae-item"><span class="rae-n">6</span>Utilizar adecuadamente las distribuciones normal, t de Student, chi-cuadrado y F en procedimientos de inferencia estadística.</li>
+      </ul>
+
+      <div class="block-title">Contenidos</div>
+      <div class="unidades-list">
+        <div class="unidad-item">
+          <button class="unidad-btn" onclick="toggleU(this)">
+            Unidad 1 · Datos, probabilidad y variables aleatorias
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+          <div class="unidad-body"><ul>
+            <li>Tipos de datos y estadística descriptiva básica</li>
+            <li>Experimentos aleatorios y axiomas de probabilidad</li>
+            <li>Probabilidad condicional y regla de Bayes</li>
+            <li>Variables aleatorias discretas y continuas</li>
+          </ul></div>
+        </div>
+        <div class="unidad-item">
+          <button class="unidad-btn" onclick="toggleU(this)">
+            Unidad 2 · Distribuciones de probabilidad univariadas
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+          <div class="unidad-body"><ul>
+            <li>FDP, FDA · esperanza y varianza</li>
+            <li>Distribución normal y estandarización</li>
+            <li>Distribuciones discretas: Bernoulli, binomial, Poisson</li>
+            <li>Distribuciones lognormal y logística (motivación económica)</li>
+          </ul></div>
+        </div>
+        <div class="unidad-item">
+          <button class="unidad-btn" onclick="toggleU(this)">
+            Unidad 3 · Distribuciones conjuntas y dependencia
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+          <div class="unidad-body"><ul>
+            <li>Distribución conjunta · marginales y condicionales</li>
+            <li>Independencia estadística · covarianza y correlación</li>
+            <li>Interpretación económica de la dependencia estadística</li>
+          </ul></div>
+        </div>
+        <div class="unidad-item">
+          <button class="unidad-btn" onclick="toggleU(this)">
+            Unidad 4 · Distribuciones muestrales
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+          <div class="unidad-body"><ul>
+            <li>Muestreo aleatorio · distribución de la media muestral</li>
+            <li>Teorema Central del Límite · Ley de los grandes números</li>
+          </ul></div>
+        </div>
+        <div class="unidad-item">
+          <button class="unidad-btn" onclick="toggleU(this)">
+            Unidad 5 · Inferencia estadística
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+          <div class="unidad-body"><ul>
+            <li>Estimación puntual e intervalos de confianza</li>
+            <li>Pruebas de hipótesis: p-value, errores tipo I y II</li>
+            <li>Distribuciones t, chi-cuadrado y F · introducción al ANOVA</li>
+            <li>Simulaciones de Montecarlo</li>
+          </ul></div>
+        </div>
+      </div>
+
+      <div class="block-title">Estrategias de aprendizaje</div>
+      <div class="tag-list">
+        <span class="tag">Clases magistrales</span>
+        <span class="tag">Talleres analíticos</span>
+        <span class="tag">Laboratorios computacionales (R / Python)</span>
+        <span class="tag">Aprendizaje basado en problemas</span>
+        <span class="tag">Proyecto aplicado con datos reales</span>
+      </div>
+
+    </div><!-- /cp-prob -->
+
+  </div><!-- /left-panel -->
+
+  <!-- RIGHT PANEL — PDF -->
+  <div class="right-panel">
+    <div class="pdf-pane active" id="pp-micro">
+      <iframe src="pdf/microeconomia.pdf" title="Sílabo Principios de Microeconomía"></iframe>
+    </div>
+    <div class="pdf-pane" id="pp-macro">
+      <iframe src="pdf/macroeconomia.pdf" title="Sílabo Principios de Macroeconomía"></iframe>
+    </div>
+    <div class="pdf-pane" id="pp-prob">
+      <iframe src="pdf/prob_estadistica.pdf" title="Propuesta Probabilidad y Estadística"></iframe>
+    </div>
+  </div>
+
+</div><!-- /main -->
+</div><!-- /shell -->
+
+<script>
+const COURSES = ['micro','macro','prob'];
+
+function switchCourse(key) {
+  COURSES.forEach(k => {
+    document.getElementById('cp-' + k).classList.toggle('active', k === key);
+    document.getElementById('pp-' + k).classList.toggle('active', k === key);
+  });
+  document.querySelectorAll('.sel-btn').forEach((btn, i) => {
+    btn.classList.toggle('active', COURSES[i] === key);
+  });
+}
+
+function toggleU(btn) {
+  const body = btn.nextElementSibling;
+  const open = body.classList.toggle('open');
+  btn.classList.toggle('open', open);
+}
+</script>
+</body>
+</html>
