@@ -87,6 +87,7 @@ html, body { height: 100%; font-family: Calibri, 'Trebuchet MS', Arial, sans-ser
 .chip-art    { background: var(--ur-purple); color: #fff; }
 .chip-blq    { background: #065F46;          color: #fff; }
 .chip-ref    { background: var(--ur-navy);   color: #fff; }
+.chip-ped    { background: #E8670C;          color: #fff; }
 
 .tab-tag {
   font-size: .58rem; padding: 1px 5px; border-radius: 100px;
@@ -162,6 +163,13 @@ iframe { width: 100%; height: 100%; border: none; display: block; }
     Créditos por bloque
   </button>
 
+  <button class="tab-btn" role="tab" aria-selected="false"
+          aria-controls="pane-ped" id="tab-ped"
+          onclick="switchTab('ped')">
+    <span class="tab-chip chip-ped">PED</span>
+    Principios pedagógicos
+  </button>
+
   <div class="nav-sep"></div>
   <span class="nav-group-label">Referencia</span>
 
@@ -188,12 +196,16 @@ iframe { width: 100%; height: 100%; border: none; display: block; }
   <iframe src="web/bloques.html" title="Créditos por bloque" loading="lazy"></iframe>
 </div>
 
+<div class="pane" id="pane-ped" role="tabpanel" aria-labelledby="tab-ped">
+  <iframe src="web/pedagogia.html" title="Principios pedagógicos" loading="lazy"></iframe>
+</div>
+
 <div class="pane" id="pane-ice" role="tabpanel" aria-labelledby="tab-ice">
   <iframe src="web/icesi_mallas_comparativo.html" title="Mallas Icesi — referencia comparativa" loading="lazy"></iframe>
 </div>
 
 <script>
-  const TABS = ['mallas','art','blq','ice'];
+  const TABS = ['mallas','art','blq','ped','ice'];
   function switchTab(key) {
     TABS.forEach(k => {
       const btn  = document.getElementById('tab-' + k);
