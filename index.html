@@ -129,9 +129,17 @@ iframe { width: 100%; height: 100%; border: none; display: block; }
 <!-- ── NAV TABS ─────────────────────────────────────── -->
 <nav class="navbar" role="tablist" aria-label="Vistas de análisis curricular">
 
+  <button class="tab-btn active" role="tab" aria-selected="true"
+          aria-controls="pane-inicio" id="tab-inicio"
+          onclick="switchTab('inicio')">
+    <span class="tab-chip" style="background:#190056;color:#fff;">INICIO</span>
+    Panel general
+  </button>
+
+  <div class="nav-sep"></div>
   <span class="nav-group-label">Reforma</span>
 
-  <button class="tab-btn active" role="tab" aria-selected="true"
+  <button class="tab-btn" role="tab" aria-selected="false"
           aria-controls="pane-mallas" id="tab-mallas"
           onclick="switchTab('mallas')">
     <span class="tab-chip chip-nueva">MALLAS</span>
@@ -188,7 +196,11 @@ iframe { width: 100%; height: 100%; border: none; display: block; }
 </nav>
 
 <!-- ── PANES ─────────────────────────────────────────── -->
-<div class="pane active" id="pane-mallas" role="tabpanel" aria-labelledby="tab-mallas">
+<div class="pane active" id="pane-inicio" role="tabpanel" aria-labelledby="tab-inicio">
+  <iframe src="web/inicio.html" title="Panel general — inicio" loading="eager"></iframe>
+</div>
+
+<div class="pane" id="pane-mallas" role="tabpanel" aria-labelledby="tab-mallas">
   <iframe src="web/mallas_programas.html" title="Mallas por programa — semestre a semestre" loading="eager"></iframe>
 </div>
 
@@ -217,7 +229,7 @@ iframe { width: 100%; height: 100%; border: none; display: block; }
 </div>
 
 <script>
-  const TABS = ['mallas','art','blq','nbc','ped','act','ice'];
+  const TABS = ['inicio','mallas','art','blq','nbc','ped','act','ice'];
   function switchTab(key) {
     TABS.forEach(k => {
       const btn  = document.getElementById('tab-' + k);
