@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Actividades en Progreso · Reforma Curricular FE UR</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Raleway:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --ur-red:    #DA0921; --ur-purple: #3100A0; --ur-navy: #190056;
+  --ur-orange: #E8670C;
+  --ur-gray-f: #F5F4F2; --ur-gray-e: #E8E5E0;
+  --ur-gray-70:#4D4D4D; --ur-gray-50:#808080; --ur-white:#FFFFFF;
+}
+html, body { font-family: Calibri, 'Trebuchet MS', Arial, sans-serif; background: var(--ur-gray-f); color: var(--ur-gray-70); }
+.page { max-width: 960px; margin: 0 auto; padding: 1.75rem 1.5rem 3rem; }
+
+/* ── INTRO BANNER ─────────────────────────────────── */
+.intro-banner {
+  background: var(--ur-navy);
+  border-radius: 6px; padding: 1.4rem 2rem;
+  margin-bottom: 2rem;
+  display: flex; gap: 1.25rem; align-items: flex-start;
+}
+.intro-accent { width: 4px; background: var(--ur-orange); border-radius: 2px; flex-shrink: 0; align-self: stretch; min-height: 36px; }
+.intro-label { font-size: .62rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--ur-orange); margin-bottom: .35rem; }
+.intro-title { font-family: 'Bebas Neue', sans-serif; font-size: 1.45rem; letter-spacing: .04em; color: #fff; line-height: 1.1; margin-bottom: .5rem; }
+.intro-text  { font-size: .81rem; line-height: 1.6; color: rgba(255,255,255,.75); max-width: 680px; }
+
+/* ── SECTION HEAD ─────────────────────────────────── */
+.section-head { display: flex; align-items: center; gap: .75rem; margin-bottom: 1.1rem; }
+.section-head-line { flex: 1; height: 1px; background: var(--ur-gray-e); }
+.section-head-label { font-family: 'Bebas Neue', sans-serif; font-size: .95rem; letter-spacing: .06em; color: var(--ur-navy); white-space: nowrap; }
+.section-head-count { font-size: .7rem; color: var(--ur-gray-50); }
+
+/* ── GRID ─────────────────────────────────────────── */
+.act-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-bottom: 2.5rem;
+}
+@media (max-width: 620px) { .act-grid { grid-template-columns: 1fr; } }
+
+/* ── CARD ─────────────────────────────────────────── */
+.act-card {
+  background: var(--ur-white);
+  border: 1px solid var(--ur-gray-e);
+  border-left: 4px solid var(--ur-orange);
+  border-radius: 0 6px 6px 0;
+  padding: .95rem 1.1rem;
+  display: flex; flex-direction: column; gap: .5rem;
+  transition: box-shadow .15s;
+}
+.act-card:hover { box-shadow: 0 3px 12px rgba(0,0,0,.08); }
+.act-card.support { border-left-color: var(--ur-navy); }
+
+.act-top { display: flex; align-items: flex-start; gap: .6rem; }
+.act-icon {
+  width: 32px; height: 32px; border-radius: 6px; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  background: rgba(232,103,12,.1);
+}
+.act-card.support .act-icon { background: rgba(25,0,86,.08); }
+.act-icon svg { width: 17px; height: 17px; }
+
+.act-title {
+  font-size: .84rem; font-weight: 700; color: var(--ur-navy);
+  line-height: 1.3; padding-top: .15rem;
+}
+
+.act-members {
+  display: flex; flex-wrap: wrap; gap: .3rem;
+  padding-top: .1rem;
+}
+.member-chip {
+  font-size: .68rem; padding: 2px 8px; border-radius: 100px;
+  background: var(--ur-gray-f); border: 1px solid var(--ur-gray-e);
+  color: var(--ur-gray-70); white-space: nowrap;
+}
+.member-chip.lead {
+  background: rgba(232,103,12,.1); border-color: rgba(232,103,12,.3);
+  color: #7a3000; font-weight: 600;
+}
+.act-card.support .member-chip.lead {
+  background: rgba(25,0,86,.08); border-color: rgba(25,0,86,.2);
+  color: var(--ur-navy);
+}
+
+.status-dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: #10B981; flex-shrink: 0; margin-top: 5px;
+  box-shadow: 0 0 0 3px rgba(16,185,129,.15);
+}
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- INTRO -->
+  <div class="intro-banner">
+    <div class="intro-accent"></div>
+    <div>
+      <div class="intro-label">Reforma Curricular 2026</div>
+      <div class="intro-title">Actividades en Progreso</div>
+      <p class="intro-text">Grupos de trabajo activos en el proceso de reforma. Cada actividad es liderada por un equipo de profesores y directivos de la Facultad de Economía. Esta página se actualiza a medida que avanza el proceso.</p>
+    </div>
+  </div>
+
+  <!-- DISEÑO CURRICULAR -->
+  <div class="section-head">
+    <span class="section-head-label">Diseño curricular</span>
+    <div class="section-head-line"></div>
+    <span class="section-head-count">6 actividades</span>
+  </div>
+
+  <div class="act-grid">
+
+    <div class="act-card">
+      <div class="act-top">
+        <div class="act-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#E8670C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/>
+            <line x1="9" y1="21" x2="9" y2="9"/>
+          </svg>
+        </div>
+        <div class="act-title">Diseño de las mallas curriculares</div>
+        <div class="status-dot" title="En progreso"></div>
+      </div>
+      <div class="act-members">
+        <span class="member-chip lead">Decano</span>
+        <span class="member-chip lead">Directora de programas</span>
+        <span class="member-chip">Directores de programa</span>
+        <span class="member-chip">Autorregulación</span>
+      </div>
+    </div>
+
+    <div class="act-card">
+      <div class="act-top">
+        <div class="act-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#E8670C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/>
+          </svg>
+        </div>
+        <div class="act-title">Diseño cursos del Núcleo Básico Común de Escuela</div>
+        <div class="status-dot" title="En progreso"></div>
+      </div>
+      <div class="act-members">
+        <span class="member-chip lead">Paul Rodríguez</span>
+        <span class="member-chip lead">Andrés García</span>
+        <span class="member-chip">Luis Orozco</span>
+      </div>
+    </div>
+
+    <div class="act-card">
+      <div class="act-top">
+        <div class="act-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#E8670C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+          </svg>
+        </div>
+        <div class="act-title">Diseño programa de Ciencia de Datos</div>
+        <div class="status-dot" title="En progreso"></div>
+      </div>
+      <div class="act-members">
+        <span class="member-chip lead">Paul Rodríguez</span>
+        <span class="member-chip lead">Carlos Franco</span>
+        <span class="member-chip">Rafael Serrano</span>
+      </div>
+    </div>
+
+    <div class="act-card">
+      <div class="act-top">
+        <div class="act-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#E8670C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/>
+          </svg>
+        </div>
+        <div class="act-title">Diseño curso Desafíos Contemporáneos / Proyecto Integrador</div>
+        <div class="status-dot" title="En progreso"></div>
+      </div>
+      <div class="act-members">
+        <span class="member-chip lead">Merlin Grueso</span>
+        <span class="member-chip lead">Yonni Cuero</span>
+        <span class="member-chip">Clara Pardo</span>
+        <span class="member-chip">David Vargas</span>
+        <span class="member-chip">Andrés García</span>
+      </div>
+    </div>
+
+    <div class="act-card">
+      <div class="act-top">
+        <div class="act-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#E8670C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+          </svg>
+        </div>
+        <div class="act-title">Diseño de Menores Disciplinares</div>
+        <div class="status-dot" title="En progreso"></div>
+      </div>
+      <div class="act-members">
+        <span class="member-chip lead">Directores de programa</span>
+      </div>
+    </div>
+
+    <div class="act-card">
+      <div class="act-top">
+        <div class="act-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#E8670C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"/>
+            <line x1="2" y1="12" x2="22" y2="12"/>
+            <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+          </svg>
+        </div>
+        <div class="act-title">Diseño de Menores Diversificados</div>
+        <div class="status-dot" title="En progreso"></div>
+      </div>
+      <div class="act-members">
+        <span class="member-chip lead">Jesús Otero</span>
+        <span class="member-chip lead">Luis H. Gutiérrez</span>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- PROCESOS DE SOPORTE -->
+  <div class="section-head">
+    <span class="section-head-label">Procesos de soporte</span>
+    <div class="section-head-line"></div>
+    <span class="section-head-count">5 actividades</span>
+  </div>
+
+  <div class="act-grid">
+
+    <div class="act-card support">
+      <div class="act-top">
+        <div class="act-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#190056" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+            <circle cx="9" cy="7" r="4"/>
+            <path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+          </svg>
+        </div>
+        <div class="act-title">Construcción del Modelo Pedagógico</div>
+        <div class="status-dot" title="En progreso"></div>
+      </div>
+      <div class="act-members">
+        <span class="member-chip lead">Darwin Cortés</span>
+        <span class="member-chip lead">Yonni Cuero</span>
+      </div>
+    </div>
+
+    <div class="act-card support">
+      <div class="act-top">
+        <div class="act-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#190056" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/>
+          </svg>
+        </div>
+        <div class="act-title">Talleres con el Sector Productivo</div>
+        <div class="status-dot" title="En progreso"></div>
+      </div>
+      <div class="act-members">
+        <span class="member-chip lead">Rafael Serrano</span>
+        <span class="member-chip lead">Andrés García</span>
+        <span class="member-chip">Oscar Robayo</span>
+        <span class="member-chip">Juan Pablo Guzmán</span>
+      </div>
+    </div>
+
+    <div class="act-card support">
+      <div class="act-top">
+        <div class="act-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#190056" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/>
+            <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/>
+          </svg>
+        </div>
+        <div class="act-title">Articulación de Mallas con otras Unidades</div>
+        <div class="status-dot" title="En progreso"></div>
+      </div>
+      <div class="act-members">
+        <span class="member-chip lead">Andrés García</span>
+        <span class="member-chip lead">Laura Pinilla</span>
+      </div>
+    </div>
+
+    <div class="act-card support">
+      <div class="act-top">
+        <div class="act-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#190056" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+            <polyline points="14 2 14 8 20 8"/>
+            <line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/>
+          </svg>
+        </div>
+        <div class="act-title">Encuestas sobre Prácticas Pedagógicas</div>
+        <div class="status-dot" title="En progreso"></div>
+      </div>
+      <div class="act-members">
+        <span class="member-chip lead">Laura Pinilla</span>
+        <span class="member-chip lead">Paul Rodríguez</span>
+      </div>
+    </div>
+
+    <div class="act-card support">
+      <div class="act-top">
+        <div class="act-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#190056" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/>
+            <line x1="6" y1="20" x2="6" y2="14"/>
+          </svg>
+        </div>
+        <div class="act-title">Análisis de Datos de Desempeño Estudiantil</div>
+        <div class="status-dot" title="En progreso"></div>
+      </div>
+      <div class="act-members">
+        <span class="member-chip lead">Darwin Cortés</span>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+</body>
+</html>

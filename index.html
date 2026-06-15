@@ -87,6 +87,7 @@ html, body { height: 100%; font-family: Calibri, 'Trebuchet MS', Arial, sans-ser
 .chip-art    { background: var(--ur-purple); color: #fff; }
 .chip-blq    { background: #065F46;          color: #fff; }
 .chip-ref    { background: var(--ur-navy);   color: #fff; }
+.chip-act    { background: #190056;          color: #fff; }
 .chip-nbc    { background: #3100A0;          color: #fff; }
 .chip-ped    { background: #E8670C;          color: #fff; }
 
@@ -178,6 +179,13 @@ iframe { width: 100%; height: 100%; border: none; display: block; }
     Principios pedagógicos
   </button>
 
+  <button class="tab-btn" role="tab" aria-selected="false"
+          aria-controls="pane-act" id="tab-act"
+          onclick="switchTab('act')">
+    <span class="tab-chip chip-act">ACT</span>
+    Actividades en progreso
+  </button>
+
   <div class="nav-sep"></div>
   <span class="nav-group-label">Referencia</span>
 
@@ -204,6 +212,10 @@ iframe { width: 100%; height: 100%; border: none; display: block; }
   <iframe src="web/bloques.html" title="Créditos por bloque" loading="lazy"></iframe>
 </div>
 
+<div class="pane" id="pane-act" role="tabpanel" aria-labelledby="tab-act">
+  <iframe src="web/actividades.html" title="Actividades en progreso" loading="lazy"></iframe>
+</div>
+
 <div class="pane" id="pane-nbc" role="tabpanel" aria-labelledby="tab-nbc">
   <iframe src="web/nbc.html" title="Núcleo Básico Común — cursos compartidos" loading="lazy"></iframe>
 </div>
@@ -217,7 +229,7 @@ iframe { width: 100%; height: 100%; border: none; display: block; }
 </div>
 
 <script>
-  const TABS = ['mallas','art','blq','nbc','ped','ice'];
+  const TABS = ['mallas','art','blq','nbc','ped','act','ice'];
   function switchTab(key) {
     TABS.forEach(k => {
       const btn  = document.getElementById('tab-' + k);
