@@ -70,7 +70,8 @@ html, body { font-family: Calibri, 'Trebuchet MS', Arial, sans-serif; background
 }
 .curso-card:hover { box-shadow: 0 2px 8px rgba(0,0,0,.12); }
 .curso-nombre { font-size: .72rem; font-weight: 500; line-height: 1.3; }
-.curso-cr { font-size: .63rem; margin-top: 2px; opacity: .7; }
+.curso-cr  { font-size: .63rem; margin-top: 2px; opacity: .7; }
+.curso-tag { font-size: .58rem; font-style: italic; opacity: .65; margin-top: 1px; }
 
 /* Semestre total row */
 .sem-total { background: var(--ur-navy); color: var(--ur-white); padding: 5px 10px; border-radius: 0 0 4px 4px; margin-top: 4px; font-size: .7rem; font-weight: 600; text-align: right; }
@@ -465,11 +466,15 @@ const PROGRAMS = {
       { n:7, total:18, cursos:[
         {n:'Desafíos contemporáneos / Proyecto integrador', cr:3, blq:'ros'},
         {n:'Marketing Plan',                            cr:3, blq:'desp'},
-        {n:'Profundización / Minor',                    cr:8, blq:'elec'},
+        {n:'Comportamiento de Compra del Cliente y Consumidor', cr:2, blq:'elec', tag:'Minor · Experience Marketing'},
+        {n:'Customer Experience Management',            cr:2, blq:'elec', tag:'Minor · Experience Marketing'},
+        {n:'Neuromarketing',                            cr:2, blq:'elec', tag:'Minor · Experience Marketing'},
+        {n:'Insights del Consumidor y Analítica de Datos', cr:2, blq:'elec', tag:'Minor · Experience Marketing'},
         {n:'Opción de grado',                           cr:4, blq:'grad'},
       ]},
       { n:8, total:15, cursos:[
-        {n:'Profundización / Minor',                    cr:4, blq:'elec'},
+        {n:'Experience Marketing Campaigns',            cr:2, blq:'elec', tag:'Minor · Experience Marketing'},
+        {n:'Métodos Ágiles en Marketing',               cr:2, blq:'elec', tag:'Minor · Experience Marketing'},
         {n:'Opción de grado',                           cr:5, blq:'grad'},
         {n:'Práctica Empresarial',                      cr:6, blq:'prac'},
       ]},
@@ -507,6 +512,7 @@ function renderMalla(progKey) {
         return `
         <div class="curso-card" style="background:${blq.bg};border-left-color:${blq.color}" title="${blq.label}">
           <div class="curso-nombre" style="color:${blq.color}">${c.n}</div>
+          ${c.tag ? `<div class="curso-tag">${c.tag}</div>` : ''}
           <div class="curso-cr" style="color:${blq.color}">${c.cr} cr · ${blq.label.split(' ')[0]}</div>
         </div>`;
       }).join('');
