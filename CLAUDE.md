@@ -21,7 +21,19 @@ The `.claude/launch.json` configures this server for the preview tool.
 
 **`index.html`** is the tab-router shell: sticky header (UR brand) + sticky navbar, switches `display:block/none` on `.pane` divs each containing one `<iframe>`. Tab state synced to `location.hash`. The `TABS` array must list every key in registration order.
 
-**Navbar** has group labels (Reforma / Fundamentos / Referencia). Each tab needs: a `.tab-btn` with an `id="tab-{key}"`, a `.pane` with `id="pane-{key}"`, and the key added to `TABS`.
+**Navbar** uses dropdowns: `toggleDrop(id)` opens/closes a `.dd-menu`. The `DD_PARENT` map routes each tab key to its parent dropdown id so the active dropdown stays open on navigation. Current mapping:
+```js
+DD_PARENT = {
+  mallas:'dd-reforma', art:'dd-reforma', blq:'dd-reforma',
+  nbc:'dd-recursos',   ped:'dd-recursos', act:'dd-recursos', men:'dd-recursos',
+  ice:'dd-referencia'
+}
+```
+Three dropdown groups: **Reformas** (`dd-reforma`) · **Recursos** (`dd-recursos`) · **Referencia** (`dd-referencia`). `inicio` is a direct link (no dropdown).
+
+The NBC tab label in navbar and `inicio.html` is **"Syllabus nuevos cursos"** (not "Núcleo Básico Común").
+
+Each tab needs: a `.tab-btn` with `id="tab-{key}"`, a `.pane` with `id="pane-{key}"`, the key added to `TABS`, and an entry in `DD_PARENT` if inside a dropdown.
 
 Cross-iframe navigation from child pages uses `parent.switchTab('key')`.
 
@@ -72,13 +84,15 @@ The display label for `dcom` is **"Disciplinar-Departamento"** everywhere (malla
 | `grad` | Opción de grado | `#0C4A6E` | `#E0F2FE` |
 | `prac` | Prácticas | `#4D1A7A` | `#F5F0FE` |
 
-## menores.html — Adding a Minor
+## menores.html — Current Minors
 
-Each minor is a tab + pane + a JS array of course objects:
-```js
-{ code:'XXXXXXX', name:'Course Name', cr:2, prereq:'Prereq or null', type:'pool' }
-```
-Call `renderPool(array, 'pool-{id}')` on init. The "coming soon" placeholder pane is always last.
+Two active minors, each a `.minor-tab` + `.minor-pane` + `<table class="courses-table">`:
+- **Menor en Experience Marketing** — 6 courses, 12 cr, all 2 cr (ADM · MND)
+- **Menor en Economía de la Empresa** — 5 courses, 12 cr (ANI · MND · FIN · ECON) — badge PROPUESTA `#7C3AED`
+
+MND's malla shows these as `Profundización / Minor` blocks (not individual courses); the detail lives only in menores.html.
+
+Tab switching: `showMinor(key)` toggles `.active` on tabs and panes by id `mtab-{key}` / `minor-{key}`.
 
 ## Brand Guidelines
 
@@ -109,3 +123,19 @@ When a new Excel version arrives, use openpyxl to read cell fill colors:
 - `FFF4B183` = ros · `FF9DC3E6` = nbc · `FFFFD966` = dcom · `FFA9D08E` = desp · `FFB4A7D6` = elec · `FFFFF2CC` = grad · `FFE2EFDA` = prac
 
 Update `mallas_programas.html` first, then `bloques.html` (totals), then `articulacion.html` (shared courses).
+
+**Current program credit totals (jun15):**
+| Program | ros | nbc | dcom | desp | elec | grad | prac | total |
+|---------|-----|-----|------|------|------|------|------|-------|
+| ANI | 18 | 30 | 17 | 48 | 12 | 9 | 6 | 140 |
+| ECON | 18 | 21 | 18 | 35 | 24 | 12 | 0 | 128 |
+| FIN | 18 | 33 | 12 | 30 | 21 | 12 | 0 | 126 |
+| MND | 18 | 30 | 14 | 51 | 12 | 9 | 6 | 140 |
+
+## Deployment
+
+```bash
+git add web/<file>.html
+git commit -m "description"
+git push  # triggers GitHub Pages rebuild (~1 min)
+```
