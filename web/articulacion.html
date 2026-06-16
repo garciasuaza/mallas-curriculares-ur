@@ -54,13 +54,17 @@ html, body { font-family: Calibri, 'Trebuchet MS', Arial, sans-serif; background
 .course-note { font-size: .62rem; color: var(--ur-gray-50); font-style: italic; display: block; margin-top: 1px; }
 
 /* ── MATRIX ─────────────────────────────────────── */
-.matrix-table { border-collapse: collapse; width: 100%; }
-.matrix-table th, .matrix-table td { padding: 8px 14px; font-size: .75rem; border: .5px solid var(--ur-gray-e); }
-.matrix-table thead th { background: var(--ur-navy); color: rgba(255,255,255,.85); font-weight: 600; text-align: center; }
-.matrix-table thead th:first-child { text-align: left; }
-.matrix-table tbody th { background: var(--ur-gray-f); font-weight: 600; color: var(--ur-gray-70); font-size: .72rem; }
-.matrix-table td { text-align: center; font-weight: 700; }
-.matrix-table td.self { background: var(--ur-gray-e); color: var(--ur-gray-50); font-size: .65rem; font-weight: 400; font-style: italic; }
+.mx-grid { display: grid; grid-template-columns: 72px repeat(4, 1fr); gap: 5px; }
+.mx-colhdr { background: var(--ur-navy); border-radius: 5px; padding: 9px 0; text-align: center; font-size: 12px; font-weight: 600; color: #fff; letter-spacing: .08em; }
+.mx-rowhdr { display: flex; align-items: center; justify-content: flex-end; padding-right: 8px; font-size: 12px; font-weight: 600; color: var(--ur-navy); letter-spacing: .08em; }
+.mx-cell { border-radius: 7px; padding: 11px 6px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; min-height: 64px; }
+.mx-cell.diag { background: var(--ur-gray-e); }
+.mx-cell.diag .mx-cr { font-size: 15px; font-weight: 400; color: var(--ur-gray-50); font-style: italic; }
+.mx-cell.diag .mx-pct { font-size: 12px; color: var(--ur-gray-50); }
+.mx-cr  { font-size: 15px; font-weight: 500; }
+.mx-pct { font-size: 12px; opacity: .85; }
+.mx-legend { display: flex; align-items: center; gap: 5px; margin-top: .6rem; font-size: 12px; color: var(--ur-gray-50); }
+.mx-legend-box { width: 14px; height: 7px; border-radius: 1px; }
 
 .nota { margin-top: .75rem; background: #F0F9FF; border-left: 3px solid #3100A0; padding: 8px 12px; border-radius: 3px; font-size: .72rem; color: #190056; line-height: 1.5; }
 </style>
@@ -83,7 +87,8 @@ html, body { font-family: Calibri, 'Trebuchet MS', Arial, sans-serif; background
     <span class="sec-chevron">▾</span>
   </button>
   <div class="sec-body">
-    <table class="matrix-table" id="matrix"></table>
+    <div class="mx-grid" id="matrix"></div>
+    <div class="mx-legend" id="mx-legend"></div>
   </div>
 </div>
 
@@ -266,28 +271,47 @@ function renderMatrix() {
       }
   });
 
-  const tbl = document.getElementById('matrix');
-  let html = '<thead><tr><th style="text-align:left">Programa</th>';
-  PROGS.forEach(p => { html += `<th>${p}</th>`; });
-  html += '</tr></thead><tbody>';
+  const RED_STOPS = [
+    { min:0,  bg:'#FCEBEB', cr:'#501313' },
+    { min:29, bg:'#F7C1C1', cr:'#501313' },
+    { min:33, bg:'#F09595', cr:'#791F1F' },
+    { min:37, bg:'#E24B4A', cr:'#fff'    },
+    { min:45, bg:'#A32D2D', cr:'#fff'    },
+  ];
+  function redColor(pct) {
+    for (let i = RED_STOPS.length - 1; i >= 0; i--)
+      if (pct >= RED_STOPS[i].min) return RED_STOPS[i];
+    return RED_STOPS[0];
+  }
+
+  const grid = document.getElementById('matrix');
+  let html = '<div></div>'; // corner
+  PROGS.forEach(p => { html += `<div class="mx-colhdr">${p}</div>`; });
+
   PROGS.forEach(row => {
-    html += `<tr><th style="background:var(--ur-gray-f);font-weight:600;font-size:.72rem;padding:8px 14px">${row}</th>`;
+    html += `<div class="mx-rowhdr">${row}</div>`;
     PROGS.forEach(col => {
       if (row === col) {
-        html += `<td class="self">${TOTALS[row]} cr</td>`;
+        html += `<div class="mx-cell diag"><span class="mx-cr">${TOTALS[row]} cr</span><span class="mx-pct">total</span></div>`;
       } else {
         const key = [row,col].sort().join('-');
         const shared = pairs[key] || 0;
         const pct = Math.round(shared / Math.min(TOTALS[row], TOTALS[col]) * 100);
-        const intensity = Math.min(255, Math.round(255 - (pct/50)*180));
-        const bg = `rgb(${intensity},${Math.round(intensity*.9)},255)`;
-        html += `<td style="background:${bg};color:${intensity<150?'#fff':'#190056'}">${shared} cr<br><span style="font-size:.62rem;font-weight:400">${pct}%</span></td>`;
+        const c = redColor(pct);
+        html += `<div class="mx-cell" style="background:${c.bg};">
+          <span class="mx-cr" style="color:${c.cr};">${shared} cr</span>
+          <span class="mx-pct" style="color:${c.cr};">${pct}%</span>
+        </div>`;
       }
     });
-    html += '</tr>';
   });
-  html += '</tbody>';
-  tbl.innerHTML = html;
+  grid.innerHTML = html;
+
+  const ramp = ['#FCEBEB','#F7C1C1','#F09595','#E24B4A','#A32D2D'];
+  document.getElementById('mx-legend').innerHTML =
+    '<span>Intensidad:</span>' +
+    ramp.map(c => `<div class="mx-legend-box" style="background:${c};"></div>`).join('') +
+    '<span style="margin-left:2px;">baja → alta</span>';
 }
 
 // ═══════════════════════════════════════════════════════
