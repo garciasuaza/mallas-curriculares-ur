@@ -102,6 +102,7 @@ html, body { font-family: Calibri, 'Trebuchet MS', Arial, sans-serif; background
   <button class="prog-tab" onclick="showProg('econ')" id="ptab-econ">Economía</button>
   <button class="prog-tab" onclick="showProg('fin')" id="ptab-fin">Finanzas</button>
   <button class="prog-tab" onclick="showProg('mnd')" id="ptab-mnd">MND — Marketing y Negocios Digitales</button>
+  <button class="prog-tab" onclick="showProg('enb')" id="ptab-enb" style="border-left:2px solid var(--ur-gray-e);">ENB — Economía de los Negocios <span style="font-size:.62rem;font-weight:700;padding:1px 6px;border-radius:3px;background:#7C3AED;color:#fff;margin-left:4px;vertical-align:middle;">PROPUESTA</span></button>
 </nav>
 
 <!-- Leyenda global de bloques -->
@@ -186,6 +187,30 @@ html, body { font-family: Calibri, 'Trebuchet MS', Arial, sans-serif; background
     <div class="dist-title">Distribución de créditos por bloque</div>
     <div class="dist-bar" id="bar-mnd"></div>
     <div class="dist-legend" id="leg-mnd"></div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════
+     ENB — PROPUESTA
+═══════════════════════════════════════════════════ -->
+<div class="prog-pane" id="prog-enb">
+  <div class="prog-header">
+    <div class="prog-name" style="color:#7C3AED;">Economía de los Negocios</div>
+    <div class="prog-meta">
+      <span class="meta-chip">8 semestres</span>
+      <span class="meta-chip">128 créditos</span>
+      <span class="meta-chip gray">ENB</span>
+      <span class="meta-chip" style="background:#7C3AED;">PROPUESTA PRELIMINAR</span>
+    </div>
+    <p style="margin-top:.5rem;font-size:.72rem;color:var(--ur-gray-50);max-width:620px;">
+      Propuesta elaborada a partir del Estudio de Mercado (jun. 2026). Compuesta principalmente por cursos existentes en ANI, ECON, FIN y MND. Solo 2 cursos nuevos: <em>Introducción a la Economía de los Negocios</em> y <em>Economía del Comportamiento</em>.
+    </p>
+  </div>
+  <div class="malla-scroll"><div class="malla-grid" id="malla-enb"></div></div>
+  <div class="dist-section">
+    <div class="dist-title">Distribución de créditos por bloque</div>
+    <div class="dist-bar" id="bar-enb"></div>
+    <div class="dist-legend" id="leg-enb"></div>
   </div>
 </div>
 
@@ -480,6 +505,72 @@ const PROGRAMS = {
       ]},
     ],
     bloques:{ ros:18, nbc:30, dcom:14, desp:51, elec:12, grad:9, prac:6, total:140 }
+  },
+
+  enb: {
+    sems: [
+      { n:1, total:18, cursos:[
+        {n:'Cátedra Rosarista',                                    cr:2, blq:'ros'},
+        {n:'Ética',                                                cr:2, blq:'ros'},
+        {n:'Electiva HM — Núcleo Mutis',                           cr:2, blq:'ros'},
+        {n:'Precálculo',                                           cr:3, blq:'nbc'},
+        {n:'Economía, negocios y sociedad',                        cr:3, blq:'nbc'},
+        {n:'Lógica y Matemática discretas',                        cr:3, blq:'nbc'},
+        {n:'Introducción a la Economía de los Negocios',           cr:3, blq:'desp', tag:'Curso nuevo (*)'},
+      ]},
+      { n:2, total:18, cursos:[
+        {n:'Comunicación profesional',                             cr:3, blq:'ros'},
+        {n:'Cálculo I',                                            cr:3, blq:'nbc'},
+        {n:'Programación y análisis de datos',                     cr:3, blq:'nbc'},
+        {n:'Principios de Macroeconomía',                          cr:3, blq:'dcom'},
+        {n:'Contabilidad y Análisis Financiero',                   cr:3, blq:'dcom'},
+        {n:'Contabilidad y Costos',                                cr:3, blq:'desp', tag:'MND'},
+      ]},
+      { n:3, total:19, cursos:[
+        {n:'Electiva HM',                                          cr:2, blq:'ros'},
+        {n:'Probabilidad y Estadística',                           cr:3, blq:'nbc'},
+        {n:'Liderazgo en la era digital',                          cr:2, blq:'nbc'},
+        {n:'Innovación y Emprendimiento',                          cr:2, blq:'nbc'},
+        {n:'Cálculo II',                                           cr:3, blq:'dcom'},
+        {n:'Álgebra Lineal',                                       cr:3, blq:'dcom'},
+        {n:'Strategic Management',                                 cr:2, blq:'desp', tag:'ANI / MND'},
+        {n:'Digital Business Models',                              cr:2, blq:'desp', tag:'ANI / MND'},
+      ]},
+      { n:4, total:19, cursos:[
+        {n:'Electiva HM',                                          cr:2, blq:'ros'},
+        {n:'Principios de Microeconomía',                          cr:3, blq:'nbc'},
+        {n:'Sustainability Management',                            cr:2, blq:'nbc'},
+        {n:'Data Driven & Decision Making',                        cr:3, blq:'nbc'},
+        {n:'Métodos de Optimización',                              cr:3, blq:'dcom'},
+        {n:'Economía Internacional: Comercio y Finanzas Internacionales', cr:3, blq:'desp', tag:'ECON'},
+        {n:'Micro: organización industrial',                       cr:3, blq:'desp', tag:'ECON'},
+      ]},
+      { n:5, total:18, cursos:[
+        {n:'Constitución Política e Instrucción Cívica',           cr:2, blq:'ros'},
+        {n:'Finanzas Corporativas',                                cr:3, blq:'dcom'},
+        {n:'Econometría y Análisis de Regresión',                  cr:3, blq:'dcom'},
+        {n:'Economía Financiera',                                  cr:3, blq:'desp', tag:'FIN'},
+        {n:'Micro: juegos e información',                          cr:2, blq:'desp', tag:'ECON'},
+        {n:'Pricing y Monetización',                               cr:2, blq:'desp', tag:'MND'},
+        {n:'Valoración de Empresas y Proyectos',                   cr:3, blq:'desp', tag:'FIN'},
+      ]},
+      { n:6, total:18, cursos:[
+        {n:'Desafíos contemporáneos / Proyecto integrador',        cr:3, blq:'ros'},
+        {n:'Business Intelligence',                                cr:3, blq:'desp', tag:'ANI'},
+        {n:'Machine Learning y Analítica Financiera',              cr:3, blq:'desp', tag:'FIN'},
+        {n:'Economía del Comportamiento',                          cr:3, blq:'desp', tag:'Curso nuevo (*)'},
+        {n:'Digital Platforms and Ecosystems',                     cr:3, blq:'elec', tag:'MND'},
+        {n:'Electiva general',                                     cr:3, blq:'elec'},
+      ]},
+      { n:7, total:18, cursos:[
+        {n:'Comunicando Economía',                                 cr:3, blq:'desp', tag:'ECON'},
+        {n:'Finanzas Sostenibles e Inversiones Alternativas',      cr:3, blq:'desp', tag:'FIN'},
+        {n:'Electiva de énfasis',                                  cr:3, blq:'elec'},
+        {n:'Opción de grado',                                      cr:9, blq:'grad'},
+      ]},
+      { n:8, empty:true },
+    ],
+    bloques:{ ros:18, nbc:30, dcom:21, desp:41, elec:9, grad:9, total:128 }
   }
 };
 
@@ -565,7 +656,7 @@ function showProg(key) {
 }
 
 // Init
-['ani','econ','fin','mnd'].forEach(k => { renderMalla(k); renderBloques(k); });
+['ani','econ','fin','mnd','enb'].forEach(k => { renderMalla(k); renderBloques(k); });
 </script>
 </body>
 </html>

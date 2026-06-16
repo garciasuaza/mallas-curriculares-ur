@@ -144,7 +144,7 @@ iframe { width: 100%; height: 100%; border: none; display: block; }
           onclick="switchTab('mallas')">
     <span class="tab-chip chip-nueva">MALLAS</span>
     Mallas
-    <span class="tab-tag tag-nueva">4</span>
+    <span class="tab-tag tag-nueva">5</span>
   </button>
 
   <button class="tab-btn" role="tab" aria-selected="false"
@@ -189,6 +189,13 @@ iframe { width: 100%; height: 100%; border: none; display: block; }
   <span class="nav-group-label">Referencia</span>
 
   <button class="tab-btn" role="tab" aria-selected="false"
+          aria-controls="pane-men" id="tab-men"
+          onclick="switchTab('men')">
+    <span class="tab-chip" style="background:#7C3AED;color:#fff;">MEN</span>
+    Menores
+  </button>
+
+  <button class="tab-btn" role="tab" aria-selected="false"
           aria-controls="pane-ice" id="tab-ice"
           onclick="switchTab('ice')">
     <span class="tab-chip chip-ref">IC</span>
@@ -226,12 +233,16 @@ iframe { width: 100%; height: 100%; border: none; display: block; }
   <iframe src="web/pedagogia.html" title="Principios pedagógicos" loading="lazy"></iframe>
 </div>
 
+<div class="pane" id="pane-men" role="tabpanel" aria-labelledby="tab-men">
+  <iframe src="web/menores.html" title="Menores de pregrado" loading="lazy"></iframe>
+</div>
+
 <div class="pane" id="pane-ice" role="tabpanel" aria-labelledby="tab-ice">
   <iframe src="web/icesi_mallas_comparativo.html" title="Mallas Icesi — referencia comparativa" loading="lazy"></iframe>
 </div>
 
 <script>
-  const TABS = ['inicio','mallas','art','blq','nbc','ped','act','ice'];
+  const TABS = ['inicio','mallas','art','blq','nbc','ped','act','men','ice'];
   function switchTab(key) {
     TABS.forEach(k => {
       const btn  = document.getElementById('tab-' + k);
