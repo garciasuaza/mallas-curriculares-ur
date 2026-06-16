@@ -106,7 +106,8 @@ html, body { font-family: Calibri, 'Trebuchet MS', Arial, sans-serif; background
 const BLOQUES = [
   { key:'ros',  label:'Formación Rosarista',            color:'#DA0921', bg:'#FEF5F5' },
   { key:'nbc',  label:'Núcleo Básico Común de Escuela', color:'#3100A0', bg:'#F3F0FE' },
-  { key:'dcom', label:'Disciplinar común de dpto.',     color:'#065F46', bg:'#F0FBF6' },
+  { key:'dcom', label:'Disciplinar-Departamento',       color:'#065F46', bg:'#F0FBF6' },
+  { key:'desp', label:'Disciplinar específica',         color:'#B8460A', bg:'#FFF7F0' },
 ];
 
 // ═══════════════════════════════════════════════════════
@@ -122,37 +123,37 @@ const SHARED = [
   { blq:'ros', n:'Electiva HM',                                    cr:2, ANI:'4–5',ECON:'3–4',FIN:'2–3–4', MND:'4–5'},
   { blq:'ros', n:'Constitución Política e Instrucción Cívica',     cr:2, ANI:6,    ECON:4,    FIN:2,       MND:6    },
   { blq:'ros', n:'Electiva HM — Núcleo Mutis',                     cr:2, ANI:3,    ECON:1,    FIN:null,    MND:3    },
-  { blq:'ros', n:'Desafíos contemporáneos / Proyecto integrador',  cr:3, ANI:7,    ECON:6,    FIN:null,    MND:7    },
+  { blq:'ros', n:'Lógica y Matemática discretas',                  cr:3, ANI:2,    ECON:1,    FIN:1,       MND:2    },
 
   // ── NÚCLEO BÁSICO COMÚN DE ESCUELA ───────────────────
   { blq:'nbc', n:'Precálculo',                                     cr:3, ANI:1,  ECON:1,  FIN:1,  MND:1  },
   { blq:'nbc', n:'Economía, negocios y sociedad',                  cr:3, ANI:1,  ECON:1,  FIN:1,  MND:1  },
-  { blq:'nbc', n:'Lógica y Matemática discretas',                  cr:3, ANI:2,  ECON:1,  FIN:1,  MND:2  },
   { blq:'nbc', n:'Cálculo I',                                      cr:3, ANI:2,  ECON:2,  FIN:2,  MND:2  },
   { blq:'nbc', n:'Probabilidad y Estadística',                     cr:3, ANI:3,  ECON:3,  FIN:3,  MND:3  },
   { blq:'nbc', n:'Programación y análisis de datos',               cr:3, ANI:3,  ECON:1,  FIN:1,  MND:3  },
   { blq:'nbc', n:'Principios de Microeconomía',                    cr:3, ANI:4,  ECON:2,  FIN:3,  MND:4  },
-  { blq:'nbc', n:'Liderazgo en la era digital',                    cr:2, ANI:3,  ECON:null, FIN:null, MND:3 },
-  { blq:'nbc', n:'Innovación y Emprendimiento',                    cr:2, ANI:3,  ECON:null, FIN:null, MND:3 },
-  { blq:'nbc', n:'Sustainability Management',                      cr:2, ANI:4,  ECON:null, FIN:null, MND:4 },
-  { blq:'nbc', n:'Data Driven & Decision Making',                  cr:3, ANI:4,  ECON:null, FIN:null, MND:4 },
+  { blq:'nbc', n:'Contabilidad y análisis Financiero',             cr:3, ANI:2,  ECON:null, FIN:2, MND:2  },
+  { blq:'nbc', n:'Matemáticas Financieras y Decisiones de Inversión', cr:3, ANI:4, ECON:null, FIN:2, MND:4 },
+  { blq:'nbc', n:'Finanzas Corporativas',                          cr:3, ANI:5,  ECON:null, FIN:4,  MND:5  },
+  { blq:'nbc', n:'Desafíos contemporáneos',                        cr:3, ANI:7,  ECON:6,  FIN:4,  MND:7  },
 
-  // ── DISCIPLINAR COMÚN DE DPTO. ───────────────────────
-  { blq:'dcom', n:'Contabilidad y Análisis Financiero',            cr:3, ANI:2,  ECON:null, FIN:2,  MND:2  },
-  { blq:'dcom', n:'Matemáticas Financieras y Decisiones de Inversión', cr:3, ANI:4, ECON:null, FIN:2, MND:4 },
-  { blq:'dcom', n:'Finanzas Corporativas',                         cr:3, ANI:5,  ECON:null, FIN:4,  MND:5, note:'MND lo clasifica como Disciplinar específica' },
+  // ── DISCIPLINAR-DEPARTAMENTO ──────────────────────────
+  { blq:'dcom', n:'Liderazgo en la era digital',                   cr:2, ANI:3,  ECON:null, FIN:null, MND:3 },
+  { blq:'dcom', n:'Innovación y Emprendimiento',                   cr:2, ANI:3,  ECON:null, FIN:null, MND:3 },
+  { blq:'dcom', n:'Sustainability Management',                     cr:2, ANI:4,  ECON:null, FIN:null, MND:4 },
   { blq:'dcom', n:'Strategic Management',                          cr:2, ANI:5,  ECON:null, FIN:null, MND:5 },
   { blq:'dcom', n:'Project Management',                            cr:2, ANI:6,  ECON:null, FIN:null, MND:6 },
-  { blq:'dcom', n:'Scaling Management',                            cr:2, ANI:1,  ECON:null, FIN:null, MND:1, note:'ANI lo clasifica como Disciplinar específica' },
-  { blq:'dcom', n:'Marketing',                                     cr:2, ANI:1,  ECON:null, FIN:null, MND:1, note:'ANI lo clasifica como Disciplinar específica' },
-  { blq:'dcom', n:'Principios de Macroeconomía',                   cr:3, ANI:null, ECON:2, FIN:3, MND:null, note:'FIN lo clasifica como Núcleo Básico Común' },
+  { blq:'dcom', n:'Scaling Management',                            cr:2, ANI:1,  ECON:null, FIN:null, MND:1 },
+  { blq:'dcom', n:'Marketing',                                     cr:2, ANI:1,  ECON:null, FIN:null, MND:1 },
+  { blq:'dcom', n:'Principios de Macroeconomía',                   cr:3, ANI:null, ECON:2, FIN:3, MND:null },
   { blq:'dcom', n:'Cálculo II',                                    cr:3, ANI:null, ECON:3, FIN:3, MND:null, note:'FIN lo clasifica como Núcleo Básico Común' },
-  { blq:'dcom', n:'Álgebra Lineal',                                cr:3, ANI:null, ECON:4, FIN:2, MND:null, note:'FIN lo clasifica como Núcleo Básico Común' },
-  { blq:'dcom', n:'Métodos de Optimización',                       cr:3, ANI:null, ECON:4, FIN:4, MND:null, note:'FIN lo clasifica como Disciplinar específica' },
+  { blq:'dcom', n:'Álgebra Lineal',                                cr:3, ANI:null, ECON:4, FIN:2, MND:null },
+  { blq:'dcom', n:'Métodos de Optimización',                       cr:3, ANI:null, ECON:4, FIN:4, MND:null },
+  { blq:'dcom', n:'Econometría y Análisis de Regresión',           cr:3, ANI:null, ECON:5, FIN:5, MND:null },
 
   // ── DISCIPLINAR ESPECÍFICA ────────────────────────────
+  { blq:'desp', n:'Data Driven & Decision Making',                 cr:3, ANI:4,  ECON:null, FIN:null, MND:4  },
   { blq:'desp', n:'Digital Business Models',                       cr:2, ANI:6,  ECON:null, FIN:null, MND:6  },
-  { blq:'desp', n:'Econometría y Análisis de Regresión',           cr:3, ANI:null, ECON:5,  FIN:5,  MND:null },
 ];
 
 // ═══════════════════════════════════════════════════════
@@ -185,11 +186,17 @@ function renderKPIs() {
   const crNbc   = SHARED.filter(c=>c.blq==='nbc').reduce((a,c)=>a+c.cr,0);
   const crDcom  = SHARED.filter(c=>c.blq==='dcom').reduce((a,c)=>a+c.cr,0);
 
+  const nRos  = SHARED.filter(c=>c.blq==='ros').length;
+  const nNbc  = SHARED.filter(c=>c.blq==='nbc').length;
+  const nDcom = SHARED.filter(c=>c.blq==='dcom').length;
+  const crDesp= SHARED.filter(c=>c.blq==='desp').reduce((a,c)=>a+c.cr,0);
+  const nDesp = SHARED.filter(c=>c.blq==='desp').length;
   const kpis = [
     { val: total,          color:'#190056', label: 'cursos compartidos\nentre programas' },
-    { val: crRos + ' cr',  color:'#DA0921', label: 'en Formación Rosarista\ncompartida (7 cursos)' },
-    { val: crNbc + ' cr',  color:'#3100A0', label: 'en Núcleo Básico Común\ncompartido (11 cursos)' },
-    { val: crDcom + ' cr', color:'#065F46', label: 'en Disciplinar común\ncompartida (11 cursos)' },
+    { val: crRos + ' cr',  color:'#DA0921', label: `en Formación Rosarista\ncompartida (${nRos} cursos)` },
+    { val: crNbc + ' cr',  color:'#3100A0', label: `en Núcleo Básico Común\ncompartido (${nNbc} cursos)` },
+    { val: crDcom + ' cr', color:'#065F46', label: `en Disciplinar-Departamento\ncompartida (${nDcom} cursos)` },
+    { val: crDesp + ' cr', color:'#B8460A', label: `en Disciplinar específica\ncompartida (${nDesp} cursos)` },
   ];
   const row = document.getElementById('kpi-row');
   kpis.forEach(k => {
