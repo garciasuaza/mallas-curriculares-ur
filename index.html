@@ -151,13 +151,16 @@ iframe { width: 100%; height: 100%; border: none; display: block; }
     </button>
     <div class="dd-menu">
       <button class="dd-item" id="tab-nbc" onclick="switchTab('nbc')">
-        <span class="dd-chip" style="background:#3100A0;">NBC</span> Núcleos comunes
+        <span class="dd-chip" style="background:#3100A0;">NBC</span> Syllabus nuevos cursos
       </button>
       <button class="dd-item" id="tab-ped" onclick="switchTab('ped')">
         <span class="dd-chip" style="background:#E8670C;">PED</span> Modelo Pedagógico
       </button>
       <button class="dd-item" id="tab-act" onclick="switchTab('act')">
         <span class="dd-chip" style="background:#190056;">ACT</span> Actividades
+      </button>
+      <button class="dd-item" id="tab-men" onclick="switchTab('men')">
+        <span class="dd-chip" style="background:#7C3AED;">MEN</span> Menores
       </button>
     </div>
   </div>
@@ -167,9 +170,6 @@ iframe { width: 100%; height: 100%; border: none; display: block; }
       Referencia <span class="nav-arrow">▾</span>
     </button>
     <div class="dd-menu">
-      <button class="dd-item" id="tab-men" onclick="switchTab('men')">
-        <span class="dd-chip" style="background:#7C3AED;">MEN</span> Menores
-      </button>
       <button class="dd-item" id="tab-ice" onclick="switchTab('ice')">
         <span class="dd-chip" style="background:#190056;">IC</span> Icesi
       </button>
@@ -220,7 +220,7 @@ const TABS = ['inicio','mallas','art','blq','nbc','ped','act','men','ice'];
 const DD_PARENT = {
   mallas:'dd-reforma', art:'dd-reforma', blq:'dd-reforma',
   nbc:'dd-recursos', ped:'dd-recursos', act:'dd-recursos',
-  men:'dd-referencia', ice:'dd-referencia'
+  men:'dd-recursos', ice:'dd-referencia'
 };
 
 function switchTab(key) {
