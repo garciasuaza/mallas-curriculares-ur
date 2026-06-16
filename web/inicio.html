@@ -9,11 +9,9 @@
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 :root {
   --ur-red:      #DA0921;
-  --ur-red-dark: #A80018;
-  --ur-purple:   #3100A0;
   --ur-navy:     #190056;
+  --ur-purple:   #3100A0;
   --ur-orange:   #E8670C;
-  --ur-green:    #065F46;
   --ur-white:    #FFFFFF;
   --ur-gray-f:   #F5F4F2;
   --ur-gray-e:   #E8E5E0;
@@ -25,7 +23,7 @@ html, body { font-family: Calibri, 'Trebuchet MS', Arial, sans-serif; background
 /* ── HERO ─────────────────────────────────────────── */
 .hero {
   background: linear-gradient(135deg, var(--ur-navy) 0%, #2a0076 60%, #3100A0 100%);
-  padding: 2.5rem 2rem 2rem;
+  padding: 2rem 2rem 1.75rem;
   position: relative;
   overflow: hidden;
 }
@@ -33,7 +31,7 @@ html, body { font-family: Calibri, 'Trebuchet MS', Arial, sans-serif; background
   content: '';
   position: absolute;
   top: -40px; right: -60px;
-  width: 320px; height: 320px;
+  width: 280px; height: 280px;
   border-radius: 50%;
   background: rgba(255,255,255,.04);
   pointer-events: none;
@@ -41,715 +39,152 @@ html, body { font-family: Calibri, 'Trebuchet MS', Arial, sans-serif; background
 .hero::after {
   content: '';
   position: absolute;
-  bottom: -80px; left: 40%;
-  width: 200px; height: 200px;
+  bottom: -60px; left: 40%;
+  width: 180px; height: 180px;
   border-radius: 50%;
   background: rgba(218,9,33,.12);
   pointer-events: none;
 }
-.hero-eyebrow {
-  font-size: .63rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase;
-  color: rgba(255,255,255,.55); margin-bottom: .5rem;
-}
 .hero-title {
   font-family: 'Bebas Neue', sans-serif;
-  font-size: 2.4rem; letter-spacing: .04em;
-  color: var(--ur-white); line-height: 1.05;
-  margin-bottom: .5rem;
+  font-size: 2.6rem; letter-spacing: .05em;
+  color: var(--ur-white); line-height: 1;
+  margin-bottom: .45rem;
 }
-.hero-title span { color: #FF8FA3; }
 .hero-subtitle {
-  font-size: .88rem; color: rgba(255,255,255,.72);
-  max-width: 620px; line-height: 1.55;
-  margin-bottom: 1.5rem;
+  font-size: .85rem; color: rgba(255,255,255,.68);
+  line-height: 1.5;
 }
-.hero-pills { display: flex; flex-wrap: wrap; gap: .4rem; }
-.hero-pill {
-  font-size: .65rem; font-weight: 700; letter-spacing: .05em; text-transform: uppercase;
-  padding: 4px 10px; border-radius: 100px;
-  background: rgba(255,255,255,.12); color: rgba(255,255,255,.85);
-  border: 1px solid rgba(255,255,255,.2);
-}
-.hero-pill.active { background: var(--ur-red); border-color: var(--ur-red); color: #fff; }
 
-/* ── KPI STRIP ────────────────────────────────────── */
-.kpi-strip {
+/* ── SECTIONS GRID ────────────────────────────────── */
+.sections-wrap {
+  padding: 1.5rem 1.5rem 2rem;
+}
+.sections-title {
+  font-size: .63rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
+  color: var(--ur-gray-50); margin-bottom: 1rem;
+}
+.sections-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: 1fr 1fr;
+  gap: .75rem;
+}
+.sec-card {
   background: var(--ur-white);
-  border-bottom: 2px solid var(--ur-gray-e);
-}
-.kpi-card {
-  padding: 1.1rem 1.25rem;
-  border-right: 1px solid var(--ur-gray-e);
-  position: relative;
-}
-.kpi-card:last-child { border-right: none; }
-.kpi-label {
-  font-size: .6rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
-  color: var(--ur-gray-50); margin-bottom: .3rem;
-}
-.kpi-value {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 2rem; letter-spacing: .02em; line-height: 1;
-  color: var(--ur-navy);
-}
-.kpi-value span { font-size: 1rem; color: var(--ur-gray-50); font-family: Calibri, sans-serif; }
-.kpi-sub {
-  font-size: .66rem; color: var(--ur-gray-50); margin-top: .25rem; line-height: 1.35;
-}
-.kpi-accent {
-  position: absolute; bottom: 0; left: 0;
-  height: 3px; width: 48px;
-  border-radius: 0 2px 0 0;
-}
-.kpi-red    .kpi-accent { background: var(--ur-red); }
-.kpi-purple .kpi-accent { background: var(--ur-purple); }
-.kpi-green  .kpi-accent { background: var(--ur-green); }
-.kpi-orange .kpi-accent { background: var(--ur-orange); }
-.kpi-red    .kpi-value  { color: var(--ur-red); }
-.kpi-purple .kpi-value  { color: var(--ur-purple); }
-.kpi-green  .kpi-value  { color: var(--ur-green); }
-.kpi-orange .kpi-value  { color: var(--ur-orange); }
-
-/* ── MAIN GRID ────────────────────────────────────── */
-.main-grid {
-  display: grid;
-  grid-template-columns: 1fr 320px;
-  gap: 1.25rem;
-  padding: 1.25rem 1.5rem 2rem;
-  max-width: 1200px;
-}
-
-/* ── SECTION TITLE ────────────────────────────────── */
-.section-title {
-  font-size: .65rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
-  color: var(--ur-gray-50); margin-bottom: .75rem;
-  display: flex; align-items: center; gap: .5rem;
-}
-.section-title::after {
-  content: ''; flex: 1; height: 1px; background: var(--ur-gray-e);
-}
-
-/* ── PROG CARDS ───────────────────────────────────── */
-.prog-cards { display: grid; grid-template-columns: 1fr 1fr; gap: .75rem; margin-bottom: 1.25rem; }
-.prog-card {
-  background: var(--ur-white);
-  border-radius: 6px;
   border: 1px solid var(--ur-gray-e);
-  border-top: 3px solid var(--ur-navy);
+  border-radius: 6px;
   padding: 1rem 1.1rem;
-  position: relative;
+  display: flex; flex-direction: column; gap: .5rem;
+  transition: box-shadow .15s, transform .1s;
 }
-.prog-card-code {
+.sec-card:hover { box-shadow: 0 4px 14px rgba(0,0,0,.10); transform: translateY(-1px); }
+.sec-card-top { display: flex; align-items: center; gap: .65rem; }
+.sec-chip {
+  font-size: .58rem; font-weight: 700; letter-spacing: .05em;
+  padding: 2px 7px; border-radius: 3px; color: #fff; flex-shrink: 0;
   font-family: 'Bebas Neue', sans-serif;
-  font-size: 1.5rem; letter-spacing: .06em;
-  color: var(--ur-navy);
 }
-.prog-card-name {
-  font-size: .72rem; color: var(--ur-gray-50); margin-top: 1px;
-  line-height: 1.3;
+.sec-name { font-size: .88rem; font-weight: 700; color: var(--ur-gray-70); line-height: 1.2; }
+.sec-desc { font-size: .75rem; color: var(--ur-gray-50); line-height: 1.45; }
+.sec-btn {
+  align-self: flex-start;
+  margin-top: .15rem;
+  font-size: .68rem; font-weight: 700; letter-spacing: .04em; text-transform: uppercase;
+  padding: 4px 12px; border-radius: 3px;
+  border: none; cursor: pointer;
+  color: var(--ur-white);
+  transition: opacity .15s;
 }
-.prog-card-stats {
-  display: flex; gap: .5rem; margin-top: .75rem; flex-wrap: wrap;
-}
-.prog-stat {
-  display: flex; flex-direction: column;
-  background: var(--ur-gray-f);
-  border-radius: 4px;
-  padding: 4px 8px;
-  min-width: 52px;
-}
-.prog-stat-val {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 1.1rem; line-height: 1; color: var(--ur-navy);
-}
-.prog-stat-key {
-  font-size: .57rem; color: var(--ur-gray-50); text-transform: uppercase; letter-spacing: .06em;
-}
-.prog-blocks {
-  display: flex; height: 6px; border-radius: 3px; overflow: hidden;
-  margin-top: .75rem; gap: 1px;
-}
-.prog-block-seg { border-radius: 2px; }
-
-/* ── NBC TABLE ───────────────────────────────────── */
-.nbc-table { width: 100%; border-collapse: collapse; margin-bottom: 1.25rem; }
-.nbc-table th {
-  font-size: .62rem; font-weight: 700; letter-spacing: .07em; text-transform: uppercase;
-  color: var(--ur-gray-50); text-align: left; padding: 6px 8px;
-  border-bottom: 2px solid var(--ur-gray-e);
-}
-.nbc-table td {
-  font-size: .73rem; padding: 7px 8px;
-  border-bottom: 1px solid var(--ur-gray-e);
-  vertical-align: top;
-}
-.nbc-table tr:last-child td { border-bottom: none; }
-.nbc-table tr:hover td { background: rgba(49,0,160,.03); }
-.nbc-prg-dots { display: flex; gap: 3px; flex-wrap: wrap; }
-.nbc-dot {
-  font-size: .58rem; font-weight: 700;
-  padding: 1px 5px; border-radius: 2px;
-  background: var(--ur-navy); color: #fff;
-}
-.nbc-dot.partial { background: var(--ur-gray-e); color: var(--ur-gray-70); }
-
-/* ── TIMELINE ────────────────────────────────────── */
-.timeline { display: flex; flex-direction: column; gap: 0; margin-bottom: 1.25rem; }
-.tl-item {
-  display: flex; gap: .75rem; align-items: flex-start;
-  padding: .6rem 0;
-  border-bottom: 1px solid var(--ur-gray-e);
-}
-.tl-item:last-child { border-bottom: none; }
-.tl-dot-wrap { display: flex; flex-direction: column; align-items: center; flex-shrink: 0; padding-top: 3px; }
-.tl-dot {
-  width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0;
-}
-.tl-dot.done    { background: var(--ur-green); }
-.tl-dot.active  { background: var(--ur-orange); box-shadow: 0 0 0 3px rgba(232,103,12,.2); }
-.tl-dot.pending { background: var(--ur-gray-e); border: 2px solid var(--ur-gray-50); }
-.tl-line { width: 1px; flex: 1; background: var(--ur-gray-e); min-height: 14px; margin-top: 3px; }
-.tl-body { flex: 1; }
-.tl-label { font-size: .74rem; font-weight: 600; color: var(--ur-gray-70); line-height: 1.3; }
-.tl-meta { font-size: .63rem; color: var(--ur-gray-50); margin-top: 2px; }
-.tl-status {
-  font-size: .58rem; font-weight: 700; text-transform: uppercase; letter-spacing: .05em;
-  padding: 1px 6px; border-radius: 2px;
-  margin-left: auto; flex-shrink: 0; align-self: flex-start; margin-top: 3px;
-}
-.status-done    { background: #D1FAE5; color: #065F46; }
-.status-active  { background: #FFF3CD; color: #92400E; }
-.status-pending { background: var(--ur-gray-e); color: var(--ur-gray-50); }
-
-/* ── SIDEBAR ──────────────────────────────────────── */
-.sidebar { display: flex; flex-direction: column; gap: .9rem; }
-.side-card {
-  background: var(--ur-white);
-  border-radius: 6px;
-  border: 1px solid var(--ur-gray-e);
-  padding: .9rem 1rem;
-}
-.side-card-title {
-  font-size: .62rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
-  color: var(--ur-gray-50); margin-bottom: .75rem;
-  padding-bottom: .5rem; border-bottom: 1px solid var(--ur-gray-e);
-}
-.act-mini { display: flex; flex-direction: column; gap: .4rem; }
-.act-mini-row {
-  display: flex; align-items: center; gap: .5rem;
-  padding: .4rem .5rem; border-radius: 4px;
-  background: var(--ur-gray-f);
-  font-size: .71rem;
-}
-.act-mini-dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
-.act-mini-dot.green   { background: #10B981; }
-.act-mini-dot.pending { background: var(--ur-gray-e); border: 1.5px dashed var(--ur-gray-50); }
-.act-mini-name { flex: 1; line-height: 1.3; color: var(--ur-gray-70); }
-.act-mini-area {
-  font-size: .58rem; font-weight: 700; letter-spacing: .04em;
-  padding: 1px 5px; border-radius: 2px; white-space: nowrap;
-}
-.act-mini-area.dis { background: rgba(232,103,12,.12); color: var(--ur-orange); }
-.act-mini-area.sop { background: rgba(25,0,86,.1); color: var(--ur-navy); }
-.act-mini-area.pen { background: var(--ur-gray-e); color: var(--ur-gray-50); }
-
-.risk-list { display: flex; flex-direction: column; gap: .4rem; }
-.risk-item {
-  display: flex; align-items: flex-start; gap: .5rem;
-  font-size: .71rem; color: var(--ur-gray-70); line-height: 1.35;
-}
-.risk-badge {
-  font-size: .55rem; font-weight: 700; text-transform: uppercase; letter-spacing: .05em;
-  padding: 1px 5px; border-radius: 2px; flex-shrink: 0; margin-top: 1px;
-}
-.risk-alto  { background: #FEE2E2; color: #991B1B; }
-.risk-medio { background: #FFF3CD; color: #92400E; }
-.risk-bajo  { background: #D1FAE5; color: #065F46; }
-
-.acceso-list { display: flex; flex-direction: column; gap: .35rem; }
-.acceso-btn {
-  display: flex; align-items: center; gap: .5rem;
-  padding: .45rem .6rem; border-radius: 4px;
-  background: var(--ur-gray-f);
-  font-size: .72rem; color: var(--ur-navy); font-weight: 500;
-  border: 1px solid var(--ur-gray-e); cursor: pointer;
-  transition: background .12s, border-color .12s;
-  text-decoration: none;
-}
-.acceso-btn:hover { background: rgba(25,0,86,.06); border-color: var(--ur-navy); }
-.acceso-icon { font-size: .85rem; opacity: .7; }
-.acceso-chip {
-  margin-left: auto; font-size: .57rem; font-weight: 700; letter-spacing: .04em;
-  padding: 1px 5px; border-radius: 2px;
-}
-.chip-r { background: var(--ur-red); color: #fff; }
-.chip-p { background: var(--ur-purple); color: #fff; }
-.chip-g { background: var(--ur-green); color: #fff; }
-.chip-o { background: var(--ur-orange); color: #fff; }
-.chip-n { background: var(--ur-navy); color: #fff; }
-
-/* ── BLOCK LEGEND ─────────────────────────────────── */
-.block-legend { display: flex; flex-wrap: wrap; gap: .3rem .7rem; margin-top: .35rem; }
-.bl-item { display: flex; align-items: center; gap: 4px; font-size: .62rem; color: var(--ur-gray-50); }
-.bl-dot { width: 8px; height: 8px; border-radius: 1px; }
-
-@media (max-width: 900px) {
-  .kpi-strip { grid-template-columns: repeat(2, 1fr); }
-  .main-grid { grid-template-columns: 1fr; }
-  .prog-cards { grid-template-columns: 1fr; }
-}
+.sec-btn:hover { opacity: .82; }
 </style>
 </head>
 <body>
 
-<!-- ── HERO ──────────────────────────────────────────── -->
+<!-- ── HERO ─────────────────────────────────────────── -->
 <section class="hero">
-  <div class="hero-eyebrow">Facultad de Economía · Universidad del Rosario · 2026</div>
-  <div class="hero-title">Propuesta de<br><span>Reforma Curricular</span></div>
-  <div class="hero-subtitle">
-    Rediseño integrado de cuatro programas de pregrado con énfasis en articulación,
-    núcleo básico compartido y flexibilidad curricular para el período 2026–2028.
-  </div>
-  <div class="hero-pills">
-    <span class="hero-pill active">4 Programas</span>
-    <span class="hero-pill">534 créditos en diseño</span>
-    <span class="hero-pill">13 actividades de reforma</span>
-    <span class="hero-pill">Cierre julio 2026</span>
-  </div>
+  <div class="hero-title">Reforma Curricular 2026</div>
+  <div class="hero-subtitle">Propuesta de rediseño integrado · Facultad de Economía · Universidad del Rosario</div>
 </section>
 
-<!-- ── KPI STRIP ──────────────────────────────────────── -->
-<div class="kpi-strip">
-  <div class="kpi-card kpi-red">
-    <div class="kpi-label">Programas en reforma</div>
-    <div class="kpi-value">4 <span>pregrados</span></div>
-    <div class="kpi-sub">ANI · ECON · FIN · MND<br>Facultad de Economía UR</div>
-    <div class="kpi-accent"></div>
-  </div>
-  <div class="kpi-card kpi-purple">
-    <div class="kpi-label">Créditos en NBC compartido</div>
-    <div class="kpi-value">21–30 <span>cr</span></div>
-    <div class="kpi-sub">Micro · Macro · Prob&Estad<br>3 cursos articulados entre programas</div>
-    <div class="kpi-accent"></div>
-  </div>
-  <div class="kpi-card kpi-green">
-    <div class="kpi-label">Actividades en progreso</div>
-    <div class="kpi-value">11 <span>/ 13</span></div>
-    <div class="kpi-sub">2 actividades por iniciar<br>Diseño microcredenciales · Perfiles de egreso</div>
-    <div class="kpi-accent"></div>
-  </div>
-  <div class="kpi-card kpi-orange">
-    <div class="kpi-label">Principios pedagógicos</div>
-    <div class="kpi-value">6 <span>ejes</span></div>
-    <div class="kpi-sub">Unidad Integrada · Aprendizaje activo<br>Internacionalización · Flexibilidad</div>
-    <div class="kpi-accent"></div>
+<!-- ── SECTIONS GRID ────────────────────────────────── -->
+<div class="sections-wrap">
+  <div class="sections-title">Secciones disponibles</div>
+  <div class="sections-grid">
+
+    <div class="sec-card">
+      <div class="sec-card-top">
+        <span class="sec-chip" style="background:#DA0921;">MALLAS</span>
+        <span class="sec-name">Mallas curriculares</span>
+      </div>
+      <div class="sec-desc">Visualización semestre a semestre de los 4 programas actuales más la propuesta ENB.</div>
+      <button class="sec-btn" style="background:#DA0921;" onclick="parent.switchTab('mallas')">Ver mallas</button>
+    </div>
+
+    <div class="sec-card">
+      <div class="sec-card-top">
+        <span class="sec-chip" style="background:#3100A0;">ART</span>
+        <span class="sec-name">Articulación</span>
+      </div>
+      <div class="sec-desc">Cursos compartidos entre programas organizados por bloque curricular.</div>
+      <button class="sec-btn" style="background:#3100A0;" onclick="parent.switchTab('art')">Ver articulación</button>
+    </div>
+
+    <div class="sec-card">
+      <div class="sec-card-top">
+        <span class="sec-chip" style="background:#065F46;">BLQ</span>
+        <span class="sec-name">Bloques</span>
+      </div>
+      <div class="sec-desc">Distribución de créditos por área formativa en cada programa de la Facultad.</div>
+      <button class="sec-btn" style="background:#065F46;" onclick="parent.switchTab('blq')">Ver bloques</button>
+    </div>
+
+    <div class="sec-card">
+      <div class="sec-card-top">
+        <span class="sec-chip" style="background:#3100A0;">NBC</span>
+        <span class="sec-name">Núcleos comunes</span>
+      </div>
+      <div class="sec-desc">Los cursos del Núcleo Básico Común compartidos entre los programas de la Escuela.</div>
+      <button class="sec-btn" style="background:#3100A0;" onclick="parent.switchTab('nbc')">Ver NBC</button>
+    </div>
+
+    <div class="sec-card">
+      <div class="sec-card-top">
+        <span class="sec-chip" style="background:#E8670C;">PED</span>
+        <span class="sec-name">Modelo Pedagógico</span>
+      </div>
+      <div class="sec-desc">Los principios pedagógicos que fundamentan la propuesta de reforma curricular.</div>
+      <button class="sec-btn" style="background:#E8670C;" onclick="parent.switchTab('ped')">Ver modelo</button>
+    </div>
+
+    <div class="sec-card">
+      <div class="sec-card-top">
+        <span class="sec-chip" style="background:#190056;">ACT</span>
+        <span class="sec-name">Actividades</span>
+      </div>
+      <div class="sec-desc">Estado de las 13 actividades del proceso de reforma en curso.</div>
+      <button class="sec-btn" style="background:#190056;" onclick="parent.switchTab('act')">Ver actividades</button>
+    </div>
+
+    <div class="sec-card">
+      <div class="sec-card-top">
+        <span class="sec-chip" style="background:#7C3AED;">MEN</span>
+        <span class="sec-name">Menores</span>
+      </div>
+      <div class="sec-desc">Menores de pregrado disponibles en la Escuela de Administración.</div>
+      <button class="sec-btn" style="background:#7C3AED;" onclick="parent.switchTab('men')">Ver menores</button>
+    </div>
+
+    <div class="sec-card">
+      <div class="sec-card-top">
+        <span class="sec-chip" style="background:#190056;">IC</span>
+        <span class="sec-name">Referencia Icesi</span>
+      </div>
+      <div class="sec-desc">Mallas de referencia de Icesi para benchmarking curricular comparativo.</div>
+      <button class="sec-btn" style="background:#190056;" onclick="parent.switchTab('ice')">Ver Icesi</button>
+    </div>
+
   </div>
 </div>
-
-<!-- ── MAIN GRID ──────────────────────────────────────── -->
-<div class="main-grid">
-  <div class="left-col">
-
-    <!-- PROGRAMAS -->
-    <div class="section-title">Los cuatro programas</div>
-    <div class="prog-cards">
-
-      <!-- ANI -->
-      <div class="prog-card" style="border-top-color: var(--ur-red);">
-        <div class="prog-card-code">ANI</div>
-        <div class="prog-card-name">Administración de Negocios Internacionales</div>
-        <div class="prog-card-stats">
-          <div class="prog-stat"><div class="prog-stat-val">140</div><div class="prog-stat-key">Créditos</div></div>
-          <div class="prog-stat"><div class="prog-stat-val">8</div><div class="prog-stat-key">Semestres</div></div>
-          <div class="prog-stat"><div class="prog-stat-val">30</div><div class="prog-stat-key">NBC</div></div>
-          <div class="prog-stat"><div class="prog-stat-val">6</div><div class="prog-stat-key">Prácticas</div></div>
-        </div>
-        <div class="prog-blocks">
-          <div class="prog-block-seg" style="flex:18;background:#DA0921;" title="Rosarista 18cr"></div>
-          <div class="prog-block-seg" style="flex:30;background:#3100A0;" title="NBC 30cr"></div>
-          <div class="prog-block-seg" style="flex:17;background:#1D4ED8;" title="Disc. Común 17cr"></div>
-          <div class="prog-block-seg" style="flex:48;background:#0369A1;" title="Disc. Específica 48cr"></div>
-          <div class="prog-block-seg" style="flex:12;background:#D97706;" title="Electividad 12cr"></div>
-          <div class="prog-block-seg" style="flex:9;background:#065F46;" title="Opción grado 9cr"></div>
-          <div class="prog-block-seg" style="flex:6;background:#6B21A8;" title="Prácticas 6cr"></div>
-        </div>
-      </div>
-
-      <!-- ECON -->
-      <div class="prog-card" style="border-top-color: var(--ur-purple);">
-        <div class="prog-card-code">ECON</div>
-        <div class="prog-card-name">Economía</div>
-        <div class="prog-card-stats">
-          <div class="prog-stat"><div class="prog-stat-val">128</div><div class="prog-stat-key">Créditos</div></div>
-          <div class="prog-stat"><div class="prog-stat-val">9</div><div class="prog-stat-key">Semestres</div></div>
-          <div class="prog-stat"><div class="prog-stat-val">21</div><div class="prog-stat-key">NBC</div></div>
-          <div class="prog-stat"><div class="prog-stat-val">0</div><div class="prog-stat-key">Prácticas</div></div>
-        </div>
-        <div class="prog-blocks">
-          <div class="prog-block-seg" style="flex:18;background:#DA0921;"></div>
-          <div class="prog-block-seg" style="flex:21;background:#3100A0;"></div>
-          <div class="prog-block-seg" style="flex:18;background:#1D4ED8;"></div>
-          <div class="prog-block-seg" style="flex:35;background:#0369A1;"></div>
-          <div class="prog-block-seg" style="flex:24;background:#D97706;"></div>
-          <div class="prog-block-seg" style="flex:12;background:#065F46;"></div>
-        </div>
-      </div>
-
-      <!-- FIN -->
-      <div class="prog-card" style="border-top-color: #1D4ED8;">
-        <div class="prog-card-code">FIN</div>
-        <div class="prog-card-name">Finanzas</div>
-        <div class="prog-card-stats">
-          <div class="prog-stat"><div class="prog-stat-val">126</div><div class="prog-stat-key">Créditos</div></div>
-          <div class="prog-stat"><div class="prog-stat-val">9</div><div class="prog-stat-key">Semestres</div></div>
-          <div class="prog-stat"><div class="prog-stat-val">30</div><div class="prog-stat-key">NBC</div></div>
-          <div class="prog-stat"><div class="prog-stat-val">0</div><div class="prog-stat-key">Prácticas</div></div>
-        </div>
-        <div class="prog-blocks">
-          <div class="prog-block-seg" style="flex:18;background:#DA0921;"></div>
-          <div class="prog-block-seg" style="flex:30;background:#3100A0;"></div>
-          <div class="prog-block-seg" style="flex:15;background:#1D4ED8;"></div>
-          <div class="prog-block-seg" style="flex:30;background:#0369A1;"></div>
-          <div class="prog-block-seg" style="flex:21;background:#D97706;"></div>
-          <div class="prog-block-seg" style="flex:12;background:#065F46;"></div>
-        </div>
-      </div>
-
-      <!-- MND -->
-      <div class="prog-card" style="border-top-color: var(--ur-orange);">
-        <div class="prog-card-code">MND</div>
-        <div class="prog-card-name">Marketing y Negocios Digitales</div>
-        <div class="prog-card-stats">
-          <div class="prog-stat"><div class="prog-stat-val">140</div><div class="prog-stat-key">Créditos</div></div>
-          <div class="prog-stat"><div class="prog-stat-val">8</div><div class="prog-stat-key">Semestres</div></div>
-          <div class="prog-stat"><div class="prog-stat-val">30</div><div class="prog-stat-key">NBC</div></div>
-          <div class="prog-stat"><div class="prog-stat-val">6</div><div class="prog-stat-key">Prácticas</div></div>
-        </div>
-        <div class="prog-blocks">
-          <div class="prog-block-seg" style="flex:18;background:#DA0921;"></div>
-          <div class="prog-block-seg" style="flex:30;background:#3100A0;"></div>
-          <div class="prog-block-seg" style="flex:14;background:#1D4ED8;"></div>
-          <div class="prog-block-seg" style="flex:51;background:#0369A1;"></div>
-          <div class="prog-block-seg" style="flex:12;background:#D97706;"></div>
-          <div class="prog-block-seg" style="flex:9;background:#065F46;"></div>
-          <div class="prog-block-seg" style="flex:6;background:#6B21A8;"></div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Leyenda bloques -->
-    <div class="block-legend" style="margin-bottom:1.25rem;">
-      <div class="bl-item"><div class="bl-dot" style="background:#DA0921;"></div>Rosarista</div>
-      <div class="bl-item"><div class="bl-dot" style="background:#3100A0;"></div>NBC</div>
-      <div class="bl-item"><div class="bl-dot" style="background:#1D4ED8;"></div>Disc. Común</div>
-      <div class="bl-item"><div class="bl-dot" style="background:#0369A1;"></div>Disc. Específica</div>
-      <div class="bl-item"><div class="bl-dot" style="background:#D97706;"></div>Electividad</div>
-      <div class="bl-item"><div class="bl-dot" style="background:#065F46;"></div>Opción grado</div>
-      <div class="bl-item"><div class="bl-dot" style="background:#6B21A8;"></div>Prácticas</div>
-    </div>
-
-    <!-- NBC -->
-    <div class="section-title">Núcleo Básico Común — cursos articulados</div>
-    <div style="background:var(--ur-white);border-radius:6px;border:1px solid var(--ur-gray-e);padding:.75rem;margin-bottom:1.25rem;">
-      <table class="nbc-table">
-        <thead>
-          <tr>
-            <th>Curso NBC</th>
-            <th style="text-align:center;">Créditos</th>
-            <th>Programas</th>
-            <th>Observación</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td><strong>Principios de Microeconomía</strong></td>
-            <td style="text-align:center;font-family:'Bebas Neue',sans-serif;font-size:1.05rem;color:var(--ur-purple);">3</td>
-            <td><div class="nbc-prg-dots">
-              <span class="nbc-dot">ANI</span>
-              <span class="nbc-dot">ECON</span>
-              <span class="nbc-dot">FIN</span>
-              <span class="nbc-dot">MND</span>
-            </div></td>
-            <td style="font-size:.67rem;color:var(--ur-gray-50);">Curso unificado con sílabo común</td>
-          </tr>
-          <tr>
-            <td><strong>Principios de Macroeconomía</strong></td>
-            <td style="text-align:center;font-family:'Bebas Neue',sans-serif;font-size:1.05rem;color:var(--ur-purple);">3</td>
-            <td><div class="nbc-prg-dots">
-              <span class="nbc-dot">ANI</span>
-              <span class="nbc-dot">ECON</span>
-              <span class="nbc-dot">FIN</span>
-              <span class="nbc-dot">MND</span>
-            </div></td>
-            <td style="font-size:.67rem;color:var(--ur-gray-50);">Curso unificado con sílabo común</td>
-          </tr>
-          <tr>
-            <td><strong>Probabilidad y Estadística</strong></td>
-            <td style="text-align:center;font-family:'Bebas Neue',sans-serif;font-size:1.05rem;color:var(--ur-purple);">3</td>
-            <td><div class="nbc-prg-dots">
-              <span class="nbc-dot">ANI</span>
-              <span class="nbc-dot">ECON</span>
-              <span class="nbc-dot">FIN</span>
-              <span class="nbc-dot">MND</span>
-            </div></td>
-            <td style="font-size:.67rem;color:var(--ur-gray-50);">Curso unificado con sílabo común</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-
-    <!-- HOJA DE RUTA -->
-    <div class="section-title">Hoja de ruta · Actividades de reforma</div>
-    <div style="background:var(--ur-white);border-radius:6px;border:1px solid var(--ur-gray-e);padding:.75rem 1rem;margin-bottom:1.25rem;">
-      <div class="timeline">
-        <div class="tl-item">
-          <div class="tl-dot-wrap"><div class="tl-dot done"></div><div class="tl-line"></div></div>
-          <div class="tl-body">
-            <div class="tl-label">Diagnóstico y mapeo de mallas actuales</div>
-            <div class="tl-meta">Diseño curricular · Fase completada</div>
-          </div>
-          <div class="tl-status status-done">Completada</div>
-        </div>
-        <div class="tl-item">
-          <div class="tl-dot-wrap"><div class="tl-dot active"></div><div class="tl-line"></div></div>
-          <div class="tl-body">
-            <div class="tl-label">Revisión y ajuste de mallas por programa</div>
-            <div class="tl-meta">Diseño curricular · En curso con grupos de trabajo</div>
-          </div>
-          <div class="tl-status status-active">En progreso</div>
-        </div>
-        <div class="tl-item">
-          <div class="tl-dot-wrap"><div class="tl-dot active"></div><div class="tl-line"></div></div>
-          <div class="tl-body">
-            <div class="tl-label">Diseño del Núcleo Básico Común (NBC)</div>
-            <div class="tl-meta">Diseño curricular · Syllabus Micro, Macro, Prob&amp;Estad listos</div>
-          </div>
-          <div class="tl-status status-active">En progreso</div>
-        </div>
-        <div class="tl-item">
-          <div class="tl-dot-wrap"><div class="tl-dot active"></div><div class="tl-line"></div></div>
-          <div class="tl-body">
-            <div class="tl-label">Construcción del mapa de articulación entre programas</div>
-            <div class="tl-meta">Diseño curricular · Matriz de equivalencias y traslapes</div>
-          </div>
-          <div class="tl-status status-active">En progreso</div>
-        </div>
-        <div class="tl-item">
-          <div class="tl-dot-wrap"><div class="tl-dot active"></div><div class="tl-line"></div></div>
-          <div class="tl-body">
-            <div class="tl-label">Definición de principios pedagógicos</div>
-            <div class="tl-meta">Diseño curricular · Documento Unidad Integrada aprobado</div>
-          </div>
-          <div class="tl-status status-active">En progreso</div>
-        </div>
-        <div class="tl-item">
-          <div class="tl-dot-wrap"><div class="tl-dot active"></div><div class="tl-line"></div></div>
-          <div class="tl-body">
-            <div class="tl-label">Diseño de minor de especialización (Experience Marketing)</div>
-            <div class="tl-meta">Diseño curricular · Integrado en malla MND semestres 7–8</div>
-          </div>
-          <div class="tl-status status-active">En progreso</div>
-        </div>
-        <div class="tl-item">
-          <div class="tl-dot-wrap"><div class="tl-dot active"></div><div class="tl-line"></div></div>
-          <div class="tl-body">
-            <div class="tl-label">Gestión de procesos de registro y documentación</div>
-            <div class="tl-meta">Soporte · Registro Académico y Decano</div>
-          </div>
-          <div class="tl-status status-active">En progreso</div>
-        </div>
-        <div class="tl-item">
-          <div class="tl-dot-wrap"><div class="tl-dot active"></div><div class="tl-line"></div></div>
-          <div class="tl-body">
-            <div class="tl-label">Comunicación y socialización de la reforma</div>
-            <div class="tl-meta">Soporte · Plan de comunicación interna</div>
-          </div>
-          <div class="tl-status status-active">En progreso</div>
-        </div>
-        <div class="tl-item">
-          <div class="tl-dot-wrap"><div class="tl-dot active"></div><div class="tl-line"></div></div>
-          <div class="tl-body">
-            <div class="tl-label">Revisión de equivalencias y tabla de homologaciones</div>
-            <div class="tl-meta">Soporte · Para estudiantes en transición</div>
-          </div>
-          <div class="tl-status status-active">En progreso</div>
-        </div>
-        <div class="tl-item">
-          <div class="tl-dot-wrap"><div class="tl-dot active"></div><div class="tl-line"></div></div>
-          <div class="tl-body">
-            <div class="tl-label">Coordinación con Registro Académico y Sistemas</div>
-            <div class="tl-meta">Soporte · Implementación en banner y sistemas</div>
-          </div>
-          <div class="tl-status status-active">En progreso</div>
-        </div>
-        <div class="tl-item">
-          <div class="tl-dot-wrap"><div class="tl-dot active"></div><div class="tl-line"></div></div>
-          <div class="tl-body">
-            <div class="tl-label">Análisis comparativo con referentes externos (Icesi)</div>
-            <div class="tl-meta">Soporte · Benchmarking curricular finalizado</div>
-          </div>
-          <div class="tl-status status-active">En progreso</div>
-        </div>
-        <div class="tl-item">
-          <div class="tl-dot-wrap"><div class="tl-dot pending"></div><div class="tl-line"></div></div>
-          <div class="tl-body">
-            <div class="tl-label">Diseño de microcredenciales y trayectorias flexibles</div>
-            <div class="tl-meta">Diseño curricular · Equipo por definir</div>
-          </div>
-          <div class="tl-status status-pending">Por iniciar</div>
-        </div>
-        <div class="tl-item">
-          <div class="tl-dot-wrap"><div class="tl-dot pending"></div></div>
-          <div class="tl-body">
-            <div class="tl-label">Revisión de perfiles de egreso</div>
-            <div class="tl-meta">Diseño curricular · Equipo por definir</div>
-          </div>
-          <div class="tl-status status-pending">Por iniciar</div>
-        </div>
-      </div>
-    </div>
-
-  </div><!-- /left-col -->
-
-  <!-- ── SIDEBAR ────────────────────────────────────── -->
-  <div class="sidebar">
-
-    <!-- Acceso rápido -->
-    <div class="side-card">
-      <div class="side-card-title">Acceso rápido</div>
-      <div class="acceso-list">
-        <a class="acceso-btn" href="#" onclick="parent.switchTab('mallas');return false;">
-          <span class="acceso-icon">📋</span>
-          Mallas por programa
-          <span class="acceso-chip chip-r">MALLAS</span>
-        </a>
-        <a class="acceso-btn" href="#" onclick="parent.switchTab('nbc');return false;">
-          <span class="acceso-icon">🔗</span>
-          Núcleo Básico Común
-          <span class="acceso-chip chip-p">NBC</span>
-        </a>
-        <a class="acceso-btn" href="#" onclick="parent.switchTab('ped');return false;">
-          <span class="acceso-icon">📐</span>
-          Principios pedagógicos
-          <span class="acceso-chip chip-o">PED</span>
-        </a>
-        <a class="acceso-btn" href="#" onclick="parent.switchTab('art');return false;">
-          <span class="acceso-icon">🗺</span>
-          Articulación entre programas
-          <span class="acceso-chip chip-p">ART</span>
-        </a>
-        <a class="acceso-btn" href="#" onclick="parent.switchTab('blq');return false;">
-          <span class="acceso-icon">📊</span>
-          Créditos por bloque
-          <span class="acceso-chip chip-n">BLQ</span>
-        </a>
-        <a class="acceso-btn" href="#" onclick="parent.switchTab('act');return false;">
-          <span class="acceso-icon">✅</span>
-          Actividades en progreso
-          <span class="acceso-chip chip-n">ACT</span>
-        </a>
-      </div>
-    </div>
-
-    <!-- Actividades resumen -->
-    <div class="side-card">
-      <div class="side-card-title">Actividades · resumen</div>
-      <div class="act-mini">
-        <div class="act-mini-row">
-          <div class="act-mini-dot green"></div>
-          <div class="act-mini-name">Diagnóstico y mapeo de mallas</div>
-          <span class="act-mini-area dis">Diseño</span>
-        </div>
-        <div class="act-mini-row">
-          <div class="act-mini-dot green"></div>
-          <div class="act-mini-name">Revisión y ajuste de mallas</div>
-          <span class="act-mini-area dis">Diseño</span>
-        </div>
-        <div class="act-mini-row">
-          <div class="act-mini-dot green"></div>
-          <div class="act-mini-name">Diseño NBC</div>
-          <span class="act-mini-area dis">Diseño</span>
-        </div>
-        <div class="act-mini-row">
-          <div class="act-mini-dot green"></div>
-          <div class="act-mini-name">Mapa de articulación</div>
-          <span class="act-mini-area dis">Diseño</span>
-        </div>
-        <div class="act-mini-row">
-          <div class="act-mini-dot green"></div>
-          <div class="act-mini-name">Principios pedagógicos</div>
-          <span class="act-mini-area dis">Diseño</span>
-        </div>
-        <div class="act-mini-row">
-          <div class="act-mini-dot green"></div>
-          <div class="act-mini-name">Minor de especialización</div>
-          <span class="act-mini-area dis">Diseño</span>
-        </div>
-        <div class="act-mini-row">
-          <div class="act-mini-dot green"></div>
-          <div class="act-mini-name">Registro y documentación</div>
-          <span class="act-mini-area sop">Soporte</span>
-        </div>
-        <div class="act-mini-row">
-          <div class="act-mini-dot green"></div>
-          <div class="act-mini-name">Comunicación y socialización</div>
-          <span class="act-mini-area sop">Soporte</span>
-        </div>
-        <div class="act-mini-row">
-          <div class="act-mini-dot green"></div>
-          <div class="act-mini-name">Equivalencias y homologaciones</div>
-          <span class="act-mini-area sop">Soporte</span>
-        </div>
-        <div class="act-mini-row">
-          <div class="act-mini-dot green"></div>
-          <div class="act-mini-name">Coordinación con Sistemas</div>
-          <span class="act-mini-area sop">Soporte</span>
-        </div>
-        <div class="act-mini-row">
-          <div class="act-mini-dot green"></div>
-          <div class="act-mini-name">Referentes externos</div>
-          <span class="act-mini-area sop">Soporte</span>
-        </div>
-        <div class="act-mini-row" style="opacity:.7;">
-          <div class="act-mini-dot pending"></div>
-          <div class="act-mini-name">Microcredenciales y trayectorias</div>
-          <span class="act-mini-area pen">Pendiente</span>
-        </div>
-        <div class="act-mini-row" style="opacity:.7;">
-          <div class="act-mini-dot pending"></div>
-          <div class="act-mini-name">Revisión perfiles de egreso</div>
-          <span class="act-mini-area pen">Pendiente</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- Notas de riesgo -->
-    <div class="side-card">
-      <div class="side-card-title">Puntos de atención</div>
-      <div class="risk-list">
-        <div class="risk-item">
-          <span class="risk-badge risk-alto">Alto</span>
-          ECON no comparte Micro/Macro en versión NBC — requiere decisión de convergencia o excepción formal.
-        </div>
-        <div class="risk-item">
-          <span class="risk-badge risk-medio">Medio</span>
-          Perfiles de egreso y microcredenciales aún sin equipo asignado — riesgo de quedar fuera del cierre de julio.
-        </div>
-        <div class="risk-item">
-          <span class="risk-badge risk-medio">Medio</span>
-          Tabla de equivalencias para estudiantes en transición pendiente de validación con Registro Académico.
-        </div>
-        <div class="risk-item">
-          <span class="risk-badge risk-bajo">Info</span>
-          Minor de Experience Marketing: 12 cr distribuidos en semestres 7–8 de MND. Pendiente extensión a otros programas.
-        </div>
-      </div>
-    </div>
-
-  </div><!-- /sidebar -->
-</div><!-- /main-grid -->
 
 </body>
 </html>

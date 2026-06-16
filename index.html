@@ -47,58 +47,55 @@ html, body { height: 100%; font-family: Calibri, 'Trebuchet MS', Arial, sans-ser
 
 /* ── NAVBAR ─────────────────────────────────────────── */
 .navbar {
-  height: var(--nav-h);
+  height: 44px;
   background: #ffffff;
   display: flex; align-items: stretch;
-  padding: 0 1.5rem; gap: 0;
+  padding: 0 1rem; gap: 0;
   position: sticky; top: var(--header-h); z-index: 300;
   border-bottom: 2px solid var(--ur-navy);
-  overflow-x: auto; scrollbar-width: none;
   box-shadow: 0 2px 6px rgba(0,0,0,.08);
 }
-.navbar::-webkit-scrollbar { display: none; }
-
-.nav-group-label {
-  display: flex; align-items: center;
-  padding: 0 .75rem 0 0;
-  font-size: .58rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
-  color: rgba(25,0,86,.45); white-space: nowrap;
-  border-right: 1px solid var(--ur-gray-e); margin-right: .5rem;
-}
-.tab-btn {
-  display: flex; align-items: center; gap: .45rem;
-  padding: 0 .9rem;
+.nav-item { position: relative; display: flex; align-items: stretch; }
+.nav-btn {
+  display: flex; align-items: center; gap: .4rem;
+  padding: 0 1rem;
   border: none; border-bottom: 3px solid transparent;
   background: none; cursor: pointer;
   font-family: Calibri, 'Trebuchet MS', Arial, sans-serif;
-  color: var(--ur-gray-50); font-size: .78rem; font-weight: 500;
-  white-space: nowrap; flex-shrink: 0;
+  color: var(--ur-gray-50); font-size: .82rem; font-weight: 600;
+  white-space: nowrap;
   transition: color .15s, border-color .15s, background .15s;
 }
-.tab-btn:hover { color: var(--ur-navy); background: rgba(25,0,86,.04); }
-.tab-btn.active { color: var(--ur-navy); border-bottom-color: var(--ur-red); background: rgba(218,9,33,.04); }
+.nav-btn:hover { color: var(--ur-navy); background: rgba(25,0,86,.04); }
+.nav-btn.active { color: var(--ur-navy); border-bottom-color: var(--ur-red); background: rgba(218,9,33,.04); }
+.nav-arrow { font-size: .6rem; opacity: .55; transition: transform .15s; }
+.nav-item.open .nav-arrow { transform: rotate(180deg); }
+.nav-item.open > .nav-btn { color: var(--ur-navy); background: rgba(25,0,86,.04); }
 
-.tab-chip {
-  font-size: .6rem; font-weight: 700;
-  font-family: 'Bebas Neue', monospace; letter-spacing: .05em;
-  padding: 1px 6px; border-radius: 2px; flex-shrink: 0;
+.dd-menu {
+  display: none;
+  position: absolute; top: calc(100% + 2px); left: 0;
+  background: #fff;
+  border: 1px solid var(--ur-gray-e);
+  border-radius: 0 0 6px 6px;
+  box-shadow: 0 6px 16px rgba(0,0,0,.12);
+  min-width: 200px; z-index: 500;
 }
-.chip-nueva  { background: var(--ur-red);    color: #fff; }
-.chip-art    { background: var(--ur-purple); color: #fff; }
-.chip-blq    { background: #065F46;          color: #fff; }
-.chip-ref    { background: var(--ur-navy);   color: #fff; }
-.chip-act    { background: #190056;          color: #fff; }
-.chip-nbc    { background: #3100A0;          color: #fff; }
-.chip-ped    { background: #E8670C;          color: #fff; }
-
-.tab-tag {
-  font-size: .58rem; padding: 1px 5px; border-radius: 100px;
-  font-weight: 600; letter-spacing: .01em;
+.nav-item.open .dd-menu { display: block; }
+.dd-item {
+  display: flex; align-items: center; gap: .6rem;
+  width: 100%; padding: .6rem 1rem;
+  border: none; background: none; cursor: pointer;
+  font-family: Calibri, 'Trebuchet MS', Arial, sans-serif;
+  font-size: .78rem; color: var(--ur-gray-70); text-align: left;
+  transition: background .1s;
 }
-.tag-nueva { background: #FEE8EA; color: var(--ur-red); }
-.tag-ref   { background: #EDE9FE; color: var(--ur-purple); }
-
-.nav-sep { width: 1px; background: var(--ur-gray-e); margin: 10px 4px; flex-shrink: 0; }
+.dd-item:hover { background: var(--ur-gray-f); color: var(--ur-navy); }
+.dd-item.active { color: var(--ur-red); font-weight: 600; }
+.dd-chip {
+  font-size: .6rem; font-weight: 700; letter-spacing: .04em;
+  padding: 1px 6px; border-radius: 2px; color: #fff; flex-shrink: 0;
+}
 
 /* ── PANES ──────────────────────────────────────────── */
 .pane { display: none; width: 100%; height: calc(100vh - var(--total-h)); }
@@ -115,10 +112,6 @@ iframe { width: 100%; height: 100%; border: none; display: block; }
       <span class="header-univ">Universidad del</span>
       <span class="header-rosario">Rosario</span>
     </div>
-    <div class="header-divider"></div>
-    <div class="header-dept">
-      <span class="header-dept-name">Propuesta de Reforma Curricular 2026</span>
-    </div>
   </div>
   <div class="header-meta">
     <span class="header-badge">Reforma Curricular</span>
@@ -127,80 +120,61 @@ iframe { width: 100%; height: 100%; border: none; display: block; }
 </header>
 
 <!-- ── NAV TABS ─────────────────────────────────────── -->
-<nav class="navbar" role="tablist" aria-label="Vistas de análisis curricular">
+<nav class="navbar" role="navigation">
 
-  <button class="tab-btn active" role="tab" aria-selected="true"
-          aria-controls="pane-inicio" id="tab-inicio"
-          onclick="switchTab('inicio')">
-    <span class="tab-chip" style="background:#190056;color:#fff;">INICIO</span>
-    Panel general
-  </button>
+  <div class="nav-item">
+    <button class="nav-btn active" id="tab-inicio" onclick="switchTab('inicio')">
+      INICIO
+    </button>
+  </div>
 
-  <div class="nav-sep"></div>
-  <span class="nav-group-label">Reforma</span>
+  <div class="nav-item" id="dd-reforma">
+    <button class="nav-btn" onclick="toggleDrop('dd-reforma')">
+      Reformas <span class="nav-arrow">▾</span>
+    </button>
+    <div class="dd-menu">
+      <button class="dd-item" id="tab-mallas" onclick="switchTab('mallas')">
+        <span class="dd-chip" style="background:#DA0921;">MALLAS</span> Mallas curriculares
+      </button>
+      <button class="dd-item" id="tab-art" onclick="switchTab('art')">
+        <span class="dd-chip" style="background:#3100A0;">ART</span> Articulación
+      </button>
+      <button class="dd-item" id="tab-blq" onclick="switchTab('blq')">
+        <span class="dd-chip" style="background:#065F46;">BLQ</span> Bloques
+      </button>
+    </div>
+  </div>
 
-  <button class="tab-btn" role="tab" aria-selected="false"
-          aria-controls="pane-mallas" id="tab-mallas"
-          onclick="switchTab('mallas')">
-    <span class="tab-chip chip-nueva">MALLAS</span>
-    Mallas
-    <span class="tab-tag tag-nueva">5</span>
-  </button>
+  <div class="nav-item" id="dd-recursos">
+    <button class="nav-btn" onclick="toggleDrop('dd-recursos')">
+      Recursos <span class="nav-arrow">▾</span>
+    </button>
+    <div class="dd-menu">
+      <button class="dd-item" id="tab-nbc" onclick="switchTab('nbc')">
+        <span class="dd-chip" style="background:#3100A0;">NBC</span> Núcleos comunes
+      </button>
+      <button class="dd-item" id="tab-ped" onclick="switchTab('ped')">
+        <span class="dd-chip" style="background:#E8670C;">PED</span> Modelo Pedagógico
+      </button>
+      <button class="dd-item" id="tab-act" onclick="switchTab('act')">
+        <span class="dd-chip" style="background:#190056;">ACT</span> Actividades
+      </button>
+    </div>
+  </div>
 
-  <button class="tab-btn" role="tab" aria-selected="false"
-          aria-controls="pane-art" id="tab-art"
-          onclick="switchTab('art')">
-    <span class="tab-chip chip-art">ART</span>
-    Articulación
-  </button>
-
-  <button class="tab-btn" role="tab" aria-selected="false"
-          aria-controls="pane-blq" id="tab-blq"
-          onclick="switchTab('blq')">
-    <span class="tab-chip chip-blq">BLQ</span>
-    Bloques
-  </button>
-
-  <div class="nav-sep"></div>
-  <span class="nav-group-label">Fundamentos</span>
-
-  <button class="tab-btn" role="tab" aria-selected="false"
-          aria-controls="pane-nbc" id="tab-nbc"
-          onclick="switchTab('nbc')">
-    <span class="tab-chip chip-nbc">NBC</span>
-    NBC
-  </button>
-
-  <button class="tab-btn" role="tab" aria-selected="false"
-          aria-controls="pane-ped" id="tab-ped"
-          onclick="switchTab('ped')">
-    <span class="tab-chip chip-ped">PED</span>
-    Pedagogía
-  </button>
-
-  <button class="tab-btn" role="tab" aria-selected="false"
-          aria-controls="pane-act" id="tab-act"
-          onclick="switchTab('act')">
-    <span class="tab-chip chip-act">ACT</span>
-    Actividades
-  </button>
-
-  <div class="nav-sep"></div>
-  <span class="nav-group-label">Referencia</span>
-
-  <button class="tab-btn" role="tab" aria-selected="false"
-          aria-controls="pane-men" id="tab-men"
-          onclick="switchTab('men')">
-    <span class="tab-chip" style="background:#7C3AED;color:#fff;">MEN</span>
-    Menores
-  </button>
-
-  <button class="tab-btn" role="tab" aria-selected="false"
-          aria-controls="pane-ice" id="tab-ice"
-          onclick="switchTab('ice')">
-    <span class="tab-chip chip-ref">IC</span>
-    Icesi
-  </button>
+  <div class="nav-item" id="dd-referencia">
+    <button class="nav-btn" onclick="toggleDrop('dd-referencia')">
+      Referencia <span class="nav-arrow">▾</span>
+    </button>
+    <div class="dd-menu">
+      <button class="dd-item" id="tab-men" onclick="switchTab('men')">
+        <span class="dd-chip" style="background:#7C3AED;">MEN</span> Menores
+      </button>
+      <button class="dd-item" id="tab-ice" onclick="switchTab('ice')">
+        <span class="dd-chip" style="background:#190056;">IC</span> Icesi
+      </button>
+    </div>
+  </div>
 
 </nav>
 
@@ -242,21 +216,59 @@ iframe { width: 100%; height: 100%; border: none; display: block; }
 </div>
 
 <script>
-  const TABS = ['inicio','mallas','art','blq','nbc','ped','act','men','ice'];
-  function switchTab(key) {
-    TABS.forEach(k => {
-      const btn  = document.getElementById('tab-' + k);
-      const pane = document.getElementById('pane-' + k);
-      const on   = k === key;
-      if (btn)  { btn.classList.toggle('active', on); btn.setAttribute('aria-selected', on); }
-      if (pane) { pane.classList.toggle('active', on); }
-    });
-    history.replaceState(null, '', '#' + key);
+const TABS = ['inicio','mallas','art','blq','nbc','ped','act','men','ice'];
+const DD_PARENT = {
+  mallas:'dd-reforma', art:'dd-reforma', blq:'dd-reforma',
+  nbc:'dd-recursos', ped:'dd-recursos', act:'dd-recursos',
+  men:'dd-referencia', ice:'dd-referencia'
+};
+
+function switchTab(key) {
+  // panes
+  TABS.forEach(k => {
+    const pane = document.getElementById('pane-' + k);
+    if (pane) pane.classList.toggle('active', k === key);
+  });
+  // active on direct buttons (inicio)
+  document.querySelectorAll('.nav-btn[id^="tab-"]').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.dd-item[id^="tab-"]').forEach(b => b.classList.remove('active'));
+  const activeBtn = document.getElementById('tab-' + key);
+  if (activeBtn) activeBtn.classList.add('active');
+  // highlight parent dropdown toggle
+  document.querySelectorAll('.nav-item > .nav-btn').forEach(b => b.classList.remove('active'));
+  const ddId = DD_PARENT[key];
+  if (ddId) {
+    const toggle = document.querySelector('#' + ddId + ' > .nav-btn');
+    if (toggle) toggle.classList.add('active');
+  } else {
+    // direct button (inicio)
+    const directBtn = document.querySelector('.nav-btn#tab-' + key);
+    if (directBtn) directBtn.classList.add('active');
   }
-  (function () {
-    const h = location.hash.replace('#','');
-    if (TABS.includes(h)) switchTab(h);
-  })();
+  // close all dropdowns
+  document.querySelectorAll('.nav-item').forEach(d => d.classList.remove('open'));
+  history.replaceState(null, '', '#' + key);
+}
+
+function toggleDrop(id) {
+  const item = document.getElementById(id);
+  const wasOpen = item.classList.contains('open');
+  document.querySelectorAll('.nav-item').forEach(d => d.classList.remove('open'));
+  if (!wasOpen) item.classList.add('open');
+}
+
+// close on outside click
+document.addEventListener('click', e => {
+  if (!e.target.closest('.nav-item')) {
+    document.querySelectorAll('.nav-item').forEach(d => d.classList.remove('open'));
+  }
+});
+
+// init from hash
+(function() {
+  const h = location.hash.replace('#','');
+  if (TABS.includes(h)) switchTab(h);
+})();
 </script>
 </body>
 </html>
