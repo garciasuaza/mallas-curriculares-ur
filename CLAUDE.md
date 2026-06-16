@@ -60,11 +60,13 @@ Adding a program: add entry to `PROGRAMS`, add tab button to `prog-nav`, add `pr
 
 ## Block Type Color Convention
 
+The display label for `dcom` is **"Disciplinar-Departamento"** everywhere (mallas, bloques, articulacion).
+
 | Key | Label | Border color | Background |
 |-----|-------|-------------|------------|
 | `ros` | Formación Rosarista | `#DA0921` | `#FEE8EA` |
 | `nbc` | Núcleo Básico Común | `#3100A0` | `#EDE9FE` |
-| `dcom` | Disciplinar común | `#065F46` | `#D1FAE5` |
+| `dcom` | Disciplinar-Departamento | `#065F46` | `#D1FAE5` |
 | `desp` | Disciplinar específica | `#B8460A` | `#FEF0E7` |
 | `elec` | Electividad | `#713F12` | `#FEF9C3` |
 | `grad` | Opción de grado | `#0C4A6E` | `#E0F2FE` |
@@ -84,8 +86,26 @@ Call `renderPool(array, 'pool-{id}')` on init. The "coming soon" placeholder pan
 - Typography: Calibri (body), Bebas Neue (display headings, via Google Fonts)
 - ENB program uses `#7C3AED` (violet) to signal PROPUESTA status
 
+## articulacion.html — Data Structure
+
+`SHARED` array lists every course that appears in 2+ programs. Each entry:
+```js
+{ blq:'nbc', n:'Course name', cr:3, ANI:4, ECON:null, FIN:2, MND:4, note:'optional divergence note' }
+```
+`blq` is the canonical block for that course. When updating after an Excel change, also update `bloques.html` (`DATA` object) if any program distribution changed.
+
+## bloques.html — Updating Credit Totals
+
+`DATA` object has one entry per program with credits per block. Must match the `bloques` field in `mallas_programas.html` exactly:
+```js
+FIN: { ros:18, nbc:33, dcom:12, desp:30, elec:21, grad:12, prac:0, total:126 }
+```
+
 ## Source Data
 
-Curricula come from `Propuesta_ANI_Econ_Fin_MND jun12.xlsx` (parent folder). ENB from `Propuesta_ENB_EconomiaDeLosNegocios_v01.xlsx` + `gen_enb.py`. Minors from `Menores Pregrado.xlsx` (sheets EC04, FI01, ADM1).
+Curricula come from `Propuesta_ANI_Econ_Fin_MND jun15.xlsx` (parent folder — **current version**). ENB from `Propuesta_ENB_EconomiaDeLosNegocios_v01.xlsx` + `gen_enb.py`. Minors from `Menores Pregrado.xlsx` (sheets EC04, FI01, ADM1).
 
-Do not modify data in the web files without verifying against the source Excel files.
+When a new Excel version arrives, use openpyxl to read cell fill colors:
+- `FFF4B183` = ros · `FF9DC3E6` = nbc · `FFFFD966` = dcom · `FFA9D08E` = desp · `FFB4A7D6` = elec · `FFFFF2CC` = grad · `FFE2EFDA` = prac
+
+Update `mallas_programas.html` first, then `bloques.html` (totals), then `articulacion.html` (shared courses).
