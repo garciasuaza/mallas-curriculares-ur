@@ -110,6 +110,8 @@ html, body { font-family: Calibri, 'Trebuchet MS', Arial, sans-serif; background
   <button class="prog-tab" onclick="showProg('fin')" id="ptab-fin"><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#1D4ED8;margin-right:5px;vertical-align:middle;"></span>Finanzas</button>
   <button class="prog-tab" onclick="showProg('mnd')" id="ptab-mnd"><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#E8670C;margin-right:5px;vertical-align:middle;"></span>MND — Marketing y Negocios Digitales</button>
   <button class="prog-tab" onclick="showProg('enb')" id="ptab-enb" style="border-left:2px solid var(--ur-gray-e);"><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#7C3AED;margin-right:5px;vertical-align:middle;"></span>ENB — Economía de los Negocios <span style="font-size:.62rem;font-weight:700;padding:1px 6px;border-radius:3px;background:#7C3AED;color:#fff;margin-left:4px;vertical-align:middle;">PROPUESTA</span></button>
+  <button class="prog-tab" onclick="showProg('adm')" id="ptab-adm" style="border-left:2px solid var(--ur-gray-e);"><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#0D9488;margin-right:5px;vertical-align:middle;"></span>ADM — Administración de Empresas</button>
+  <button class="prog-tab" onclick="showProg('emp')" id="ptab-emp"><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#B45309;margin-right:5px;vertical-align:middle;"></span>EMP — Emprendimiento</button>
 </nav>
 
 <!-- Leyenda global de bloques -->
@@ -218,6 +220,46 @@ html, body { font-family: Calibri, 'Trebuchet MS', Arial, sans-serif; background
     <div class="dist-title">Distribución de créditos por bloque</div>
     <div class="dist-bar" id="bar-enb"></div>
     <div class="dist-legend" id="leg-enb"></div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════
+     ADM
+═══════════════════════════════════════════════════ -->
+<div class="prog-pane" id="prog-adm">
+  <div class="prog-header">
+    <div class="prog-name" style="color:#0D9488;">Administración de Empresas</div>
+    <div class="prog-meta">
+      <span class="meta-chip">8 semestres</span>
+      <span class="meta-chip">140 créditos</span>
+      <span class="meta-chip gray">ADM</span>
+    </div>
+  </div>
+  <div class="malla-scroll"><div class="malla-grid" id="malla-adm"></div></div>
+  <div class="dist-section">
+    <div class="dist-title">Distribución de créditos por bloque</div>
+    <div class="dist-bar" id="bar-adm"></div>
+    <div class="dist-legend" id="leg-adm"></div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════
+     EMP
+═══════════════════════════════════════════════════ -->
+<div class="prog-pane" id="prog-emp">
+  <div class="prog-header">
+    <div class="prog-name" style="color:#B45309;">Emprendimiento</div>
+    <div class="prog-meta">
+      <span class="meta-chip">8 semestres</span>
+      <span class="meta-chip">140 créditos</span>
+      <span class="meta-chip gray">EMP</span>
+    </div>
+  </div>
+  <div class="malla-scroll"><div class="malla-grid" id="malla-emp"></div></div>
+  <div class="dist-section">
+    <div class="dist-title">Distribución de créditos por bloque</div>
+    <div class="dist-bar" id="bar-emp"></div>
+    <div class="dist-legend" id="leg-emp"></div>
   </div>
 </div>
 
@@ -574,6 +616,149 @@ const PROGRAMS = {
       { n:8, empty:true },
     ],
     bloques:{ ros:18, nbc:30, dcom:21, desp:41, elec:9, grad:9, total:128 }
+  },
+
+  adm: {
+    sems: [
+      { n:1, total:17, cursos:[
+        {n:'Cátedra Rosarista',                                        cr:2, blq:'ros'},
+        {n:'Ética',                                                    cr:2, blq:'ros'},
+        {n:'Precálculo',                                               cr:3, blq:'nbc'},
+        {n:'Economía, negocios y sociedad',                            cr:3, blq:'nbc'},
+        {n:'Scaling Management',                                       cr:2, blq:'dcom'},
+        {n:'Marketing',                                                cr:2, blq:'dcom'},
+        {n:'Administración y organizaciones',                          cr:3, blq:'desp'},
+      ]},
+      { n:2, total:17, cursos:[
+        {n:'Comunicación profesional',                                 cr:3, blq:'ros'},
+        {n:'Lógica y Matemática discretas',                            cr:3, blq:'ros'},
+        {n:'Cálculo I',                                                cr:3, blq:'nbc'},
+        {n:'Contabilidad y análisis Financiero',                       cr:3, blq:'nbc'},
+        {n:'Dirección del Talento',                                    cr:3, blq:'desp'},
+        {n:'Derecho Laboral y economía del trabajo',                   cr:2, blq:'desp'},
+      ]},
+      { n:3, total:17, cursos:[
+        {n:'Electiva HM — Núcleo Mutis',                               cr:2, blq:'ros'},
+        {n:'Probabilidad y Estadística',                               cr:3, blq:'nbc'},
+        {n:'Programación y análisis de datos',                         cr:3, blq:'nbc'},
+        {n:'Liderazgo en la era digital',                              cr:2, blq:'dcom'},
+        {n:'Innovación y Emprendimiento',                              cr:2, blq:'dcom'},
+        {n:'Derecho de los Negocios',                                  cr:2, blq:'desp'},
+        {n:'Market Intelligence',                                      cr:3, blq:'desp'},
+      ]},
+      { n:4, total:19, cursos:[
+        {n:'Electiva HM',                                              cr:2, blq:'ros'},
+        {n:'Matemáticas Financieras y Decisiones de Inversión',        cr:3, blq:'nbc'},
+        {n:'Principios de Microeconomía',                              cr:3, blq:'nbc'},
+        {n:'Sustainability Management',                                cr:2, blq:'dcom'},
+        {n:'Data Driven & Decision Making',                            cr:3, blq:'desp'},
+        {n:'Sustainable Global Value Chain',                           cr:3, blq:'desp'},
+        {n:'Filosofía y ética de los negocios',                        cr:3, blq:'desp'},
+      ]},
+      { n:5, total:19, cursos:[
+        {n:'Electiva HM',                                              cr:2, blq:'ros'},
+        {n:'Finanzas Corporativas',                                    cr:3, blq:'nbc'},
+        {n:'Strategic Management',                                     cr:2, blq:'dcom'},
+        {n:'Gobierno Corporativo',                                     cr:3, blq:'desp'},
+        {n:'Scale‑up: Estrategia de Crecimiento',                      cr:3, blq:'desp'},
+        {n:'Business Model Innovation',                                cr:3, blq:'desp'},
+        {n:'Sistemas de Información Gerencial',                        cr:3, blq:'desp'},
+      ]},
+      { n:6, total:18, cursos:[
+        {n:'Constitución Política e Instrucción Cívica',               cr:2, blq:'ros'},
+        {n:'Project Management',                                       cr:2, blq:'dcom'},
+        {n:'IA for International Business',                            cr:3, blq:'dcom'},
+        {n:'Global Finance & Risk Management',                         cr:2, blq:'desp'},
+        {n:'Scale‑out: Estrategias de expansión e internacionalización', cr:2, blq:'desp'},
+        {n:'Technological forecasting and scientific trends',          cr:2, blq:'desp'},
+        {n:'ESG (Environmental, Social, and Governance)',              cr:2, blq:'desp'},
+        {n:'Business Intelligence',                                    cr:3, blq:'desp'},
+      ]},
+      { n:7, total:18, cursos:[
+        {n:'Desafíos contemporáneos',                                  cr:3, blq:'nbc'},
+        {n:'Bootcamp gerencial',                                       cr:3, blq:'desp'},
+        {n:'Profundización / Minor',                                   cr:8, blq:'elec'},
+        {n:'Opción de grado',                                          cr:4, blq:'grad'},
+      ]},
+      { n:8, total:15, cursos:[
+        {n:'Profundización / Minor',                                   cr:4, blq:'elec'},
+        {n:'Opción de grado',                                          cr:5, blq:'grad'},
+        {n:'Práctica Empresarial',                                     cr:6, blq:'prac'},
+      ]},
+    ],
+    bloques:{ ros:18, nbc:30, dcom:17, desp:48, elec:12, grad:9, prac:6, total:140 }
+  },
+
+  emp: {
+    sems: [
+      { n:1, total:17, cursos:[
+        {n:'Cátedra Rosarista',                                        cr:2, blq:'ros'},
+        {n:'Ética',                                                    cr:2, blq:'ros'},
+        {n:'Precálculo',                                               cr:3, blq:'nbc'},
+        {n:'Economía, negocios y sociedad',                            cr:3, blq:'nbc'},
+        {n:'Scaling Management',                                       cr:2, blq:'dcom'},
+        {n:'Marketing',                                                cr:2, blq:'dcom'},
+        {n:'Ecosistema de innovación',                                 cr:3, blq:'desp'},
+      ]},
+      { n:2, total:19, cursos:[
+        {n:'Comunicación profesional',                                 cr:3, blq:'ros'},
+        {n:'Lógica y Matemática discretas',                            cr:3, blq:'ros'},
+        {n:'Cálculo I',                                                cr:3, blq:'nbc'},
+        {n:'Contabilidad y análisis Financiero',                       cr:3, blq:'nbc'},
+        {n:'Innovación y emprendimiento',                              cr:2, blq:'desp'},
+        {n:'Inteligencia emocional para emprender',                    cr:3, blq:'desp'},
+        {n:'Reto emprendedor',                                         cr:2, blq:'desp'},
+      ]},
+      { n:3, total:17, cursos:[
+        {n:'Electiva HM — Núcleo Mutis',                               cr:2, blq:'ros'},
+        {n:'Probabilidad y Estadística',                               cr:3, blq:'nbc'},
+        {n:'Programación y análisis de datos',                         cr:3, blq:'nbc'},
+        {n:'Liderazgo en la era digital',                              cr:2, blq:'dcom'},
+        {n:'Derecho comercial y tributario',                           cr:2, blq:'desp'},
+        {n:'Comunicación estratégica y negociación',                   cr:2, blq:'desp'},
+        {n:'Liderazgo de producto e innovación ágil',                  cr:3, blq:'desp'},
+      ]},
+      { n:4, total:18, cursos:[
+        {n:'Electiva HM',                                              cr:2, blq:'ros'},
+        {n:'Matemáticas Financieras y Decisiones de Inversión',        cr:3, blq:'nbc'},
+        {n:'Principios de Microeconomía',                              cr:3, blq:'nbc'},
+        {n:'Sustainability Management',                                cr:2, blq:'dcom'},
+        {n:'Data Driven & Decision Making',                            cr:3, blq:'dcom'},
+        {n:'Arquitectura tecnológica para emprendimientos',            cr:3, blq:'desp'},
+        {n:'Ideación y prototipado',                                   cr:2, blq:'desp'},
+      ]},
+      { n:5, total:18, cursos:[
+        {n:'Electiva HM',                                              cr:2, blq:'ros'},
+        {n:'Finanzas Corporativas',                                    cr:3, blq:'nbc'},
+        {n:'Strategic Management',                                     cr:2, blq:'dcom'},
+        {n:'Laboratorio de emprendimiento corporativo',                cr:3, blq:'desp'},
+        {n:'Laboratorio de emprendimiento social y sostenible',        cr:3, blq:'desp'},
+        {n:'AI Venture Lab',                                           cr:3, blq:'desp'},
+        {n:'MVP y business model 1',                                   cr:2, blq:'desp'},
+      ]},
+      { n:6, total:18, cursos:[
+        {n:'Constitución Política e Instrucción Cívica',               cr:2, blq:'ros'},
+        {n:'Project Management',                                       cr:2, blq:'dcom'},
+        {n:'IA for International Business',                            cr:3, blq:'dcom'},
+        {n:'Gestión de operaciones para emprendimientos',              cr:2, blq:'desp'},
+        {n:'Startup scalability',                                      cr:2, blq:'desp'},
+        {n:'Global future workforce',                                  cr:2, blq:'desp'},
+        {n:'MVP y business model 2',                                   cr:2, blq:'desp'},
+        {n:'Venture capital strategies',                               cr:3, blq:'desp'},
+      ]},
+      { n:7, total:18, cursos:[
+        {n:'Desafíos contemporáneos',                                  cr:3, blq:'nbc'},
+        {n:'Global business intelligence',                             cr:3, blq:'desp'},
+        {n:'Profundización',                                           cr:8, blq:'elec'},
+        {n:'Opción de grado',                                          cr:4, blq:'grad'},
+      ]},
+      { n:8, total:15, cursos:[
+        {n:'Profundización',                                           cr:4, blq:'elec'},
+        {n:'Opción de grado',                                          cr:5, blq:'grad'},
+        {n:'Práctica Empresarial',                                     cr:6, blq:'prac'},
+      ]},
+    ],
+    bloques:{ ros:18, nbc:30, dcom:18, desp:47, elec:12, grad:9, prac:6, total:140 }
   }
 };
 
@@ -659,7 +844,7 @@ function showProg(key) {
 }
 
 // Init
-['ani','econ','fin','mnd','enb'].forEach(k => { renderMalla(k); renderBloques(k); });
+['ani','econ','fin','mnd','enb','adm','emp'].forEach(k => { renderMalla(k); renderBloques(k); });
 </script>
 </body>
 </html>

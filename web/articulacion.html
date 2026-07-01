@@ -54,7 +54,7 @@ html, body { font-family: Calibri, 'Trebuchet MS', Arial, sans-serif; background
 .course-note { font-size: .62rem; color: var(--ur-gray-50); font-style: italic; display: block; margin-top: 1px; }
 
 /* ── MATRIX ─────────────────────────────────────── */
-.mx-grid { display: grid; grid-template-columns: 72px repeat(4, 1fr); gap: 5px; }
+.mx-grid { display: grid; grid-template-columns: 72px repeat(6, 1fr); gap: 5px; }
 .mx-colhdr { background: var(--ur-navy); border-radius: 5px; padding: 9px 0; text-align: center; font-size: 12px; font-weight: 600; color: #fff; letter-spacing: .08em; }
 .mx-rowhdr { display: flex; align-items: center; justify-content: flex-end; padding-right: 8px; font-size: 12px; font-weight: 600; color: var(--ur-navy); letter-spacing: .08em; }
 .mx-cell { border-radius: 7px; padding: 11px 6px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; min-height: 64px; }
@@ -117,43 +117,44 @@ const BLOQUES = [
 
 const SHARED = [
   // ── FORMACIÓN ROSARISTA ──────────────────────────────
-  { blq:'ros', n:'Cátedra Rosarista',                              cr:2, ANI:1,    ECON:1,    FIN:1,       MND:1    },
-  { blq:'ros', n:'Ética',                                          cr:2, ANI:1,    ECON:1,    FIN:1,       MND:1    },
-  { blq:'ros', n:'Comunicación profesional',                       cr:3, ANI:2,    ECON:2,    FIN:2,       MND:2    },
-  { blq:'ros', n:'Electiva HM',                                    cr:2, ANI:'4–5',ECON:'3–4',FIN:'2–3–4', MND:'4–5'},
-  { blq:'ros', n:'Constitución Política e Instrucción Cívica',     cr:2, ANI:6,    ECON:4,    FIN:2,       MND:6    },
-  { blq:'ros', n:'Electiva HM — Núcleo Mutis',                     cr:2, ANI:3,    ECON:1,    FIN:null,    MND:3    },
-  { blq:'ros', n:'Lógica y Matemática discretas',                  cr:3, ANI:2,    ECON:1,    FIN:1,       MND:2    },
+  { blq:'ros', n:'Cátedra Rosarista',                              cr:2, ANI:1,    ECON:1,    FIN:1,       MND:1,    ADM:1,    EMP:1    },
+  { blq:'ros', n:'Ética',                                          cr:2, ANI:1,    ECON:1,    FIN:1,       MND:1,    ADM:1,    EMP:1    },
+  { blq:'ros', n:'Comunicación profesional',                       cr:3, ANI:2,    ECON:2,    FIN:2,       MND:2,    ADM:2,    EMP:2    },
+  { blq:'ros', n:'Electiva HM',                                    cr:2, ANI:'4–5',ECON:'3–4',FIN:'2–3–4', MND:'4–5',ADM:'4–5',EMP:'4–5'},
+  { blq:'ros', n:'Constitución Política e Instrucción Cívica',     cr:2, ANI:6,    ECON:4,    FIN:2,       MND:6,    ADM:6,    EMP:6    },
+  { blq:'ros', n:'Electiva HM — Núcleo Mutis',                     cr:2, ANI:3,    ECON:1,    FIN:null,    MND:3,    ADM:3,    EMP:3    },
+  { blq:'ros', n:'Lógica y Matemática discretas',                  cr:3, ANI:2,    ECON:1,    FIN:1,       MND:2,    ADM:2,    EMP:2    },
 
   // ── NÚCLEO BÁSICO COMÚN DE ESCUELA ───────────────────
-  { blq:'nbc', n:'Precálculo',                                     cr:3, ANI:1,  ECON:1,  FIN:1,  MND:1  },
-  { blq:'nbc', n:'Economía, negocios y sociedad',                  cr:3, ANI:1,  ECON:1,  FIN:1,  MND:1  },
-  { blq:'nbc', n:'Cálculo I',                                      cr:3, ANI:2,  ECON:2,  FIN:2,  MND:2  },
-  { blq:'nbc', n:'Probabilidad y Estadística',                     cr:3, ANI:3,  ECON:3,  FIN:3,  MND:3  },
-  { blq:'nbc', n:'Programación y análisis de datos',               cr:3, ANI:3,  ECON:1,  FIN:1,  MND:3  },
-  { blq:'nbc', n:'Principios de Microeconomía',                    cr:3, ANI:4,  ECON:2,  FIN:3,  MND:4  },
-  { blq:'nbc', n:'Contabilidad y análisis Financiero',             cr:3, ANI:2,  ECON:null, FIN:2, MND:2  },
-  { blq:'nbc', n:'Matemáticas Financieras y Decisiones de Inversión', cr:3, ANI:4, ECON:null, FIN:2, MND:4 },
-  { blq:'nbc', n:'Finanzas Corporativas',                          cr:3, ANI:5,  ECON:null, FIN:4,  MND:5  },
-  { blq:'nbc', n:'Desafíos contemporáneos',                        cr:3, ANI:7,  ECON:6,  FIN:4,  MND:7  },
+  { blq:'nbc', n:'Precálculo',                                     cr:3, ANI:1,  ECON:1,  FIN:1,    MND:1,  ADM:1,  EMP:1  },
+  { blq:'nbc', n:'Economía, negocios y sociedad',                  cr:3, ANI:1,  ECON:1,  FIN:1,    MND:1,  ADM:1,  EMP:1  },
+  { blq:'nbc', n:'Cálculo I',                                      cr:3, ANI:2,  ECON:2,  FIN:2,    MND:2,  ADM:2,  EMP:2  },
+  { blq:'nbc', n:'Probabilidad y Estadística',                     cr:3, ANI:3,  ECON:3,  FIN:3,    MND:3,  ADM:3,  EMP:3  },
+  { blq:'nbc', n:'Programación y análisis de datos',               cr:3, ANI:3,  ECON:1,  FIN:1,    MND:3,  ADM:3,  EMP:3  },
+  { blq:'nbc', n:'Principios de Microeconomía',                    cr:3, ANI:4,  ECON:2,  FIN:3,    MND:4,  ADM:4,  EMP:4  },
+  { blq:'nbc', n:'Contabilidad y análisis Financiero',             cr:3, ANI:2,  ECON:null, FIN:2,  MND:2,  ADM:2,  EMP:2  },
+  { blq:'nbc', n:'Matemáticas Financieras y Decisiones de Inversión', cr:3, ANI:4, ECON:null, FIN:2, MND:4, ADM:4,  EMP:4  },
+  { blq:'nbc', n:'Finanzas Corporativas',                          cr:3, ANI:5,  ECON:null, FIN:4,  MND:5,  ADM:5,  EMP:5,  note:'En ANI/ECON/FIN/MND aparece como dcom; ADM y EMP lo clasifican como nbc' },
+  { blq:'nbc', n:'Desafíos contemporáneos',                        cr:3, ANI:7,  ECON:6,  FIN:4,    MND:7,  ADM:7,  EMP:7  },
 
   // ── DISCIPLINAR-DEPARTAMENTO ──────────────────────────
-  { blq:'dcom', n:'Liderazgo en la era digital',                   cr:2, ANI:3,  ECON:null, FIN:null, MND:3 },
-  { blq:'dcom', n:'Innovación y Emprendimiento',                   cr:2, ANI:3,  ECON:null, FIN:null, MND:3 },
-  { blq:'dcom', n:'Sustainability Management',                     cr:2, ANI:4,  ECON:null, FIN:null, MND:4 },
-  { blq:'dcom', n:'Strategic Management',                          cr:2, ANI:5,  ECON:null, FIN:null, MND:5 },
-  { blq:'dcom', n:'Project Management',                            cr:2, ANI:6,  ECON:null, FIN:null, MND:6 },
-  { blq:'dcom', n:'Scaling Management',                            cr:2, ANI:1,  ECON:null, FIN:null, MND:1 },
-  { blq:'dcom', n:'Marketing',                                     cr:2, ANI:1,  ECON:null, FIN:null, MND:1 },
-  { blq:'dcom', n:'Principios de Macroeconomía',                   cr:3, ANI:null, ECON:2, FIN:3, MND:null },
-  { blq:'dcom', n:'Cálculo II',                                    cr:3, ANI:null, ECON:3, FIN:3, MND:null, note:'FIN lo clasifica como Núcleo Básico Común' },
-  { blq:'dcom', n:'Álgebra Lineal',                                cr:3, ANI:null, ECON:4, FIN:2, MND:null },
-  { blq:'dcom', n:'Métodos de Optimización',                       cr:3, ANI:null, ECON:4, FIN:4, MND:null },
-  { blq:'dcom', n:'Econometría y Análisis de Regresión',           cr:3, ANI:null, ECON:5, FIN:5, MND:null },
+  { blq:'dcom', n:'Scaling Management',                            cr:2, ANI:1,  ECON:null, FIN:null, MND:1,  ADM:1,  EMP:1  },
+  { blq:'dcom', n:'Marketing',                                     cr:2, ANI:1,  ECON:null, FIN:null, MND:1,  ADM:1,  EMP:1  },
+  { blq:'dcom', n:'Liderazgo en la era digital',                   cr:2, ANI:3,  ECON:null, FIN:null, MND:3,  ADM:3,  EMP:3  },
+  { blq:'dcom', n:'Innovación y Emprendimiento',                   cr:2, ANI:3,  ECON:null, FIN:null, MND:3,  ADM:3,  EMP:2,  note:'EMP lo clasifica como Disciplinar específica' },
+  { blq:'dcom', n:'Sustainability Management',                     cr:2, ANI:4,  ECON:null, FIN:null, MND:4,  ADM:4,  EMP:4  },
+  { blq:'dcom', n:'Strategic Management',                          cr:2, ANI:5,  ECON:null, FIN:null, MND:5,  ADM:5,  EMP:5  },
+  { blq:'dcom', n:'Project Management',                            cr:2, ANI:6,  ECON:null, FIN:null, MND:6,  ADM:6,  EMP:6  },
+  { blq:'dcom', n:'IA for International Business',                 cr:3, ANI:6,  ECON:null, FIN:null, MND:null, ADM:6, EMP:6, note:'ANI lo clasifica como Disciplinar específica' },
+  { blq:'dcom', n:'Principios de Macroeconomía',                   cr:3, ANI:null, ECON:2, FIN:3,    MND:null, ADM:null, EMP:null },
+  { blq:'dcom', n:'Cálculo II',                                    cr:3, ANI:null, ECON:3, FIN:3,    MND:null, ADM:null, EMP:null, note:'FIN lo clasifica como Núcleo Básico Común' },
+  { blq:'dcom', n:'Álgebra Lineal',                                cr:3, ANI:null, ECON:4, FIN:2,    MND:null, ADM:null, EMP:null },
+  { blq:'dcom', n:'Métodos de Optimización',                       cr:3, ANI:null, ECON:4, FIN:4,    MND:null, ADM:null, EMP:null },
+  { blq:'dcom', n:'Econometría y Análisis de Regresión',           cr:3, ANI:null, ECON:5, FIN:5,    MND:null, ADM:null, EMP:null },
 
   // ── DISCIPLINAR ESPECÍFICA ────────────────────────────
-  { blq:'desp', n:'Data Driven & Decision Making',                 cr:3, ANI:4,  ECON:null, FIN:null, MND:4  },
-  { blq:'desp', n:'Digital Business Models',                       cr:2, ANI:6,  ECON:null, FIN:null, MND:6  },
+  { blq:'desp', n:'Data Driven & Decision Making',                 cr:3, ANI:4,  ECON:null, FIN:null, MND:4,  ADM:4,  EMP:4,  note:'EMP lo clasifica como Disciplinar-Departamento' },
+  { blq:'desp', n:'Digital Business Models',                       cr:2, ANI:6,  ECON:null, FIN:null, MND:6,  ADM:null, EMP:null },
 ];
 
 // ═══════════════════════════════════════════════════════
@@ -168,8 +169,8 @@ function toggleSec(id) {
 //  HELPERS
 // ═══════════════════════════════════════════════════════
 
-const PROGS = ['ANI','ECON','FIN','MND'];
-const TOTALS = { ANI:140, ECON:128, FIN:126, MND:140 };
+const PROGS = ['ANI','ECON','FIN','MND','ADM','EMP'];
+const TOTALS = { ANI:140, ECON:128, FIN:126, MND:140, ADM:140, EMP:140 };
 
 function semCell(val) {
   if (val == null) return `<td class="absent">—</td>`;
@@ -237,12 +238,14 @@ function renderSections() {
       <div class="sec-body">
         <table class="art-table">
           <thead><tr>
-            <th class="left" style="width:46%">Curso</th>
+            <th class="left" style="width:36%">Curso</th>
             <th>Cr.</th>
             <th>S. ANI</th>
             <th>S. ECON</th>
             <th>S. FIN</th>
             <th>S. MND</th>
+            <th>S. ADM</th>
+            <th>S. EMP</th>
           </tr></thead>
           <tbody id="body-${blq.key}"></tbody>
         </table>
@@ -257,7 +260,7 @@ function renderSections() {
       tr.innerHTML = `
         <td class="nombre">${c.n}${noteHtml}</td>
         <td class="cr">${c.cr}</td>
-        ${semCell(c.ANI)}${semCell(c.ECON)}${semCell(c.FIN)}${semCell(c.MND)}`;
+        ${semCell(c.ANI)}${semCell(c.ECON)}${semCell(c.FIN)}${semCell(c.MND)}${semCell(c.ADM)}${semCell(c.EMP)}`;
       tbody.appendChild(tr);
     });
   });
@@ -268,7 +271,10 @@ function renderSections() {
 // ═══════════════════════════════════════════════════════
 
 function renderMatrix() {
-  const pairs = { 'ANI-ECON':0, 'ANI-FIN':0, 'ANI-MND':0, 'ECON-FIN':0, 'ECON-MND':0, 'FIN-MND':0 };
+  const pairs = {};
+  for (let i = 0; i < PROGS.length; i++)
+    for (let j = i+1; j < PROGS.length; j++)
+      pairs[[PROGS[i],PROGS[j]].sort().join('-')] = 0;
   SHARED.forEach(c => {
     const present = PROGS.filter(p => c[p] != null);
     for (let i = 0; i < present.length; i++)
