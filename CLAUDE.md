@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Purpose
 
-Static HTML visualization platform for the **curricular reform of 4 undergraduate programs** (ANI, ECON, FIN, MND) at Facultad de Economía, Universidad del Rosario. No build system, no dependencies — all files are self-contained HTML with inline CSS/JS, deployed to GitHub Pages.
+Static HTML visualization platform for the **curricular reform of 6 undergraduate programs** (ANI, ECON, FIN, MND, ADM, EMP) at Facultad de Economía, Universidad del Rosario. No build system, no dependencies — all files are self-contained HTML with inline CSS/JS, deployed to GitHub Pages.
 
 **Live URL**: `https://garciasuaza.github.io/mallas-curriculares-ur/`
 
@@ -66,7 +66,9 @@ programKey: {
 }
 ```
 
-**Programs**: `ani` (140 cr), `econ` (128 cr), `fin` (126 cr), `mnd` (140 cr), `enb` (128 cr — PROPUESTA).
+**Programs**: `ani` (140 cr), `econ` (128 cr), `fin` (126 cr), `mnd` (140 cr), `enb` (128 cr — PROPUESTA), `adm` (140 cr), `emp` (140 cr).
+
+Program tab dot colors: ANI `#DA0921` · ECON `#3100A0` · FIN `#1D4ED8` · MND `#E8670C` · ENB `#7C3AED` · ADM `#0D9488` · EMP `#B45309`.
 
 Adding a program: add entry to `PROGRAMS`, add tab button to `prog-nav`, add `prog-pane` div, add key to the init `forEach`.
 
@@ -99,13 +101,15 @@ Tab switching: `showMinor(key)` toggles `.active` on tabs and panes by id `mtab-
 - **Red**: `#DA0921` · **Navy**: `#190056` · **Purple**: `#3100A0` · **Orange**: `#E8670C`
 - Typography: Calibri (body), Bebas Neue (display headings, via Google Fonts)
 - ENB program uses `#7C3AED` (violet) to signal PROPUESTA status
+- ADM uses `#0D9488` (teal) · EMP uses `#B45309` (amber)
 
 ## articulacion.html — Data Structure
 
 `SHARED` array lists every course that appears in 2+ programs. Each entry:
 ```js
-{ blq:'nbc', n:'Course name', cr:3, ANI:4, ECON:null, FIN:2, MND:4, note:'optional divergence note' }
+{ blq:'nbc', n:'Course name', cr:3, ANI:4, ECON:null, FIN:2, MND:4, ADM:4, EMP:4, note:'optional divergence note' }
 ```
+The `note` field documents block-classification divergences (e.g. EMP classifies "Data Driven" as dcom while other programs use desp). The matrix in `renderMatrix()` computes all C(6,2)=15 pairs dynamically from `PROGS`.
 `blq` is the canonical block for that course. When updating after an Excel change, also update `bloques.html` (`DATA` object) if any program distribution changed.
 
 ## bloques.html — Updating Credit Totals
@@ -117,20 +121,28 @@ FIN: { ros:18, nbc:33, dcom:12, desp:30, elec:21, grad:12, prac:0, total:126 }
 
 ## Source Data
 
-Curricula come from `Propuesta_ANI_Econ_Fin_MND jun15.xlsx` (parent folder — **current version**). ENB from `Propuesta_ENB_EconomiaDeLosNegocios_v01.xlsx` + `gen_enb.py`. Minors from `Menores Pregrado.xlsx` (sheets EC04, FI01, ADM1).
+Curricula come from:
+- ANI/ECON/FIN/MND: `Propuesta_ANI_Econ_Fin_MND jun15.xlsx` (parent folder — **current version**)
+- ADM/EMP: `Propuesta_mallas_010726.xlsx` (parent folder)
+- ENB: `Propuesta_ENB_EconomiaDeLosNegocios_v01.xlsx` + `gen_enb.py`
+- Minors: `Menores Pregrado.xlsx` (sheets EC04, FI01, ADM1)
 
 When a new Excel version arrives, use openpyxl to read cell fill colors:
 - `FFF4B183` = ros · `FF9DC3E6` = nbc · `FFFFD966` = dcom · `FFA9D08E` = desp · `FFB4A7D6` = elec · `FFFFF2CC` = grad · `FFE2EFDA` = prac
 
 Update `mallas_programas.html` first, then `bloques.html` (totals), then `articulacion.html` (shared courses).
 
-**Current program credit totals (jun15):**
-| Program | ros | nbc | dcom | desp | elec | grad | prac | total |
-|---------|-----|-----|------|------|------|------|------|-------|
-| ANI | 18 | 30 | 17 | 48 | 12 | 9 | 6 | 140 |
-| ECON | 18 | 21 | 18 | 35 | 24 | 12 | 0 | 128 |
-| FIN | 18 | 33 | 12 | 30 | 21 | 12 | 0 | 126 |
-| MND | 18 | 30 | 14 | 51 | 12 | 9 | 6 | 140 |
+**Current program credit totals:**
+| Program | ros | nbc | dcom | desp | elec | grad | prac | total | Source |
+|---------|-----|-----|------|------|------|------|------|-------|--------|
+| ANI | 18 | 30 | 17 | 48 | 12 | 9 | 6 | 140 | jun15 |
+| ECON | 18 | 21 | 18 | 35 | 24 | 12 | 0 | 128 | jun15 |
+| FIN | 18 | 33 | 12 | 30 | 21 | 12 | 0 | 126 | jun15 |
+| MND | 18 | 30 | 14 | 51 | 12 | 9 | 6 | 140 | jun15 |
+| ADM | 18 | 30 | 17 | 48 | 12 | 9 | 6 | 140 | 010726 |
+| EMP | 18 | 30 | 18 | 47 | 12 | 9 | 6 | 140 | 010726 |
+
+**Key block divergences vs ANI** (ADM/EMP): Finanzas Corporativas → nbc (not dcom); IA for International Business → dcom (ADM/EMP) vs desp (ANI); EMP: Innovación y Emprendimiento → desp (not dcom); EMP: Data Driven → dcom (not desp).
 
 ## Deployment
 
