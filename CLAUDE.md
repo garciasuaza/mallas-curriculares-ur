@@ -45,11 +45,19 @@ Cross-iframe navigation from child pages uses `parent.switchTab('key')`.
 | `mallas` | `web/mallas_programas.html` | Semester-by-semester curricula |
 | `art` | `web/articulacion.html` | Cross-program shared courses |
 | `blq` | `web/bloques.html` | Credits by block type |
-| `nbc` | `web/nbc.html` | Núcleo Básico Común detail |
+| `nbc` | `web/nbc.html` | Núcleo Básico Común — 5 courses (selector + left/right panel) |
 | `ped` | `web/pedagogia.html` | Pedagogical principles |
 | `act` | `web/actividades.html` | Reform activities tracker |
 | `men` | `web/menores.html` | Undergraduate minors |
 | `ice` | `web/icesi_mallas_comparativo.html` | Icesi reference |
+
+## mallas_programas.html — Nav & Legend
+
+Program nav uses **pill style V3**: `.prog-tab` has `border-radius:20px`, active state is `box-shadow: inset 0 -3px 0 var(--ur-red)` (not a red fill). ENB tab sits at the end with `border-left:2px solid var(--ur-gray-e)` separator.
+
+Per-pane legend: each program pane has a `<div class="prog-legend" id="pleg-{key}">` populated by JS at init from the `BLOQUES` array. No global legend bar.
+
+Tab labels: `ECON — Economía`, `FIN — Finanzas` (with program code prefix). Nav order: ANI · ECON · FIN · MND · ADM · EMP · ENB.
 
 ## mallas_programas.html — Data Structure
 
@@ -88,13 +96,15 @@ The display label for `dcom` is **"Disciplinar-Departamento"** everywhere (malla
 
 ## menores.html — Current Minors
 
-Two active minors, each a `.minor-tab` + `.minor-pane` + `<table class="courses-table">`:
-- **Menor en Experience Marketing** — 6 courses, 12 cr, all 2 cr (ADM · MND)
-- **Menor en Economía de la Empresa** — 5 courses, 12 cr (ANI · MND · FIN · ECON) — badge PROPUESTA `#7C3AED`
+Two active minors with tab switching via `showMinor(key)` → ids `mtab-{key}` / `minor-{key}`:
+
+- **Menor en Experience Marketing** (`mkt`) — 6 courses, 12 cr, simple `<table class="courses-table">` (ADM · MND)
+- **Menor en Economía de la Empresa** (`eco`) — anchor+pool structure, badge PROPUESTA `#7C3AED`:
+  - **Anchor card** per program: fixed course each program brings (FIN has no fixed anchor — picks 4 freely from pool)
+  - **Pool table** (`.pool-table`): 11-row availability matrix showing which pool courses each program can take
+  - Each program selects anchor (if any) + enough pool courses to reach 5 total / 12 cr
 
 MND's malla shows these as `Profundización / Minor` blocks (not individual courses); the detail lives only in menores.html.
-
-Tab switching: `showMinor(key)` toggles `.active` on tabs and panes by id `mtab-{key}` / `minor-{key}`.
 
 ## Brand Guidelines
 
@@ -143,6 +153,14 @@ Update `mallas_programas.html` first, then `bloques.html` (totals), then `articu
 | EMP | 18 | 30 | 18 | 47 | 12 | 9 | 6 | 140 | 010726 |
 
 **Key block divergences vs ANI** (ADM/EMP): Finanzas Corporativas → nbc (not dcom); IA for International Business → dcom (ADM/EMP) vs desp (ANI); EMP: Innovación y Emprendimiento → desp (not dcom); EMP: Data Driven → dcom (not desp).
+
+## nbc.html — Course Selector Pattern
+
+Five courses: `micro`, `macro`, `prob`, `ens`, `ia`. Each course has a `.sel-btn` (top bar), a `.course-pane` (left panel — ficha + RAEs + accordion unidades + tags), and a `.pdf-pane` (right panel — iframe or placeholder). The `COURSES` array in JS controls switching. Adding a course: add sel-btn, course-pane, pdf-pane, and the key to `COURSES`.
+
+## actividades.html — Structure
+
+Simple card grid, no expand/collapse. Two sections: **Diseño curricular** (8 activities) and **Procesos de soporte** (6 activities). Cards use orange left border (`.act-card`), navy border (`.act-card.support`), or dashed gray (`.act-card.pending-act`) for unassigned. No JS needed — static display only.
 
 ## Deployment
 
