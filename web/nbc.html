@@ -184,6 +184,12 @@ html, body { font-family: Calibri, 'Trebuchet MS', Arial, sans-serif; background
   <button class="sel-btn" onclick="switchCourse('prob')">
     <span class="sel-num">03</span> Probabilidad y Estadística
   </button>
+  <button class="sel-btn" onclick="switchCourse('ens')">
+    <span class="sel-num">04</span> Economía, Negocios y Sociedad
+  </button>
+  <button class="sel-btn" onclick="switchCourse('ia')">
+    <span class="sel-num">05</span> IA para la Toma de Decisiones
+  </button>
 </div>
 
 <!-- ── MAIN ───────────────────────────────────────── -->
@@ -523,6 +529,169 @@ html, body { font-family: Calibri, 'Trebuchet MS', Arial, sans-serif; background
 
     </div><!-- /cp-prob -->
 
+    <!-- ── ECONOMÍA, NEGOCIOS Y SOCIEDAD ─── -->
+    <div class="course-pane" id="cp-ens">
+
+      <div class="ficha">
+        <div class="ficha-title">Economía, Negocios y Sociedad</div>
+        <div class="ficha-grid">
+          <div class="ficha-row"><span class="ficha-label">Créditos</span><span class="ficha-val">3</span></div>
+          <div class="ficha-row"><span class="ficha-label">Tipo</span><span class="ficha-val">Teórico-práctico</span></div>
+          <div class="ficha-row"><span class="ficha-label">Horas acompañamiento</span><span class="ficha-val">48 h / semestre</span></div>
+          <div class="ficha-row"><span class="ficha-label">Horas independiente</span><span class="ficha-val">96 h / semestre</span></div>
+          <div class="ficha-row full"><span class="ficha-label">Prerrequisitos</span><span class="ficha-val">Ninguno</span></div>
+          <div class="ficha-row full">
+            <span class="ficha-label">Programas</span>
+            <div class="prog-pills">
+              <span class="prog-pill">ANI</span><span class="prog-pill">ECON</span><span class="prog-pill">FIN</span><span class="prog-pill">MND</span>
+              <span class="prog-pill" style="background:rgba(0,0,0,.07);color:var(--ur-gray-50)">Todos los programas de la Escuela</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="block-title">Resultados de aprendizaje esperados</div>
+      <ul class="rae-list">
+        <li class="rae-item"><span class="rae-n">1</span>Identificar y utilizar conceptos disciplinarios básicos de economía y administración para interpretar fenómenos sociales, empresariales y de política pública.</li>
+        <li class="rae-item"><span class="rae-n">2</span>Describir el funcionamiento de los mercados y las organizaciones como mecanismos de coordinación y creación de valor en sociedades modernas.</li>
+        <li class="rae-item"><span class="rae-n">3</span>Analizar retos globales contemporáneos —desigualdad, cambio climático, disrupción tecnológica, demografía, seguridad alimentaria, sostenibilidad— desde múltiples perspectivas disciplinarias.</li>
+        <li class="rae-item"><span class="rae-n">4</span>Evaluar distintos enfoques (económico, empresarial, ético, político) frente a problemas complejos y construir posiciones argumentadas.</li>
+        <li class="rae-item"><span class="rae-n">5</span>Producir un análisis interdisciplinario estructurado (póster académico) que integre conceptos del curso con evidencia empírica y argumentación rigurosa.</li>
+      </ul>
+
+      <div class="block-title">Contenidos</div>
+      <div class="unidades-list">
+        <div class="unidad-item">
+          <button class="unidad-btn" onclick="toggleU(this)">
+            Bloque 1 (sem. 1–4) · Lenguaje común
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+          <div class="unidad-body"><ul>
+            <li>¿Qué es la economía? ¿Qué es una organización?</li>
+            <li>Conceptos clave: mercados, incentivos, valor, coordinación</li>
+            <li>El rol de las empresas, el Estado y la sociedad civil</li>
+            <li>Lectura e interpretación de evidencia empírica básica</li>
+          </ul></div>
+        </div>
+        <div class="unidad-item">
+          <button class="unidad-btn" onclick="toggleU(this)">
+            Bloque 2 (sem. 5–12) · Retos globales contemporáneos
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+          <div class="unidad-body"><ul>
+            <li>Desigualdad económica y social</li>
+            <li>Cambio climático y sostenibilidad</li>
+            <li>Disrupción tecnológica y trabajo</li>
+            <li>Demografía y envejecimiento poblacional</li>
+            <li>Seguridad alimentaria y cadenas globales</li>
+            <li>Sostenibilidad empresarial y ESG</li>
+          </ul></div>
+        </div>
+        <div class="unidad-item">
+          <button class="unidad-btn" onclick="toggleU(this)">
+            Bloque 3 (sem. 13–16) · Producción y comunicación académica
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+          <div class="unidad-body"><ul>
+            <li>Diseño de un argumento interdisciplinario</li>
+            <li>Estructura del póster académico</li>
+            <li>Integración de evidencia y posición argumentada</li>
+            <li>Presentación y defensa pública</li>
+          </ul></div>
+        </div>
+      </div>
+
+      <div class="block-title">Estrategias de aprendizaje</div>
+      <div class="tag-list">
+        <span class="tag">Seminario de discusión</span>
+        <span class="tag">Lectura analítica de casos</span>
+        <span class="tag">Aprendizaje basado en problemas</span>
+        <span class="tag">Póster académico</span>
+      </div>
+
+    </div><!-- /cp-ens -->
+
+    <!-- ── IA PARA LA TOMA DE DECISIONES ─── -->
+    <div class="course-pane" id="cp-ia">
+
+      <div class="ficha">
+        <div class="ficha-title">IA para la Toma de Decisiones</div>
+        <div class="ficha-grid">
+          <div class="ficha-row"><span class="ficha-label">Créditos</span><span class="ficha-val">3</span></div>
+          <div class="ficha-row"><span class="ficha-label">Tipo</span><span class="ficha-val">Teórico-práctico</span></div>
+          <div class="ficha-row"><span class="ficha-label">Horas acompañamiento</span><span class="ficha-val">48 h / semestre</span></div>
+          <div class="ficha-row"><span class="ficha-label">Horas independiente</span><span class="ficha-val">96 h / semestre</span></div>
+          <div class="ficha-row full"><span class="ficha-label">Prerrequisitos</span><span class="ficha-val">Probabilidad y Estadística (semestre 5)</span></div>
+          <div class="ficha-row full">
+            <span class="ficha-label">Programas</span>
+            <div class="prog-pills">
+              <span class="prog-pill">ANI</span><span class="prog-pill">ECON</span><span class="prog-pill">FIN</span><span class="prog-pill">MND</span>
+              <span class="prog-pill" style="background:rgba(0,0,0,.07);color:var(--ur-gray-50)">Todos los programas de la Escuela</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="block-title">Resultados de aprendizaje esperados</div>
+      <ul class="rae-list">
+        <li class="rae-item"><span class="rae-n">1</span>Caracterizar los modelos de lenguaje y sistemas de IA generativa como herramientas de razonamiento para el trabajo profesional en economía y negocios.</li>
+        <li class="rae-item"><span class="rae-n">2</span>Sintetizar información compleja —textos académicos, reportes, datos, normativa— con soporte de IA de forma rigurosa y verificable.</li>
+        <li class="rae-item"><span class="rae-n">3</span>Resolver problemas estructurados y tomar decisiones informadas usando flujos de trabajo asistidos por IA.</li>
+        <li class="rae-item"><span class="rae-n">4</span>Construir simulaciones y análisis de escenarios que combinen datos cuantitativos y razonamiento asistido por IA.</li>
+        <li class="rae-item"><span class="rae-n">5</span>Producir un análisis interdisciplinario documentado que integre herramientas de IA con criterio profesional y reflexión crítica sobre sus alcances y limitaciones.</li>
+      </ul>
+
+      <div class="block-title">Contenidos</div>
+      <div class="unidades-list">
+        <div class="unidad-item">
+          <button class="unidad-btn" onclick="toggleU(this)">
+            Bloque 1 (sem. 1–4) · IA como herramienta de razonamiento profesional
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+          <div class="unidad-body"><ul>
+            <li>¿Cómo funcionan los modelos de lenguaje? Fundamentos sin matemáticas</li>
+            <li>Capacidades y límites de la IA generativa</li>
+            <li>Prompting efectivo: precisión, contexto y verificación</li>
+            <li>Ética, sesgos y responsabilidad profesional en el uso de IA</li>
+          </ul></div>
+        </div>
+        <div class="unidad-item">
+          <button class="unidad-btn" onclick="toggleU(this)">
+            Bloque 2 (sem. 5–12) · Cinco usos profesionales de la IA
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+          <div class="unidad-body"><ul>
+            <li>Síntesis de información compleja (reportes, literatura, normativa)</li>
+            <li>Problem solving estructurado asistido por IA</li>
+            <li>Decision making basado en datos con soporte de IA</li>
+            <li>Simulación de escenarios cuantitativos</li>
+            <li>Análisis de escenarios cualitativos y estratégicos</li>
+          </ul></div>
+        </div>
+        <div class="unidad-item">
+          <button class="unidad-btn" onclick="toggleU(this)">
+            Bloque 3 (sem. 13–16) · Análisis con soporte de IA
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+          <div class="unidad-body"><ul>
+            <li>Proyecto integrador: problema real del área de formación</li>
+            <li>Flujo documentado: problema → IA → verificación → decisión</li>
+            <li>Reflexión crítica sobre el proceso y sus límites</li>
+            <li>Presentación y evaluación por pares</li>
+          </ul></div>
+        </div>
+      </div>
+
+      <div class="block-title">Estrategias de aprendizaje</div>
+      <div class="tag-list">
+        <span class="tag">Clases demostrativas</span>
+        <span class="tag">Talleres prácticos con IA</span>
+        <span class="tag">Aprendizaje basado en proyectos</span>
+        <span class="tag">Evaluación auténtica</span>
+      </div>
+
+    </div><!-- /cp-ia -->
+
   </div><!-- /left-panel -->
 
   <!-- RIGHT PANEL — PDF -->
@@ -536,13 +705,31 @@ html, body { font-family: Calibri, 'Trebuchet MS', Arial, sans-serif; background
     <div class="pdf-pane" id="pp-prob">
       <iframe src="pdf/prob_estadistica.pdf" title="Propuesta Probabilidad y Estadística"></iframe>
     </div>
+    <div class="pdf-pane" id="pp-ens">
+      <div class="pdf-placeholder">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+          <polyline points="14 2 14 8 20 8"/>
+        </svg>
+        <span>Sílabo en preparación</span>
+      </div>
+    </div>
+    <div class="pdf-pane" id="pp-ia">
+      <div class="pdf-placeholder">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+          <polyline points="14 2 14 8 20 8"/>
+        </svg>
+        <span>Sílabo en preparación</span>
+      </div>
+    </div>
   </div>
 
 </div><!-- /main -->
 </div><!-- /shell -->
 
 <script>
-const COURSES = ['micro','macro','prob'];
+const COURSES = ['micro','macro','prob','ens','ia'];
 
 function switchCourse(key) {
   COURSES.forEach(k => {
