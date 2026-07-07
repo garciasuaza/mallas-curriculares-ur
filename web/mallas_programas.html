@@ -19,32 +19,25 @@
 }
 html, body { font-family: Calibri, 'Trebuchet MS', Arial, sans-serif; background: var(--ur-gray-f); color: var(--ur-gray-70); }
 
-/* ── LEYENDA GLOBAL ───────────────────────────────── */
-.legend-bar {
-  background: var(--ur-white);
-  border-bottom: 1px solid var(--ur-gray-e);
-  padding: 8px 1.5rem;
-  display: flex; flex-wrap: wrap; gap: .4rem .9rem; align-items: center;
-}
-.legend-bar-label {
-  font-size: .63rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase;
-  color: var(--ur-gray-50); margin-right: .3rem; white-space: nowrap;
-}
-.leg-item { display: flex; align-items: center; gap: 5px; font-size: .7rem; color: var(--ur-gray-70); white-space: nowrap; }
-.leg-dot { width: 11px; height: 11px; border-radius: 2px; flex-shrink: 0; }
-
-/* ── PROG TABS ─────────────────────────────────────── */
-.prog-nav { background: var(--ur-white); border-bottom: 1px solid var(--ur-gray-e); display: flex; overflow-x: auto; scrollbar-width: none; }
+/* ── PROG TABS (pill style) ─────────────────────────── */
+.prog-nav { background: var(--ur-gray-f); border-bottom: 1px solid var(--ur-gray-e); display: flex; overflow-x: auto; scrollbar-width: none; padding: .55rem .75rem; gap: .4rem; }
 .prog-nav::-webkit-scrollbar { display: none; }
 .prog-tab {
-  padding: 10px 18px; font-size: .78rem; font-weight: 600;
-  color: var(--ur-gray-50); border: none; border-bottom: 3px solid transparent;
-  border-left: 3px solid transparent;
-  background: none; cursor: pointer; white-space: nowrap;
+  padding: 5px 14px; font-size: .74rem; font-weight: 600;
+  color: var(--ur-gray-70); border: 1.5px solid #C8C5BF;
+  border-radius: 20px; background: var(--ur-white);
+  cursor: pointer; white-space: nowrap;
   font-family: Calibri, 'Trebuchet MS', Arial, sans-serif; transition: all .15s;
+  display: inline-flex; align-items: center; gap: 5px;
 }
-.prog-tab:hover { color: var(--ur-red); background: rgba(218,9,33,.04); }
-.prog-tab.active { color: var(--ur-navy); border-bottom-color: var(--ur-red); background: rgba(25,0,86,.05); font-weight: 700; }
+.prog-tab:hover { border-color: #999; color: var(--ur-navy); }
+.prog-tab.active { color: var(--ur-navy); border-color: #C8C5BF; background: var(--ur-white); font-weight: 700; box-shadow: inset 0 -3px 0 var(--ur-red); }
+
+/* ── LEYENDA INLINE (dentro de cada pane) ──────────── */
+.prog-legend { display: flex; flex-wrap: wrap; gap: .3rem .75rem; align-items: center; padding: .4rem .65rem; background: var(--ur-gray-f); border-radius: 4px; margin-top: .55rem; }
+.pleg-label { font-size: .6rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--ur-gray-50); margin-right: .2rem; white-space: nowrap; }
+.pleg-item { display: flex; align-items: center; gap: 4px; font-size: .67rem; color: var(--ur-gray-70); white-space: nowrap; }
+.pleg-dot { width: 10px; height: 10px; border-radius: 2px; flex-shrink: 0; }
 
 /* ── PROGRAM PANE ─────────────────────────────────── */
 .prog-pane { display: none; padding: 1.25rem 1.5rem 2rem; }
@@ -106,18 +99,14 @@ html, body { font-family: Calibri, 'Trebuchet MS', Arial, sans-serif; background
 <!-- Selector de programa -->
 <nav class="prog-nav" role="tablist">
   <button class="prog-tab active" onclick="showProg('ani')" id="ptab-ani"><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#DA0921;margin-right:5px;vertical-align:middle;"></span>ANI — Adm. de Negocios Internacionales</button>
-  <button class="prog-tab" onclick="showProg('econ')" id="ptab-econ"><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#3100A0;margin-right:5px;vertical-align:middle;"></span>Economía</button>
-  <button class="prog-tab" onclick="showProg('fin')" id="ptab-fin"><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#1D4ED8;margin-right:5px;vertical-align:middle;"></span>Finanzas</button>
+  <button class="prog-tab" onclick="showProg('econ')" id="ptab-econ"><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#3100A0;margin-right:5px;vertical-align:middle;"></span>ECON — Economía</button>
+  <button class="prog-tab" onclick="showProg('fin')" id="ptab-fin"><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#1D4ED8;margin-right:5px;vertical-align:middle;"></span>FIN — Finanzas</button>
   <button class="prog-tab" onclick="showProg('mnd')" id="ptab-mnd"><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#E8670C;margin-right:5px;vertical-align:middle;"></span>MND — Marketing y Negocios Digitales</button>
   <button class="prog-tab" onclick="showProg('enb')" id="ptab-enb" style="border-left:2px solid var(--ur-gray-e);"><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#7C3AED;margin-right:5px;vertical-align:middle;"></span>ENB — Economía de los Negocios <span style="font-size:.62rem;font-weight:700;padding:1px 6px;border-radius:3px;background:#7C3AED;color:#fff;margin-left:4px;vertical-align:middle;">PROPUESTA</span></button>
   <button class="prog-tab" onclick="showProg('adm')" id="ptab-adm" style="border-left:2px solid var(--ur-gray-e);"><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#0D9488;margin-right:5px;vertical-align:middle;"></span>ADM — Administración de Empresas</button>
   <button class="prog-tab" onclick="showProg('emp')" id="ptab-emp"><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#B45309;margin-right:5px;vertical-align:middle;"></span>EMP — Emprendimiento</button>
 </nav>
 
-<!-- Leyenda global de bloques -->
-<div class="legend-bar" id="global-legend">
-  <span class="legend-bar-label">Bloques:</span>
-</div>
 
 <!-- ═══════════════════════════════════════════════════
      ANI
@@ -130,6 +119,7 @@ html, body { font-family: Calibri, 'Trebuchet MS', Arial, sans-serif; background
       <span class="meta-chip">140 créditos</span>
       <span class="meta-chip gray">ANI</span>
     </div>
+    <div class="prog-legend" id="pleg-ani"></div>
   </div>
   <div class="malla-scroll"><div class="malla-grid" id="malla-ani"></div></div>
   <div class="dist-section">
@@ -150,6 +140,7 @@ html, body { font-family: Calibri, 'Trebuchet MS', Arial, sans-serif; background
       <span class="meta-chip">128 créditos</span>
       <span class="meta-chip gray">ECON</span>
     </div>
+    <div class="prog-legend" id="pleg-econ"></div>
   </div>
   <div class="malla-scroll"><div class="malla-grid" id="malla-econ"></div></div>
   <div class="dist-section">
@@ -170,6 +161,7 @@ html, body { font-family: Calibri, 'Trebuchet MS', Arial, sans-serif; background
       <span class="meta-chip">126 créditos</span>
       <span class="meta-chip gray">FIN</span>
     </div>
+    <div class="prog-legend" id="pleg-fin"></div>
   </div>
   <div class="malla-scroll"><div class="malla-grid" id="malla-fin"></div></div>
   <div class="dist-section">
@@ -190,6 +182,7 @@ html, body { font-family: Calibri, 'Trebuchet MS', Arial, sans-serif; background
       <span class="meta-chip">140 créditos</span>
       <span class="meta-chip gray">MND</span>
     </div>
+    <div class="prog-legend" id="pleg-mnd"></div>
   </div>
   <div class="malla-scroll"><div class="malla-grid" id="malla-mnd"></div></div>
   <div class="dist-section">
@@ -211,6 +204,7 @@ html, body { font-family: Calibri, 'Trebuchet MS', Arial, sans-serif; background
       <span class="meta-chip gray">ENB</span>
       <span class="meta-chip" style="background:#7C3AED;">PROPUESTA PRELIMINAR</span>
     </div>
+    <div class="prog-legend" id="pleg-enb"></div>
     <p style="margin-top:.5rem;font-size:.72rem;color:var(--ur-gray-50);max-width:620px;">
       Propuesta elaborada a partir del Estudio de Mercado (jun. 2026). Compuesta principalmente por cursos existentes en ANI, ECON, FIN y MND. Solo 2 cursos nuevos: <em>Introducción a la Economía de los Negocios</em> y <em>Economía del Comportamiento</em>.
     </p>
@@ -234,6 +228,7 @@ html, body { font-family: Calibri, 'Trebuchet MS', Arial, sans-serif; background
       <span class="meta-chip">140 créditos</span>
       <span class="meta-chip gray">ADM</span>
     </div>
+    <div class="prog-legend" id="pleg-adm"></div>
   </div>
   <div class="malla-scroll"><div class="malla-grid" id="malla-adm"></div></div>
   <div class="dist-section">
@@ -254,6 +249,7 @@ html, body { font-family: Calibri, 'Trebuchet MS', Arial, sans-serif; background
       <span class="meta-chip">140 créditos</span>
       <span class="meta-chip gray">EMP</span>
     </div>
+    <div class="prog-legend" id="pleg-emp"></div>
   </div>
   <div class="malla-scroll"><div class="malla-grid" id="malla-emp"></div></div>
   <div class="dist-section">
@@ -763,11 +759,13 @@ const PROGRAMS = {
 };
 
 // ════════════════════════════════════════════════════════
-//  LEYENDA GLOBAL
+//  LEYENDA POR PANE
 // ════════════════════════════════════════════════════════
-const glLeg = document.getElementById('global-legend');
-BLOQUES.forEach(b => {
-  glLeg.innerHTML += `<div class="leg-item"><div class="leg-dot" style="background:${b.color}"></div>${b.label}</div>`;
+const legendHTML = '<span class="pleg-label">Bloques:</span>' +
+  BLOQUES.map(b => `<span class="pleg-item"><span class="pleg-dot" style="background:${b.color}"></span>${b.label}</span>`).join('');
+['ani','econ','fin','mnd','enb','adm','emp'].forEach(k => {
+  const el = document.getElementById('pleg-' + k);
+  if (el) el.innerHTML = legendHTML;
 });
 
 // ════════════════════════════════════════════════════════
