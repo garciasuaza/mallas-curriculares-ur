@@ -67,6 +67,42 @@ html, body { font-family: Calibri, 'Trebuchet MS', Arial, sans-serif; background
 .total-row td:last-child { font-size: 1.2rem; color: var(--ur-red); }
 .tag-eng { font-size: .6rem; background: #EEF2FF; color: #3730A3; padding: 1px 5px; border-radius: 2px; font-weight: 600; margin-left: 4px; vertical-align: middle; }
 
+/* ── ESTRUCTURA DEL MENOR ─────────────────────────────── */
+.struct-grid { display: flex; gap: .75rem; margin-bottom: 1.5rem; flex-wrap: wrap; align-items: stretch; }
+.struct-block { background: #fff; border: 1px solid var(--ur-gray-e); border-radius: 6px; padding: .9rem 1.1rem; flex: 1; min-width: 145px; box-shadow: 0 1px 3px rgba(0,0,0,.04); }
+.struct-block.ancla { border-top: 3px solid var(--ur-navy); }
+.struct-block.pool  { border-top: 3px solid var(--ur-purple); }
+.struct-block.total { border-top: 3px solid var(--ur-red); background: #FEF8F8; }
+.struct-stitle { font-size: .62rem; font-weight: 700; text-transform: uppercase; letter-spacing: .07em; color: var(--ur-gray-50); margin-bottom: .3rem; }
+.struct-cr { font-family: 'Bebas Neue', sans-serif; font-size: 1.9rem; line-height: 1; color: var(--ur-navy); margin-bottom: .3rem; }
+.struct-block.total .struct-cr { color: var(--ur-red); font-size: 2.3rem; }
+.struct-detail { font-size: .71rem; line-height: 1.55; color: var(--ur-gray-70); }
+.struct-detail strong { color: var(--ur-navy); font-weight: 700; }
+.ancla-badge { display: inline-block; font-size: .6rem; font-weight: 700; padding: 1px 5px; border-radius: 2px; margin-right: 2px; margin-bottom: 2px; }
+
+/* ── TABLA DE DISPONIBILIDAD ──────────────────────────── */
+.section-label { font-family: 'Bebas Neue', sans-serif; font-size: .9rem; letter-spacing: .06em; color: var(--ur-navy); margin: 1.25rem 0 .6rem; }
+.pool-wrap { overflow-x: auto; }
+.pool-table { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid var(--ur-gray-e); border-radius: 6px; overflow: hidden; font-size: .74rem; box-shadow: 0 1px 4px rgba(0,0,0,.05); }
+.pool-table thead tr { background: var(--ur-navy); }
+.pool-table th { padding: 8px 8px; font-size: .62rem; font-weight: 700; letter-spacing: .05em; text-transform: uppercase; text-align: center; color: rgba(255,255,255,.88); white-space: nowrap; }
+.pool-table th.course-col { text-align: left; min-width: 210px; }
+.pool-table th.orig-col { text-align: left; min-width: 56px; color: rgba(255,255,255,.6); }
+.pool-table tbody tr { border-bottom: 1px solid var(--ur-gray-e); }
+.pool-table tbody tr:last-child { border-bottom: none; }
+.pool-table tbody tr:hover td { background: rgba(25,0,86,.025); }
+.pool-table td { padding: 7px 8px; vertical-align: middle; }
+.pool-table td.num { text-align: center; font-weight: 700; color: var(--ur-gray-50); width: 24px; font-size: .68rem; }
+.pool-table td.orig-cell { font-size: .62rem; color: var(--ur-gray-50); font-weight: 600; white-space: nowrap; }
+.pool-table td.avail-cell { text-align: center; }
+.pool-table tfoot tr { background: #F0F0F8; border-top: 2px solid var(--ur-navy); }
+.pool-table tfoot td { padding: 7px 8px; font-weight: 700; font-size: .7rem; text-align: center; color: var(--ur-navy); }
+.pool-table tfoot td.flabel { text-align: left; color: var(--ur-gray-50); font-size: .63rem; font-weight: 600; text-transform: uppercase; letter-spacing: .05em; }
+.cell-ancla { display: inline-block; background: var(--ur-navy); color: #fff; font-size: .58rem; font-weight: 700; padding: 2px 5px; border-radius: 2px; letter-spacing: .03em; }
+.cell-avail { color: #15803D; font-weight: 700; font-size: 1rem; }
+.cell-taken { color: #D1D5DB; font-size: .85rem; }
+.note-box { margin-top: 1.25rem; background: #EEF2FF; border-left: 3px solid #3730A3; padding: 8px 12px; border-radius: 3px; font-size: .72rem; color: #312E81; line-height: 1.55; }
+
 /* ── PLACEHOLDER ─────────────────────────────────────── */
 .coming-soon { padding: 3rem 1.5rem; text-align: center; color: var(--ur-gray-50); }
 .coming-soon .cs-icon { font-size: 2rem; margin-bottom: .75rem; opacity: .4; }
@@ -141,45 +177,203 @@ html, body { font-family: Calibri, 'Trebuchet MS', Arial, sans-serif; background
     <div class="minor-name">Menor en Economía de la Empresa</div>
     <div class="minor-meta">
       <span class="meta-chip">12 créditos</span>
-      <span class="meta-chip">5 asignaturas</span>
-      <span class="meta-chip gray">ANI · MND · FIN · ECON</span>
+      <span class="meta-chip">1 ancla + 3 electivas</span>
+      <span class="meta-chip gray">Todos los programas</span>
       <span class="meta-chip" style="background:#7C3AED;">PROPUESTA</span>
     </div>
   </div>
-  <table class="courses-table">
-    <thead>
-      <tr>
-        <th>Nombre Asignatura</th>
-        <th>Créditos</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>Economía, Negocios y Sociedad</td>
-        <td>2</td>
-      </tr>
-      <tr>
-        <td>Strategic Management</td>
-        <td>2</td>
-      </tr>
-      <tr>
-        <td>Digital Business Models</td>
-        <td>2</td>
-      </tr>
-      <tr>
-        <td>Economía Financiera</td>
-        <td>3</td>
-      </tr>
-      <tr>
-        <td>Valoración de Empresas y Proyectos</td>
-        <td>3</td>
-      </tr>
-      <tr class="total-row">
-        <td>TOTAL</td>
-        <td>12</td>
-      </tr>
-    </tbody>
-  </table>
+
+  <!-- Estructura -->
+  <div class="struct-grid">
+    <div class="struct-block ancla">
+      <div class="struct-stitle">Ancla obligatoria</div>
+      <div class="struct-cr">3 cr</div>
+      <div class="struct-detail">
+        <div style="margin-bottom:.4rem">Curso fijo según programa:</div>
+        <div style="margin-bottom:.25rem">
+          <span class="ancla-badge" style="background:#E0F2FE;color:#0C4A6E;">ANI</span>
+          <span class="ancla-badge" style="background:#FEF0E7;color:#7C2D12;">MND</span>
+          <span class="ancla-badge" style="background:#DCFCE7;color:#14532D;">ADM</span>
+          <span class="ancla-badge" style="background:#FEF9C3;color:#713F12;">EMP</span>
+          <br>
+          <strong>Principios de Macroeconomía</strong>
+        </div>
+        <div>
+          <span class="ancla-badge" style="background:#EDE9FE;color:#3730A3;">ECON</span>
+          <span class="ancla-badge" style="background:#DBEAFE;color:#1e3a8a;">FIN</span>
+          <br>
+          <strong>Valoración de Empresas y Proyectos</strong>
+        </div>
+      </div>
+    </div>
+    <div class="struct-block pool">
+      <div class="struct-stitle">Electivas del pool</div>
+      <div class="struct-cr">9 cr</div>
+      <div class="struct-detail">
+        Elige <strong>3 cursos</strong> del pool de asignaturas disponibles para tu programa.<br>
+        <span style="color:var(--ur-gray-50);font-size:.67rem">Cada curso vale 3 créditos.</span>
+      </div>
+    </div>
+    <div class="struct-block total">
+      <div class="struct-stitle">Total menor</div>
+      <div class="struct-cr">12 cr</div>
+      <div class="struct-detail">
+        <strong>4 asignaturas</strong> en total:<br>
+        1 ancla obligatoria<br>+ 3 del pool electivo
+      </div>
+    </div>
+  </div>
+
+  <!-- Pool de cursos y disponibilidad -->
+  <div class="section-label">Pool de cursos · disponibilidad por programa</div>
+  <div class="pool-wrap">
+    <table class="pool-table">
+      <thead>
+        <tr>
+          <th class="course-col">#&nbsp;&nbsp;Nombre del curso</th>
+          <th class="orig-col">Origen</th>
+          <th>ANI</th>
+          <th>ECON</th>
+          <th>FIN</th>
+          <th>MND</th>
+          <th>ADM</th>
+          <th>EMP</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="num">1</span>&nbsp;Principios de Macroeconomía</td>
+          <td class="orig-cell">ECON · MND</td>
+          <td class="avail-cell"><span class="cell-ancla">ANCLA</span></td>
+          <td class="avail-cell"><span class="cell-taken">—</span></td>
+          <td class="avail-cell"><span class="cell-taken">—</span></td>
+          <td class="avail-cell"><span class="cell-ancla">ANCLA</span></td>
+          <td class="avail-cell"><span class="cell-ancla">ANCLA</span></td>
+          <td class="avail-cell"><span class="cell-ancla">ANCLA</span></td>
+        </tr>
+        <tr>
+          <td><span class="num">2</span>&nbsp;Econometría y Análisis de Regresión</td>
+          <td class="orig-cell">ECON</td>
+          <td class="avail-cell"><span class="cell-avail">✓</span></td>
+          <td class="avail-cell"><span class="cell-taken">—</span></td>
+          <td class="avail-cell"><span class="cell-taken">—</span></td>
+          <td class="avail-cell"><span class="cell-avail">✓</span></td>
+          <td class="avail-cell"><span class="cell-avail">✓</span></td>
+          <td class="avail-cell"><span class="cell-avail">✓</span></td>
+        </tr>
+        <tr>
+          <td><span class="num">3</span>&nbsp;Economía Internacional: Comercio y Finanzas</td>
+          <td class="orig-cell">ECON</td>
+          <td class="avail-cell"><span class="cell-avail">✓</span></td>
+          <td class="avail-cell"><span class="cell-taken">—</span></td>
+          <td class="avail-cell"><span class="cell-avail">✓</span></td>
+          <td class="avail-cell"><span class="cell-avail">✓</span></td>
+          <td class="avail-cell"><span class="cell-avail">✓</span></td>
+          <td class="avail-cell"><span class="cell-avail">✓</span></td>
+        </tr>
+        <tr>
+          <td><span class="num">4</span>&nbsp;Valoración de Empresas y Proyectos</td>
+          <td class="orig-cell">FIN</td>
+          <td class="avail-cell"><span class="cell-avail">✓</span></td>
+          <td class="avail-cell"><span class="cell-ancla">ANCLA</span></td>
+          <td class="avail-cell"><span class="cell-ancla">ANCLA</span></td>
+          <td class="avail-cell"><span class="cell-avail">✓</span></td>
+          <td class="avail-cell"><span class="cell-avail">✓</span></td>
+          <td class="avail-cell"><span class="cell-avail">✓</span></td>
+        </tr>
+        <tr>
+          <td><span class="num">5</span>&nbsp;Economía Financiera</td>
+          <td class="orig-cell">FIN</td>
+          <td class="avail-cell"><span class="cell-avail">✓</span></td>
+          <td class="avail-cell"><span class="cell-avail">✓</span></td>
+          <td class="avail-cell"><span class="cell-taken">—</span></td>
+          <td class="avail-cell"><span class="cell-avail">✓</span></td>
+          <td class="avail-cell"><span class="cell-avail">✓</span></td>
+          <td class="avail-cell"><span class="cell-avail">✓</span></td>
+        </tr>
+        <tr>
+          <td><span class="num">6</span>&nbsp;Gobierno Corporativo</td>
+          <td class="orig-cell">ADM</td>
+          <td class="avail-cell"><span class="cell-avail">✓</span></td>
+          <td class="avail-cell"><span class="cell-avail">✓</span></td>
+          <td class="avail-cell"><span class="cell-avail">✓</span></td>
+          <td class="avail-cell"><span class="cell-avail">✓</span></td>
+          <td class="avail-cell"><span class="cell-taken">—</span></td>
+          <td class="avail-cell"><span class="cell-avail">✓</span></td>
+        </tr>
+        <tr>
+          <td><span class="num">7</span>&nbsp;Finanzas Sostenibles e Inversiones Alternativas</td>
+          <td class="orig-cell">FIN</td>
+          <td class="avail-cell"><span class="cell-avail">✓</span></td>
+          <td class="avail-cell"><span class="cell-avail">✓</span></td>
+          <td class="avail-cell"><span class="cell-taken">—</span></td>
+          <td class="avail-cell"><span class="cell-avail">✓</span></td>
+          <td class="avail-cell"><span class="cell-avail">✓</span></td>
+          <td class="avail-cell"><span class="cell-avail">✓</span></td>
+        </tr>
+        <tr>
+          <td><span class="num">8</span>&nbsp;Negocios Globales</td>
+          <td class="orig-cell">ANI</td>
+          <td class="avail-cell"><span class="cell-taken">—</span></td>
+          <td class="avail-cell"><span class="cell-avail">✓</span></td>
+          <td class="avail-cell"><span class="cell-avail">✓</span></td>
+          <td class="avail-cell"><span class="cell-avail">✓</span></td>
+          <td class="avail-cell"><span class="cell-avail">✓</span></td>
+          <td class="avail-cell"><span class="cell-avail">✓</span></td>
+        </tr>
+        <tr>
+          <td><span class="num">9</span>&nbsp;Administración y Organizaciones</td>
+          <td class="orig-cell">ADM</td>
+          <td class="avail-cell"><span class="cell-avail">✓</span></td>
+          <td class="avail-cell"><span class="cell-avail">✓</span></td>
+          <td class="avail-cell"><span class="cell-avail">✓</span></td>
+          <td class="avail-cell"><span class="cell-avail">✓</span></td>
+          <td class="avail-cell"><span class="cell-taken">—</span></td>
+          <td class="avail-cell"><span class="cell-avail">✓</span></td>
+        </tr>
+        <tr>
+          <td><span class="num">10</span>&nbsp;Business Model Innovation</td>
+          <td class="orig-cell">ADM</td>
+          <td class="avail-cell"><span class="cell-avail">✓</span></td>
+          <td class="avail-cell"><span class="cell-avail">✓</span></td>
+          <td class="avail-cell"><span class="cell-avail">✓</span></td>
+          <td class="avail-cell"><span class="cell-avail">✓</span></td>
+          <td class="avail-cell"><span class="cell-taken">—</span></td>
+          <td class="avail-cell"><span class="cell-avail">✓</span></td>
+        </tr>
+        <tr>
+          <td><span class="num">11</span>&nbsp;Gestión y Planeación Financiera</td>
+          <td class="orig-cell">FIN</td>
+          <td class="avail-cell"><span class="cell-avail">✓</span></td>
+          <td class="avail-cell"><span class="cell-avail">✓</span></td>
+          <td class="avail-cell"><span class="cell-taken">—</span></td>
+          <td class="avail-cell"><span class="cell-avail">✓</span></td>
+          <td class="avail-cell"><span class="cell-avail">✓</span></td>
+          <td class="avail-cell"><span class="cell-avail">✓</span></td>
+        </tr>
+      </tbody>
+      <tfoot>
+        <tr>
+          <td class="flabel">Opciones electivas disponibles</td>
+          <td class="orig-cell"></td>
+          <td>9</td>
+          <td>7</td>
+          <td>5</td>
+          <td>10</td>
+          <td>7</td>
+          <td>10</td>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
+
+  <div class="note-box">
+    <strong>Leyenda:</strong>
+    &nbsp;<span class="cell-ancla">ANCLA</span>&nbsp;Curso ancla obligatorio para ese programa (3 cr fijos) &nbsp;·&nbsp;
+    <span class="cell-avail" style="font-size:.85rem">✓</span>&nbsp;Disponible como electiva &nbsp;·&nbsp;
+    <span class="cell-taken">—</span>&nbsp;Ya incluido en la malla del programa (no se puede repetir)<br>
+    <span style="margin-top:.4rem;display:block">FIN tiene el menor margen de elección (5 opciones) dado que varios cursos de finanzas ya forman parte de su malla.</span>
+  </div>
 </div>
 
 <!-- ── PLACEHOLDER ───────────────────────────────────── -->
